@@ -17,10 +17,8 @@ public class Evento {
 	private Long id;
 	private String nome;
 
-	// @Temporal(TemporalType.DATE)
 	private Date dataInicio;
 
-	// @Temporal(TemporalType.DATE)
 	private Date dataFim;
 	private String descricao;
 
@@ -28,16 +26,13 @@ public class Evento {
 	private List<Atividade> atividades;
 
 	@OneToMany
-	private List<ParticipacaoEvento> participantes; // Poderia ser
-													// ParticipacaoEvento ao
-													// invés de Usuario?
-
+	private List<ParticipacaoEvento> participantes; 
+	
 	private Integer vagas;
 	private String local;
 	private boolean status;
 
 	public Evento() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {

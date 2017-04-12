@@ -28,12 +28,11 @@ public class ParticipacaoAtividade {
 	private Papel papel;
 
 	@OneToMany
-	private List<Codigo> codigos;
+	private List<CodigoCapturado> codigos;
 		
 	private boolean status;
 
 	public ParticipacaoAtividade() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -68,11 +67,11 @@ public class ParticipacaoAtividade {
 		this.papel = papel;
 	}
 
-	public List<Codigo> getCodigos() {
+	public List<CodigoCapturado> getCodigos() {
 		return codigos;
 	}
 
-	public void setCodigos(List<Codigo> codigos) {
+	public void setCodigos(List<CodigoCapturado> codigos) {
 		this.codigos = codigos;
 	}
 

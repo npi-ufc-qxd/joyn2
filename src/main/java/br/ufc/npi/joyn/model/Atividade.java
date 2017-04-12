@@ -35,10 +35,10 @@ public class Atividade {
 	private boolean status;
 
 	@ManyToOne
-	private Evento evento;// não estava na modelagem
+	private Evento evento;
 
 	@OneToMany
-	private List<HorarioAtividade> horarios;// não estava na modelagem
+	private List<HorarioAtividade> horarios;
 
 	public Atividade() {
 		// TODO Auto-generated constructor stub

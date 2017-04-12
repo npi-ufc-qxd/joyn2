@@ -1,34 +1,26 @@
 package br.ufc.npi.joyn.model;
 
 import java.sql.Date;
-
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Codigo {
+public class CodigoCapturado {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String codigo;
+
+	private Codigo codigo;
+	private Date horarioCaptura;
 	
-	@Enumerated
-	private TipoCodigo tipo;
-
 	@ManyToOne
-	private HorarioAtividade horarioAtividade;
-
-	private Date horarioCaptura = null;
-
-	public Codigo() {
-		// TODO Auto-generated constructor stub
+	private ParticipacaoAtividade atividade;
+	
+	public CodigoCapturado() {
 	}
 
 	public Long getId() {
@@ -39,20 +31,12 @@ public class Codigo {
 		this.id = id;
 	}
 
-	public String getCodigo() {
+	public Codigo getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(Codigo codigo) {
 		this.codigo = codigo;
-	}
-
-	public HorarioAtividade getHorarioAtividade() {
-		return horarioAtividade;
-	}
-
-	public void setHorarioAtividade(HorarioAtividade horarioAtividade) {
-		this.horarioAtividade = horarioAtividade;
 	}
 
 	public Date getHorarioCaptura() {
@@ -62,5 +46,15 @@ public class Codigo {
 	public void setHorarioCaptura(Date horarioCaptura) {
 		this.horarioCaptura = horarioCaptura;
 	}
+
+	public ParticipacaoAtividade getAtividade() {
+		return atividade;
+	}
+
+	public void setAtividade(ParticipacaoAtividade atividade) {
+		this.atividade = atividade;
+	}
+	
+	 
 
 }

@@ -26,7 +26,6 @@ public class Usuario {
 	List<ParticipacaoAtividade> participacaoAtividade;
 	
 	public Usuario() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {

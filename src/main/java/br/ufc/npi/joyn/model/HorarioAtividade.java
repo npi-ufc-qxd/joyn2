@@ -1,13 +1,14 @@
 package br.ufc.npi.joyn.model;
 
-import java.sql.Date; 
+import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class HorarioAtividade {
@@ -16,26 +17,19 @@ public class HorarioAtividade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	//@Temporal(TemporalType.DATE)
 	private Date data;
 
-	@OneToOne
-	private Codigo checkin;
-	
-	@OneToOne
-	private Codigo checkout;
+	@OneToMany
+	private List<Codigo> codigos;
 
-	//@Temporal(TemporalType.TIME)
 	private Date horaInicio;
 
-	//@Temporal(TemporalType.TIME)
 	private Date horaFim;
 
 	@ManyToOne
 	private Atividade atividade;
 
 	public HorarioAtividade() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -52,22 +46,6 @@ public class HorarioAtividade {
 
 	public void setData(Date data) {
 		this.data = data;
-	}
-
-	public Codigo getCheckin() {
-		return checkin;
-	}
-
-	public void setCheckin(Codigo checkin) {
-		this.checkin = checkin;
-	}
-
-	public Codigo getCheckout() {
-		return checkout;
-	}
-
-	public void setCheckout(Codigo checkout) {
-		this.checkout = checkout;
 	}
 
 	public Date getHoraInicio() {
@@ -93,5 +71,15 @@ public class HorarioAtividade {
 	public void setAtividade(Atividade atividade) {
 		this.atividade = atividade;
 	}
+
+	public List<Codigo> getCodigos() {
+		return codigos;
+	}
+
+	public void setCodigos(List<Codigo> codigos) {
+		this.codigos = codigos;
+	}
+	
+	
 
 }

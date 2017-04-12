@@ -21,13 +21,13 @@ public class ParticipacaoEvento {
 	@ManyToOne
 	private Evento evento;
 	
-	private boolean status = false;
+	private boolean status;
 	
 	@Enumerated(EnumType.STRING)
 	private Papel papel;
 	
 	public ParticipacaoEvento() {
-		// TODO Auto-generated constructor stub
+		this.setStatus(false);
 	}
 
 	public Long getId() {
