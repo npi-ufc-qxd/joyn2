@@ -8,23 +8,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 	private String fotoUrl;
+
+	@NotBlank(message = "Email é obrigatório")
 	private String email;
+
+	@NotBlank(message = "Senha é obrigatória")
 	private String senha;
 
 	@OneToMany
 	List<ParticipacaoEvento> participacaoEvento;
-	
+
 	@OneToMany
 	List<ParticipacaoAtividade> participacaoAtividade;
-	
+
 	public Usuario() {
 	}
 

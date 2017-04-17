@@ -1,15 +1,29 @@
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org">
+	
 	<head>
-		<title>Cadastro Usuario</title>
+		<title>Cadastro Usuário</title>
 	</head>
 	<body>
 		<h1>Cadastro</h1>
-		<form action="">
-		Nome: <input name="nome" type="text"/> <br/><br/>
-		Foto: <input name="foto" type="file"/> <br/><br/>
-		Email: <input name="email" type="text"/> <br/><br/>
-		Senha: <input name="senha" type="password"/> <br/><br/>
-		<button type="submit">Cadastrar</button> 
+		<form method="POST" th:object="${usuario}">
+		
+			<div th:if="${#fields.hasAnyErrors()}">
+				<div th:each="detailedError : ${#fields.detailedErrors()}">
+					<span th:text="${detailedError.message}"></span>
+				</div>
+			</div> 
+			
+			<br/>
+		
+			Nome: <input th:field="*{nome}" type="text"/> <br/>
+			Foto: <input th:field="*{fotoUrl}" type="file"/> <br/>
+			Email: <input th:field="*{email}" type="text"/> <br/>
+			Senha: <input th:field="*{senha}" type="password"/><br/>
+			
+			<button type="submit">Cadastrar</button> 
+			
 		</form>
 	</body>
 </html>
