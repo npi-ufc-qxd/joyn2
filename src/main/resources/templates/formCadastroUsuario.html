@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<h1>Cadastro</h1>
-		<form method="POST" th:object="${usuario}">
+		<form method="POST" th:object="${usuario}" enctype="multipart/form-data">
 		
 			<div th:if="${#fields.hasAnyErrors()}">
 				<div th:each="detailedError : ${#fields.detailedErrors()}">
@@ -18,7 +18,7 @@
 			<br/>
 		
 			Nome: <input th:field="*{nome}" type="text"/> <br/>
-			Foto: <input th:field="*{fotoUrl}" type="file"/> <br/>
+			Foto: <input name="image" type="file"/> <br/>
 			Email: <input th:field="*{email}" type="text"/> <br/>
 			Senha: <input th:field="*{senha}" type="password"/><br/>
 			
