@@ -5,8 +5,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.service.UsuarioService;
@@ -18,21 +20,31 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService usuarioService;
 
-	@RequestMapping(path = "/novo", method = RequestMethod.GET)
-	public String cadastroUsuario(Usuario usuario) {
-		return "cadastroUsuario";
+	@GetMapping(path = "/novo")
+	public ModelAndView cadastroUsuario() {
+		ModelAndView model = new ModelAndView("formCadastroUsuario");
+		model.addObject(new Usuario());
+		return model;
 	}
 
-	@RequestMapping(path = "/novo", method = RequestMethod.POST)
+	@PostMapping(path = "/novo")
 	public String salvarUsuario(@Valid Usuario usuario, BindingResult result) {
-
-		if (result.hasErrors()) {
-			return "cadastroUsuario";
-		}
-
+		if (result.hasErrors()) return "formCadastroUsuario";
 		usuarioService.salvarUsuario(usuario);
-
 		return "redirect:/usuario/novo";
+	}
+	
+	@GetMapping(path = "/logar")
+	public ModelAndView loginUsuario() {
+		ModelAndView model = new ModelAndView("formLoginUsuario");
+		model.addObject(new Usuario());
+		return model;
+	}
+	
+	@PostMapping(path = "/logar")
+	public String fazerLogin(Usuario usuario) {
+		if(usuarioService.logar(usuario)) return "homeUsuario";
+		else return "redirect:/usuario/logar";
 	}
 
 }

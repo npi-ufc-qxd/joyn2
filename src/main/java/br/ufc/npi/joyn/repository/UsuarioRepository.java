@@ -11,4 +11,5 @@ import br.ufc.npi.joyn.model.Usuario;
 @Transactional
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
+	public Usuario findByEmail(String email);
 }
