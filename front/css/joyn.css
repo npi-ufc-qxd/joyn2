@@ -1,0 +1,15 @@
+.float-left{
+  float: left;
+}
+
+.float-right{
+  float: right;
+}
+
+.joyn-login-box {
+	width: 800px;
+}
+
+.joyn-white-box {
+  display: flex;
+}
