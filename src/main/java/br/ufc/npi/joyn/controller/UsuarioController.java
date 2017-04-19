@@ -1,6 +1,8 @@
 package br.ufc.npi.joyn.controller;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +34,12 @@ public class UsuarioController {
 	}
 
 	@PostMapping(path = "/novo")
-	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, @RequestParam(value="image", required=false) MultipartFile image) {
+	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, @RequestParam(value="image", required=false) MultipartFile imagem) throws IOException {
 		if (result.hasErrors()) return "formCadastroUsuario";
+		String nomeImagem = String.valueOf(usuario.getNome());
+		JoynFileUtil.savarImagem(imagem, nomeImagem);
+		usuario.setFotoUrl(JoynFileUtil.urlArquivo(nomeImagem));
 		usuarioService.salvarUsuario(usuario);
-		try {
-			JoynFileUtil.salvarImagemUsuario(image, usuario);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		return "redirect:/usuario/novo";
 	}
 	
@@ -51,9 +51,14 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(path = "/logar")
-	public String fazerLogin(Usuario usuario) {
-		if(usuarioService.logar(usuario)) return "homeUsuario";
-		else return "redirect:/usuario/logar";
+	public ModelAndView fazerLogin(Usuario usuario) throws MalformedURLException {
+		ModelAndView model = new ModelAndView("homeUsuario");
+		ModelAndView model2 = new ModelAndView("formLoginUsuario");
+		Usuario userBanco = usuarioService.getUsuario(usuario.getEmail());
+		model.addObject("usuario", userBanco);
+		model2.addObject(new Usuario());
+		if(usuarioService.logar(usuario)) return model;
+		else return model2;
 	}
 
 }

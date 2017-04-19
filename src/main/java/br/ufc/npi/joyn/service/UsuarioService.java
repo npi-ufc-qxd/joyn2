@@ -35,5 +35,9 @@ public class UsuarioService {
 	public List<Usuario> getTodosUsuarios(){
 		return usuarioRepository.findAll();
 	}
+	
+	public Usuario getUsuario(String email){
+		return usuarioRepository.findByEmail(email);
+	}
 
 }
