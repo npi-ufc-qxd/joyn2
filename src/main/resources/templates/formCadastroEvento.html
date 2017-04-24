@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>Cadastrar Evento</title>
+	</head>
+	<body>
+		<h1>Cadastrar Evento</h1>
+		<form method="POST" th:object="${evento}">
+		
+			<div th:if="${#fields.hasAnyErrors()}">
+				<div th:each="detailedError : ${#fields.detailedErrors()}">
+					<span th:text="${detailedError.message}"></span>
+				</div>
+			</div> 
+			
+			<br/>
+		
+			Nome: <input th:field="*{nome}" type="text"/> <br/>
+			Descrição: <input th:field="*{descricao}" type="text"/> <br/>
+			Data de Início: <input th:field="*{dataInicio}" type="date"/> <br/>
+			Data de Término: <input th:field="*{dataFim}" type="date"/> <br/>
+			Número de vagas: <input th:field="*{vagas}" type="text"/> <br/>
+			Local: <input th:field="*{local}" type="text"/> <br/>
+			
+			<button type="submit">Cadastrar</button> 
+			
+		</form>
+	</body>
+</html>
