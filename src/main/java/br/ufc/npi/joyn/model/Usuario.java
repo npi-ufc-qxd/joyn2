@@ -23,6 +23,7 @@ public class Usuario {
 	private String nome;
 	
 	private String fotoUrl;
+	private String keyFacebook;
 
 	@NotBlank(message = "Email é obrigatório")
 	@Column(unique = true)
@@ -30,7 +31,7 @@ public class Usuario {
 
 	@NotBlank(message = "Senha é obrigatória")
 	private String senha;
-
+	
 	@OneToMany
 	List<ParticipacaoEvento> participacaoEvento;
 
@@ -78,6 +79,14 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getKeyFacebook() {
+		return keyFacebook;
+	}
+
+	public void setKeyFacebook(String keyFacebook) {
+		this.keyFacebook = keyFacebook;
 	}
 
 	public List<ParticipacaoEvento> getParticipacaoEvento() {

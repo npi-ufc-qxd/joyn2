@@ -31,6 +31,8 @@ public class Evento {
 	private Integer vagas;
 	private String local;
 	private boolean status;
+	private Double porcentagemMin; 
+	private boolean gameficado;
 
 	public Evento() {
 	}
@@ -114,5 +116,23 @@ public class Evento {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+
+	public Double getPorcentagemMin() {
+		return porcentagemMin;
+	}
+
+	public void setPorcentagemMin(Double porcentagemMin) {
+		this.porcentagemMin = porcentagemMin;
+	}
+
+	public boolean isGameficado() {
+		return gameficado;
+	}
+
+	public void setGameficado(boolean gameficado) {
+		this.gameficado = gameficado;
+	}
+	
+	
 
 }
