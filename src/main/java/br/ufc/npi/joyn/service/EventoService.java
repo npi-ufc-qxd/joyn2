@@ -15,7 +15,7 @@ public class EventoService {
 	EventoRepository eventoRepo;
 	
 	public Evento cadastrarEvento(String nome, String descricao, Date dataInicial, Date dataFinal,
-			Integer quantVagas, String local){
+			Integer quantVagas, String local, boolean gameficado){
 		
 		Evento evento = new Evento();
 		evento.setNome(nome);
@@ -24,9 +24,15 @@ public class EventoService {
 		evento.setDataFim(dataFinal);
 		evento.setVagas(quantVagas);
 		evento.setLocal(local);
+		evento.setGameficado(gameficado);
 		
 		eventoRepo.save(evento);
 		
+		return evento;
+	}
+	
+	public Evento buscarEvento(Long id){
+		Evento evento = eventoRepo.findOne(id);
 		return evento;
 	}
 }

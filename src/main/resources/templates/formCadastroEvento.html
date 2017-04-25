@@ -16,13 +16,14 @@
 			</div> 
 			
 			<br/>
-		
+			
 			Nome: <input th:field="*{nome}" type="text"/> <br/>
 			Descrição: <input th:field="*{descricao}" type="text"/> <br/>
 			Data de Início: <input th:field="*{dataInicio}" type="date"/> <br/>
 			Data de Término: <input th:field="*{dataFim}" type="date"/> <br/>
-			Número de vagas: <input th:field="*{vagas}" type="text"/> <br/>
+			Número de vagas: <input th:field="*{vagas}" type="number"/> <br/>
 			Local: <input th:field="*{local}" type="text"/> <br/>
+			Gameficado: <input type="checkbox" th:field="*{gameficado}"/><br/>
 			
 			<button type="submit">Cadastrar</button> 
 			
