@@ -100,6 +100,7 @@ public class UsuarioController {
 		String email = auth.getName();
 		Usuario usuarioLogado = usuarioService.getUsuario(email);
 		return usuarioLogado;
+		
 	}
 	
 }
