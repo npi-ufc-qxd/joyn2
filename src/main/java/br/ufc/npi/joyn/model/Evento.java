@@ -31,10 +31,11 @@ public class Evento {
 	private Integer vagas;
 	private String local;
 	private boolean status;
-	private Double porcentagemMin; 
+	private Double porcentagemMin;
 	private boolean gameficado;
 
 	public Evento() {
+		this.setStatus(false);
 	}
 
 	public Long getId() {
