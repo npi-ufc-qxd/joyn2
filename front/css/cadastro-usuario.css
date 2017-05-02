@@ -1,0 +1,15 @@
+.cadastro{
+  margin-left: 400px;
+  margin-top: 100px
+}
+
+.foto-perfil{
+  margin-left: 350px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.foto-perfil button{
+  width: 150px;
+  display: block;
+}
