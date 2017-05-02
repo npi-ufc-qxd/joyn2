@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,29 +20,28 @@ public class EventoController {
 	@Autowired
 	EventoService eventoService;
 	
-	@GetMapping(path="/cadastrar")
-	public ModelAndView cadastrarEventoFormulario(){
+	@GetMapping(path="/salvar")
+	public ModelAndView salvarEventoFormulario(){
 		ModelAndView model = new ModelAndView("formCadastroEvento");
 		model.addObject("evento", new Evento());
 		
 		return model;
 	}
 	
-	@PostMapping(path="/cadastrar")
-	public String cadastrarEvento(@Valid Evento evento, BindingResult result){
-		if (evento.getNome().equals("")) {
+	@PostMapping(path="/salvar")
+	public String salvarEvento(@Valid Evento evento){
+		/*if (evento.getNome().equals("")) {
 			return "formCadastroEvento";
-		}
+		}*/
 		
-		if (result.hasErrors()) return "formCadastroEvento";
+		//if (result.hasErrors()) return "formCadastroEvento"; Binding result
 		
-		if (evento.getDataFim().before(evento.getDataInicio())) {
+		/*if (evento.getDataFim().before(evento.getDataInicio())) {
 			return "formCadastroEvento";
-		}
+		}*/
 		
-		eventoService.cadastrarEvento(evento.getNome(), evento.getDescricao(), evento.getDataInicio(),
-				evento.getDataFim(), evento.getVagas(), evento.getLocal(), evento.isGameficado());
-		return "redirect:/formLoginUsuario";
+		Evento salvo = eventoService.salvarEvento(evento);
+		return "redirect:/evento/" + salvo.getId();
 	}
 	
 	@GetMapping(path="/{id}")

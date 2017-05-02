@@ -1,7 +1,5 @@
 package br.ufc.npi.joyn.service;
 
-import java.sql.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +12,11 @@ public class EventoService {
 	@Autowired
 	EventoRepository eventoRepo;
 	
-	public Evento cadastrarEvento(String nome, String descricao, Date dataInicial, Date dataFinal,
-			Integer quantVagas, String local, boolean gameficado){
+	public Evento salvarEvento(Evento evento){
 		
-		Evento evento = new Evento();
-		evento.setNome(nome);
-		evento.setDescricao(descricao);
-		evento.setDataInicio(dataInicial);
-		evento.setDataFim(dataFinal);
-		evento.setVagas(quantVagas);
-		evento.setLocal(local);
-		evento.setGameficado(gameficado);
+		Evento eventoSalvo = eventoRepo.save(evento);
 		
-		eventoRepo.save(evento);
-		
-		return evento;
+		return eventoSalvo;
 	}
 	
 	public Evento buscarEvento(Long id){

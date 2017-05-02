@@ -7,6 +7,7 @@
 		<title>Detalhes Evento</title>
 	</head>
 	<body>
+	<div class="container">
 		<div class="row valign-wrapper">
 			<div class="col s12">
 				<h2>Evento <span th:text="${evento.nome}"></span> </h2>
@@ -19,23 +20,65 @@
 				<h5> Descrição: <span th:text="${evento.descricao}"></span></h5>
 			</div>
 		</div>
+		
 		<div class="row">
-				<h5>Organizadores do Evento</h5>
-				<table class="striped">
-				  <thead>
-				    <tr>
-					<th>Nome</th>
-					<th>Remover</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<tr  th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
-						<td th:text="${organizador.usuario.nome}"></td>
-						<td><a class="waves-effect waves-teal btn-flat" href="#">X</a></td>
-				    </tr>
-				  </tbody>
-				</table>
-			</div>
+			<a class="waves-effect waves-teal btn-large" href="#">Editar Evento</a>
+		</div>
+		<br/>
+		<div class="row">
+			<h4>Organizadores do Evento</h4>
+			<table class="striped">
+			  <thead>
+			    <tr>
+				<th>Nome</th>
+				<th>Remover</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	<tr  th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
+					<td th:text="${organizador.usuario.nome}"></td>
+					<td><a class="waves-effect waves-teal btn-flat" href="#">X</a></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+		<br/>
+		<div class="row">
+			<h4>Atividades do Evento</h4>
+			<table class="striped">
+			  <thead>
+			    <tr>
+				<th>Nome</th>
+				<th>Detalhes</th>
+				<th>Remover</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	<tr  th:each="atividade : ${evento.atividades}">
+					<td th:text="${atividade.nome}"></td>
+					<td><a class="waves-effect waves-teal btn-flat" href="#">Ver Detalhes</a></td>
+					<td><a class="waves-effect waves-teal btn-flat" href="#">X</a></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+		<br/>
+		<div class="row">
+			<h4>Participantes do Evento</h4>
+			<table class="striped">
+			  <thead>
+			    <tr>
+				<th>Nome</th>
+				<th>Ranking</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	<tr  th:each="participante : ${evento.participantes}" th:if="${participante.papel == T(br.ufc.npi.joyn.model.Papel).PARTICIPANTE}">
+					<td th:text="${participante.usuario.nome}"></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
 		
 		
 		<!-- <form method="POST" th:object="${evento}">
@@ -58,6 +101,7 @@
 			<button type="submit">Cadastrar</button> 
 			
 		</form> -->
+		</div>
 		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
 		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
 	</body>
