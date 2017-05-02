@@ -1,5 +1,7 @@
 package br.ufc.npi.joyn.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.ufc.npi.joyn.model.Evento;
+import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.service.EventoService;
 
 @Controller
@@ -19,6 +23,27 @@ public class EventoController {
 
 	@Autowired
 	EventoService eventoService;
+	
+	@Autowired
+	UsuarioController usuarioController;
+	
+	@GetMapping(path="/meus_eventos")
+	public ModelAndView meusEventos(){
+		ModelAndView model = new ModelAndView("meusEventos");
+		Usuario logado = usuarioController.getUsuarioLogado();
+		List<Evento> eventos = eventoService.getMeusEventos(logado.getId());
+		model.addObject("eventos", eventos);		
+		return model;
+	}
+	
+	@PostMapping(path="/meus_eventos")
+	public ModelAndView meusEventosPorNome(@RequestParam("nome") String nome){
+		ModelAndView model = new ModelAndView("meusEventos");
+		Usuario logado = usuarioController.getUsuarioLogado();
+		List<Evento> eventos = eventoService.getMeusEventosPorNome(logado.getId(), nome.toUpperCase());		
+		model.addObject("eventos", eventos);
+		return model;
+	}
 	
 	@GetMapping(path="/salvar")
 	public ModelAndView salvarEventoFormulario(){

@@ -1,0 +1,34 @@
+<!DOCTYPE html >
+
+<html
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+
+<head>
+	<title> Meus Eventos </title>
+</head>
+<body>
+	<h1> Meus Eventos </h1>
+	
+	<table>
+	<thead>
+	 	<tr>
+			<th>Nome</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="evento: ${eventos}">
+			<td th:text="${evento.nome}"></td>
+		</tr>	
+	</tbody>
+	</table>
+	
+	<form action="/evento/meus_eventos" method="post">
+		Nome: <input type="text" name="nome"/> 
+		<button type="submit" name="action"> Procurar </button>
+	</form>
+
+</body>
+</html>
