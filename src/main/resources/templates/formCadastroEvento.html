@@ -3,36 +3,86 @@
 	xmlns:th="http://www.thymeleaf.org">
 	
 	<head>
+	<link href="/webjars/materializecss/0.97.7/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 		<title>Cadastrar Evento</title>
 	</head>
 	<body>
-		<h1>Cadastrar Evento</h1>
-		<form method="POST" th:object="${evento}">
+		<div class="container row">
 		
-			<!-- <div th:if="${#fields.hasAnyErrors()}">
-				<div th:each="detailedError : ${#fields.detailedErrors()}">
-					<span th:text="${detailedError.message}"></span>
+			<nav>
+   				<div class="nav-wrapper">
+      				<a href="#" class="brand-logo">Joyn</a>
+      				<ul id="nav-mobile" class="right hide-on-med-and-down">
+        				<li><a href="#">Adicionar Eventos</a></li>
+        				<li><a href="#">Meus Eventos</a></li>
+        				<li><a href="#">Meus Dados</a></li>
+        				<li><a href="#">Sair</a></li>
+      				</ul>
+    			</div>
+  			</nav>
+		
+			<h2>Cadastrar Evento</h2>
+			<form method="POST" th:object="${evento}" class="col s12">
+			
+				<div th:if="${#fields.hasAnyErrors()}">
+					<h3>Preencha todos os campos corretamente!</h3>
+					<!--<div th:each="detailedError : ${#fields.detailedErrors()}">
+						<span th:text="${detailedError.message}"></span>
+						<span>Teste</span>
+					</div>-->
 				</div>
-			</div> -->
-			
-			<div th:if="${erro}" class="row">
-  				<div class="chip red white-text">
-    				<span th:text="${erro}"></span>
-  				</div>
-			</div>
-			
-			<br/>
-			
-			Nome: <input th:field="*{nome}" type="text"/> <br/>
-			Descrição: <input th:field="*{descricao}" type="text"/> <br/>
-			Data de Início: <input th:field="*{dataInicio}" type="date"/> <br/>
-			Data de Término: <input th:field="*{dataFim}" type="date"/> <br/>
-			Número de vagas: <input th:field="*{vagas}" type="number"/> <br/>
-			Local: <input th:field="*{local}" type="text"/> <br/>
-			Gameficado: <input type="checkbox" th:field="*{gameficado}"/><br/>
-			
-			<button type="submit">Cadastrar</button> 
-			
-		</form>
+				
+				<div class="col s6">
+					<div class="input-field">
+						<label for="nome">Nome do Evento</label>
+						<input id="nome" th:field="*{nome}" type="text"/>
+					</div>
+					
+					<div class="input-field">
+						<label for="dataini">Data Início</label>
+						<input id="dataini" th:field="*{dataInicio}" type="date"/>
+					</div>
+					
+					<div class="input-field">
+						<label for="datafim">Data Fim</label>
+						<input id="datafim" th:field="*{dataFim}" type="date"/>
+					</div>
+					
+					<div class="input-field">
+						<label for="desc">Descrição</label>
+						<textarea id="desc" th:field="*{descricao}" class="materialize-textarea"></textarea>
+					</div>
+				</div>
+				
+				<div class="col s6">
+					<div class="input-field">
+						<label for="vaga">Quantidade de vagas</label>
+						<input id="vaga" th:field="*{vagas}" type="number"/>
+					</div>
+					
+					<div class="input-field">
+						<label for="local">Local</label>
+						<input id="local" th:field="*{local}" type="text"/>
+					</div>
+					
+					<div class="materialize-checkbox">
+						<label for="chec">Gameficado</label>
+						<input type="checkbox" th:field="*{gameficado}" id="chec"/>
+					</div>
+					
+					<div class="input-field">
+						<label for="porce">Porcentagem Mínima de Frequência</label>
+						<input id="porce" th:field="*{porcentagemMin}" type="number"/>
+					</div>
+					
+					<button class="waves-effect waves-light btn" type="submit">Cadastrar</button> 
+				</div>
+				
+				
+				
+			</form>
+		</div>
+		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
+		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
 	</body>
 </html>
