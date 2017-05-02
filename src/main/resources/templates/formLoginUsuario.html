@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org">
 	
@@ -7,10 +8,10 @@
 	</head>
 	<body>
 		<h1>Login</h1>
-		<form method="POST" th:object="${usuario}">
+		<form method="POST" th:action="@{/usuario/logar}">
 				
-			Email: <input th:field="*{email}" type="text"/> <br/>
-			Senha: <input th:field="*{senha}" type="password"/><br/>
+			Email: <input th:name="email" type="text"/> <br/>
+			Senha: <input th:name="senha" type="password"/><br/>
 			
 			<button type="submit">Login</button> 
 			

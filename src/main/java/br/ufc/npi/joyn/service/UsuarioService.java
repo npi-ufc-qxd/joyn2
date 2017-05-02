@@ -26,9 +26,19 @@ public class UsuarioService {
 		usuarioRepository.save(usuario);
 	}
 	
+	public void atualizaUsuario(Usuario usuario){
+		usuarioRepository.save(usuario);
+	}
+	
+	public boolean logar(String email, String senha){
+		Usuario userBanco = usuarioRepository.findByEmail(email);
+		if(userBanco != null && new BCryptPasswordEncoder().matches(senha, userBanco.getSenha())) return true;
+		else return false;
+	}
+	
 	public boolean logar(Usuario usuario){
 		Usuario userBanco = usuarioRepository.findByEmail(usuario.getEmail());
-		if(new BCryptPasswordEncoder().matches(usuario.getSenha(), userBanco.getSenha())) return true;
+		if(userBanco != null && new BCryptPasswordEncoder().matches(usuario.getSenha(), userBanco.getSenha())) return true;
 		else return false;
 	}
 	
