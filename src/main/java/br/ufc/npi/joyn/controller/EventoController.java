@@ -41,6 +41,9 @@ public class EventoController {
 			return "formCadastroEvento";
 		}
 		
+		/* TESTE PARA GAMEFICADO */
+		System.out.println(evento.isGameficado());
+		
 		Evento salvo = eventoService.salvarEvento(evento);
 		return "redirect:/evento/" + salvo.getId();
 	}

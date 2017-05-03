@@ -40,7 +40,7 @@
 					
 					<div class="input-field">
 						<label for="dataini">Data Início</label>
-						<input id="dataini" th:field="*{dataInicio}" type="date"/>
+						<input class="datepicker" id="dataini" th:field="*{dataInicio}" type="date"/>
 					</div>
 					
 					<div class="input-field">
@@ -65,10 +65,7 @@
 						<input id="local" th:field="*{local}" type="text"/>
 					</div>
 					
-					<div class="materialize-checkbox">
-						<label for="chec">Gameficado</label>
-						<input type="checkbox" th:field="*{gameficado}" id="chec"/>
-					</div>
+					<input type="checkbox" id="myCheckbox" class="filled-in" th:checked="*{gameficado}"/><label for="myCheckbox">Gameficado</label>
 					
 					<div class="input-field">
 						<label for="porce">Porcentagem Mínima de Frequência</label>
@@ -77,8 +74,6 @@
 					
 					<button class="waves-effect waves-light btn" type="submit">Cadastrar</button> 
 				</div>
-				
-				
 				
 			</form>
 		</div>
