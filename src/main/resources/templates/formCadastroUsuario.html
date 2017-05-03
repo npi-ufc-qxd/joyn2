@@ -1,29 +1,69 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	lang="pt-BR">
 	
-	<head>
+	<head th:replace="fragments/head :: head">
 		<title>Cadastro Usuário</title>
 	</head>
 	<body>
-		<h1>Cadastro</h1>
-		<form method="POST" th:object="${usuario}" enctype="multipart/form-data">
-		
-			<div th:if="${#fields.hasAnyErrors()}">
+<!-- Preloader -->
+<div class="preloader">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
+</div>
+<section id="wrapper" class="login-register">
+  <div class="login-box">
+    <div class="white-box">
+      <form class="form-horizontal form-material" id="loginform" method="POST" th:object="${usuario}" enctype="multipart/form-data">
+        <div class="text-center">
+        	<img src="/images/joyn-logo.png"  height="100"/>
+        	<hr/>
+        	<h3 class="box-title m-b-20">Cadastro</h3>
+        </div>
+       
+        <div th:if="${#fields.hasAnyErrors()}">
 				<div th:each="detailedError : ${#fields.detailedErrors()}">
 					<span th:text="${detailedError.message}"></span>
 				</div>
-			</div> 
-			
-			<br/>
+			</div>
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <input class="form-control" type="text" th:field="*{nome}" required="" placeholder="Nome Completo"/>
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <input class="form-control" type="email" th:field="*{email}" required="" placeholder="Email"/>
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <input class="form-control" type="password" th:field="*{senha}" required="" placeholder="Senha"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12">
+            <input class="form-control" type="password" required="" placeholder="Confirmar Senha"/>
+          </div>
+        </div>
+        
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">CADASTRAR</button>
+          </div>
+        </div>
+        <div class="form-group m-b-0">
+          <div class="col-sm-12 text-center">
+            <p>Já tem uma conta? <a href="/usuario/logar" class="text-primary m-l-5"><b>Entrar</b></a></p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 		
-			Nome: <input th:field="*{nome}" type="text"/> <br/>
-			Foto: <input name="image" type="file"/> <br/>
-			Email: <input th:field="*{email}" type="text"/> <br/>
-			Senha: <input th:field="*{senha}" type="password"/><br/>
-			
-			<button type="submit">Cadastrar</button> 
-			
-		</form>
+	<div th:replace="fragments/scripts :: scripts" ></div>		
 	</body>
 </html>

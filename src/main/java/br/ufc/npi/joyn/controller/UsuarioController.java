@@ -60,5 +60,10 @@ public class UsuarioController {
 		if(usuarioService.logar(usuario)) return model;
 		else return model2;
 	}
+	
+	@GetMapping(path="/starter")
+	public String starter(){
+		return "starter";
+	}
 
 }
