@@ -89,6 +89,7 @@ public class UsuarioController {
 	public String starter(){
 		return "starter";
 	}
+	
 	@GetMapping("/imagens/{id}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable Long id) throws IOException {
