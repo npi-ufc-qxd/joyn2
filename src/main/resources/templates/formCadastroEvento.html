@@ -28,27 +28,35 @@
                 			
                 			<label for="nome">Nome do Evento</label>
                 			<input id="nome" th:field="*{nome}" type="text" />
+                			<br />
                 			
                 			<label for="descricao">Descrição</label>
                 			<input id="descricao" th:field="*{descricao}" type="text"/>
+                			<br />
                 			
                 			<label for="dataIni">Data de Início</label>
 							<input id="dataIni" th:field="*{dataInicio}" type="date"/>
+							<br />
 							
 							<label for="dataFim">Data de Término</label>
 							<input id="dataFim" th:field="*{dataFim}" type="date"/>
+							<br />
 							
 							<label for="vagas">Quantidade de vagas</label>
 							<input id="vagas" th:field="*{vagas}" type="number"/>
+							<br />
 							
 							<label for="local">Local</label>
 							<input id="local" th:field="*{local}" type="text"/>
+							<br />
 							
 							<label for="porceMin">Porcentagem Mínima de Frequência</label>
 							<input id="porceMin" th:field="*{porcentagemMin}" type="number" />
+							<br />
 							
 							<label for="gameficado">Gameficado</label>
 							<input id="gameficado" type="checkbox" th:field="*{gameficado}"/>
+							<br />
 							
 							<button type="submit">Cadastrar</button>
                 			
