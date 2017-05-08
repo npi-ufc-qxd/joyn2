@@ -31,6 +31,7 @@ public class EventoController {
 	
 	@PostMapping(path="/salvar")
 	public String salvarEvento(@Valid Evento evento, BindingResult result){
+		System.err.println("CADRASTAR");
 		if (evento.getNome().equals("")) return "formCadastroEvento";
 		
 		if (result.hasErrors()) return "formCadastroEvento";
@@ -49,5 +50,20 @@ public class EventoController {
 		model.addObject("evento", evento);
 		
 		return model;
+	}
+	
+	@GetMapping(path="/editar={id}")
+	public ModelAndView editarEvento(@PathVariable("id") Long id){
+		Evento evento = eventoService.buscarEvento(id);
+		ModelAndView model = new ModelAndView("formEditarEvento");
+		model.addObject("evento", evento);
+		return model;
+	}
+	
+	@PostMapping(path="/editar")
+	public String atualizar(Evento e){
+		System.err.println("EDITAR");
+		Evento evento = eventoService.salvarEvento(e);
+		return "redirect:/evento/"+evento.getId();
 	}
 }
