@@ -35,7 +35,7 @@
 					
 					<h5><a href="#">Ver Ranking</a></h5>
 					<h5><a href="#">Participantes</a></h5>
-					<h5><a href="#">Editar</a></h5>
+					<h5><a th:href="@{${'/evento/editar='+evento.id}}">Editar</a></h5>
 				</div>
 				
 				<div class="">
@@ -79,8 +79,7 @@
 					    </tr>
 					  </tbody>
 					</table>
-					
-					<a th:href="@{${'/evento/editar='+evento.id}}"> Editar Evento</a> 
+					 
 				</div>
    			</div>
 			<!-- Fim do Conteudo principal -->
