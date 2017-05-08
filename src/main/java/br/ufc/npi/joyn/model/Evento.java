@@ -1,8 +1,10 @@
 package br.ufc.npi.joyn.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +24,10 @@ public class Evento {
 	private Date dataFim;
 	private String descricao;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Atividade> atividades;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<ParticipacaoEvento> participantes; 
 	
 	private Integer vagas;
@@ -36,6 +38,8 @@ public class Evento {
 
 	public Evento() {
 		this.setStatus(false);
+		participantes = new ArrayList<>();
+		atividades = new ArrayList<>();
 	}
 
 	public Long getId() {
