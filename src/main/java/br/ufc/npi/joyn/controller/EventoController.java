@@ -31,18 +31,11 @@ public class EventoController {
 	
 	@PostMapping(path="/salvar")
 	public String salvarEvento(@Valid Evento evento, BindingResult result){
-		if (evento.getNome().equals("")) {
-			return "formCadastroEvento";
-		}
+		if (evento.getNome().equals("")) return "formCadastroEvento";
 		
 		if (result.hasErrors()) return "formCadastroEvento";
 		
-		if (evento.getDataFim().before(evento.getDataInicio())) {
-			return "formCadastroEvento";
-		}
-		
-		/* TESTE PARA GAMEFICADO */
-		System.out.println(evento.isGameficado());
+		if (evento.getDataFim().before(evento.getDataInicio())) return "formCadastroEvento";
 		
 		Evento salvo = eventoService.salvarEvento(evento);
 		return "redirect:/evento/" + salvo.getId();

@@ -1,83 +1,64 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org">
-	
-	<head>
-	<link href="/webjars/materializecss/0.97.7/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-		<title>Cadastrar Evento</title>
-	</head>
-	<body>
-		<div class="container row">
-		
-			<nav>
-   				<div class="nav-wrapper">
-      				<a href="#" class="brand-logo">Joyn</a>
-      				<ul id="nav-mobile" class="right hide-on-med-and-down">
-        				<li><a href="#">Adicionar Eventos</a></li>
-        				<li><a href="#">Meus Eventos</a></li>
-        				<li><a href="#">Meus Dados</a></li>
-        				<li><a href="#">Sair</a></li>
-      				</ul>
-    			</div>
-  			</nav>
-		
-			<h2>Cadastrar Evento</h2>
-			<form method="POST" th:object="${evento}" class="col s12">
-			
-				<div th:if="${#fields.hasAnyErrors()}">
-					<h3>Preencha todos os campos corretamente!</h3>
-					<!--<div th:each="detailedError : ${#fields.detailedErrors()}">
-						<span th:text="${detailedError.message}"></span>
-						<span>Teste</span>
-					</div>-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="base/base">
+	  
+<body>
+
+<div class="container-fluid" layout:fragment="conteudo">
+				<div class="row bg-title">
+					<!-- .page title -->
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Cadastrar Evento</h4> <!-- Pode ser alterado -->
+					</div>
+					<!-- /.page title -->
 				</div>
-				
-				<div class="col s6">
-					<div class="input-field">
-						<label for="nome">Nome do Evento</label>
-						<input id="nome" th:field="*{nome}" type="text"/>
-					</div>
-					
-					<div class="input-field">
-						<label for="dataini">Data Início</label>
-						<input class="datepicker" id="dataini" th:field="*{dataInicio}" type="date"/>
-					</div>
-					
-					<div class="input-field">
-						<label for="datafim">Data Fim</label>
-						<input id="datafim" th:field="*{dataFim}" type="date"/>
-					</div>
-					
-					<div class="input-field">
-						<label for="desc">Descrição</label>
-						<textarea id="desc" th:field="*{descricao}" class="materialize-textarea"></textarea>
-					</div>
-				</div>
-				
-				<div class="col s6">
-					<div class="input-field">
-						<label for="vaga">Quantidade de vagas</label>
-						<input id="vaga" th:field="*{vagas}" type="number"/>
-					</div>
-					
-					<div class="input-field">
-						<label for="local">Local</label>
-						<input id="local" th:field="*{local}" type="text"/>
-					</div>
-					
-					<input type="checkbox" id="myCheckbox" class="filled-in" th:value="*{gameficado}"/><label for="myCheckbox">Gameficado</label>
-					
-					<div class="input-field">
-						<label for="porce">Porcentagem Mínima de Frequência</label>
-						<input id="porce" th:field="*{porcentagemMin}" type="number"/>
-					</div>
-					
-					<button class="waves-effect waves-light btn" type="submit">Cadastrar</button> 
-				</div>
-				
-			</form>
-		</div>
-		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
-		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
-	</body>
+				<div class="col-md-12">
+				<!-- Conteudo principal -->
+            		<div class="white-box">
+                		<form method="POST" th:object="${evento}">
+                			
+                			<input type="hidden"
+          						th:name="${_csrf.parameterName}"
+          						th:value="${_csrf.token}" />
+                			
+                			<div th:if="${#fields.hasAnyErrors()}">
+                				<h3>Preencha todos os campos corretamente!</h3>
+                			</div>
+                			
+                			<label for="nome">Nome do Evento</label>
+                			<input id="nome" th:field="*{nome}" type="text" />
+                			
+                			<label for="descricao">Descrição</label>
+                			<input id="descricao" th:field="*{descricao}" type="text"/>
+                			
+                			<label for="dataIni">Data de Início</label>
+							<input id="dataIni" th:field="*{dataInicio}" type="date"/>
+							
+							<label for="dataFim">Data de Término</label>
+							<input id="dataFim" th:field="*{dataFim}" type="date"/>
+							
+							<label for="vagas">Quantidade de vagas</label>
+							<input id="vagas" th:field="*{vagas}" type="number"/>
+							
+							<label for="local">Local</label>
+							<input id="local" th:field="*{local}" type="text"/>
+							
+							<label for="porceMin">Porcentagem Mínima de Frequência</label>
+							<input id="porceMin" th:field="*{porcentagemMin}" type="number" />
+							
+							<label for="gameficado">Gameficado</label>
+							<input id="gameficado" type="checkbox" th:field="*{gameficado}"/>
+							
+							<button type="submit">Cadastrar</button>
+                			
+                		</form>
+            		</div>
+            		<!-- Fim do Conteudo principal -->
+        		</div>
+
+			</div>
+
+
+</body>
 </html>
