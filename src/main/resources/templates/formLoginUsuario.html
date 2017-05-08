@@ -43,6 +43,11 @@
                 <form class="form-horizontal form-material" id="loginform" method="POST" th:object="${usuario}">
                     <h3 class="box-title m-b-20">Entrar</h3>
                     <div class="form-group ">
+                    	
+                    	<input type="hidden"
+          						th:name="${_csrf.parameterName}"
+          						th:value="${_csrf.token}" />
+                    
                         <div class="col-xs-12">
                             <input class="form-control" type="email" th:field="*{email}" placeholder="Email"/>
                         </div>
