@@ -85,7 +85,6 @@ public class EventoController {
 		Usuario usuario = usuarioService.getUsuario(email);
 		Evento evento = eventoService.buscarEvento(id);
 		
-		//if(usuario.organizaEvento(id)){
 		if(usuario != null){
 			ParticipacaoEvento pe = new ParticipacaoEvento(usuario, evento, Papel.ORGANIZADOR, true);
 			participacaoEventoService.addParticipacaoEvento(pe);
@@ -102,7 +101,6 @@ public class EventoController {
 			Email emailConvite = new Email(emailBuilder);
 			service.sendEmail(emailConvite);
 		}
-		//}
 		return "redirect:/evento/"+id;
 	}
 }
