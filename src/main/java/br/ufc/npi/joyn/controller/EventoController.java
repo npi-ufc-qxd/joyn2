@@ -26,8 +26,8 @@ public class EventoController {
 	@Autowired
 	EventoService eventoService;
 	
-	@Autowired
-	UsuarioController usuarioController;
+	//@Autowired
+	//UsuarioController usuarioController;
 	
 	@GetMapping(path="/salvar")
 	public ModelAndView salvarEventoFormulario(){
@@ -62,14 +62,14 @@ public class EventoController {
 		
 		Evento evento = eventoService.buscarEvento(id);
 		
-		Usuario usuarioLogado = usuarioController.getUsuarioLogado();
+		/*Usuario usuarioLogado = usuarioController.getUsuarioLogado();
 		for (ParticipacaoEvento u : evento.getParticipantes()) {
 			if(u.getPapel().equals("ORGANIZADOR")){
 				if (u.getUsuario().equals(usuarioLogado)){
 					// Alguma coisa
 				}
 			}
-		} 
+		} */
 		
 		ModelAndView model = new ModelAndView("detalhesEvento");
 		model.addObject("evento", evento);
