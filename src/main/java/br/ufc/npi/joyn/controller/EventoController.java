@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,16 +56,12 @@ public class EventoController {
 	}
 	
 	@PostMapping(path="/salvar")
-	public String salvarEvento(@Valid Evento evento){
-		/*if (evento.getNome().equals("")) {
-			return "formCadastroEvento";
-		}*/
+	public String salvarEvento(@Valid Evento evento, BindingResult result){
+		if (evento.getNome().equals("")) return "formCadastroEvento";
 		
-		//if (result.hasErrors()) return "formCadastroEvento"; Binding result
+		if (result.hasErrors()) return "formCadastroEvento";
 		
-		/*if (evento.getDataFim().before(evento.getDataInicio())) {
-			return "formCadastroEvento";
-		}*/
+		if (evento.getDataFim().before(evento.getDataInicio())) return "formCadastroEvento";
 		
 		Evento salvo = eventoService.salvarEvento(evento);
 		return "redirect:/evento/" + salvo.getId();

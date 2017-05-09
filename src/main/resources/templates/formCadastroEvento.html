@@ -1,6 +1,9 @@
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="base/base">
 	
 	<head>
 		<title>Cadastrar Evento</title>
@@ -12,16 +15,69 @@
 		<h1>Cadastrar Evento</h1>
 		<form method="POST" th:object="${evento}">
 		
-			<!-- <div th:if="${#fields.hasAnyErrors()}">
-				<div th:each="detailedError : ${#fields.detailedErrors()}">
-					<span th:text="${detailedError.message}"></span>
+
+
+<div class="container-fluid" layout:fragment="conteudo">
+				<div class="row bg-title">
+					<!-- .page title -->
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Cadastrar Evento</h4> <!-- Pode ser alterado -->
+					</div>
+					<!-- /.page title -->
+
 				</div>
-			</div> -->
-			
-			<div th:if="${erro}" class="row">
-  				<div class="chip red white-text">
-    				<span th:text="${erro}"></span>
-  				</div>
+				<div class="col-md-12">
+				<!-- Conteudo principal -->
+            		<div class="white-box">
+                		<form method="POST" th:object="${evento}">
+                			
+                			<input type="hidden"
+          						th:name="${_csrf.parameterName}"
+          						th:value="${_csrf.token}" />
+                			
+                			<div th:if="${#fields.hasAnyErrors()}">
+                				<h3>Preencha todos os campos corretamente!</h3>
+                			</div>
+                			
+                			<label for="nome">Nome do Evento</label>
+                			<input id="nome" th:field="*{nome}" type="text" />
+                			<br />
+                			
+                			<label for="descricao">Descrição</label>
+                			<input id="descricao" th:field="*{descricao}" type="text"/>
+                			<br />
+                			
+                			<label for="dataIni">Data de Início</label>
+							<input id="dataIni" th:field="*{dataInicio}" type="date"/>
+							<br />
+							
+							<label for="dataFim">Data de Término</label>
+							<input id="dataFim" th:field="*{dataFim}" type="date"/>
+							<br />
+							
+							<label for="vagas">Quantidade de vagas</label>
+							<input id="vagas" th:field="*{vagas}" type="number"/>
+							<br />
+							
+							<label for="local">Local</label>
+							<input id="local" th:field="*{local}" type="text"/>
+							<br />
+							
+							<label for="porceMin">Porcentagem Mínima de Frequência</label>
+							<input id="porceMin" th:field="*{porcentagemMin}" type="number" />
+							<br />
+							
+							<label for="gameficado">Gameficado</label>
+							<input id="gameficado" type="checkbox" th:field="*{gameficado}"/>
+							<br />
+							
+							<button type="submit">Cadastrar</button>
+                			
+                		</form>
+            		</div>
+            		<!-- Fim do Conteudo principal -->
+        		</div>
+
 			</div>
 			
 			<br/>
@@ -40,4 +96,5 @@
 			
 		</form>
 	</body>
+
 </html>

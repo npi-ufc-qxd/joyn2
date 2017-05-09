@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="base/base">
 	
 	<head>
 	<link href="/webjars/materializecss/0.97.7/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -10,21 +12,18 @@
     	<!-- default header name is X-CSRF-TOKEN -->
     	<meta name="_csrf_header" content="${_csrf.headerName}"/>
 	</head>
+
 	<body>
-	<div class="container">
-		<div class="row valign-wrapper">
-			<div class="col s12">
-				<h2>Evento <span th:text="${evento.nome}"></span> </h2>
-				<h5> Data de Início: <span th:text="${#calendars.format(evento.dataInicio, 'dd/MM/yyyy')}"></span> </h5>
-				<h5> Data de Término: <span th:text="${#calendars.format(evento.dataFim, 'dd/MM/yyyy')}"></span> </h5>
-				<h5> Status: <span th:text="${evento.status}"></span></h5>
-				<h5> Local: <span th:text="${evento.local}"></span></h5>
-				<h5> É gamificado: <span th:text="${evento.gameficado}"></span></h5>
-				<h5> Número de vagas: <span th:text="${evento.vagas}"></span></h5>
-				<h5> Descrição: <span th:text="${evento.descricao}"></span></h5>
+	<div class="container-fluid" layout:fragment="conteudo">
+		<div class="row bg-title">
+			<!-- .page title -->
+			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+				<h4 class="page-title" th:text="${evento.nome}"></h4> <!-- Pode ser alterado -->
 			</div>
+			<!-- /.page title -->
 		</div>
 		
+
 		<div class="row">
 			<a class="waves-effect waves-teal btn-large" href="#">Editar Evento</a>
 		</div>
@@ -96,28 +95,76 @@
 		</div>
 		
 		
-		<!-- <form method="POST" th:object="${evento}">
-			<div th:if="${#fields.hasAnyErrors()}">
-				<div th:each="detailedError : ${#fields.detailedErrors()}">
-					<span th:text="${detailedError.message}"></span>
+
+		<div class="col-md-12">
+			<!-- Conteudo principal -->
+			
+			<div class="white-box">
+				<h4> Data de Início: <span th:text="${#calendars.format(evento.dataInicio, 'dd/MM/yyyy')}"></span> </h4>
+				<h4> Data de Término: <span th:text="${#calendars.format(evento.dataFim, 'dd/MM/yyyy')}"></span> </h4>
+				<h4 th:if="${evento.status}">Evento acessível ao público</h4>
+				<h4 th:unless="${evento.status}">Evento não acessível ao público</h4>
+				
+				<h4> Local: <span th:text="${evento.local}"></span></h4>
+				<h4 th:if="${evento.gameficado}">É gameficado</h4>
+				<h4 th:unless="${evento.gameficado}">Não é gameficado</h4>
+				
+				<h4> Número de vagas: <span th:text="${evento.vagas}"></span></h4>
+				<h4> Porcentagem: <span th:text="${evento.porcentagemMin}"></span></h4>
+				<h4> Descrição: <span th:text="${evento.descricao}"></span></h4>
+				
+				<div class="">
+					
+					<h5><a href="#">Ver Ranking</a></h5>
+					<h5><a href="#">Participantes</a></h5>
+					<h5><a href="#">Editar</a></h5>
 				</div>
-			</div> 
-			
-			<br/>
-			
-			Nome: <input th:field="*{nome}" type="text"/> <br/>
-			Descrição: <input th:field="*{descricao}" type="text"/> <br/>
-			Data de Início: <input th:field="*{dataInicio}" type="date"/> <br/>
-			Data de Término: <input th:field="*{dataFim}" type="date"/> <br/>
-			Número de vagas: <input th:field="*{vagas}" type="number"/> <br/>
-			Local: <input th:field="*{local}" type="text"/> <br/>
-			Gameficado: <input type="checkbox" th:field="*{gameficado}"/><br/>
-			
-			<button type="submit">Cadastrar</button> 
-			
-		</form> -->
+				
+				<div class="">
+					<h2>Organizadores do Evento</h2>
+					<form action="#">
+						<input type="email" name="associar" placeholder="Email" />
+						<button type="submit">Associar Organizador</button>
+					</form>
+					<br/>
+					<table class="striped">
+					  <thead>
+					    <tr>
+						<th>Nome</th>
+						<th>Remover</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<tr  th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
+							<td th:text="${organizador.usuario.nome}"></td>
+							<td><a class="waves-effect waves-teal btn-flat red" href="#">Excluir</a></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+				<div class="">
+					<h2>Atividades do Evento</h2>
+					<h5><a href="#">Adicionar atividades</a></h5>
+					<table class="striped">
+					  <thead>
+					    <tr>
+						<th>Nome</th>
+						<th></th>
+						<th>Remover</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<tr  th:each="atividade : ${evento.atividades}">
+							<td th:text="${atividade.nome}"></td>
+							<td><a class="waves-effect waves-teal btn-flat orange" href="#">Ver Detalhes</a></td>
+							<td><a class="waves-effect waves-teal btn-flat red" href="#">Excluir</a></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+   			</div>
+			<!-- Fim do Conteudo principal -->
 		</div>
-		<script src="/webjars/jquery/2.2.4/jquery.js"></script>
-		<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
+	</div>
 	</body>
 </html>
