@@ -29,6 +29,13 @@ public class ParticipacaoEvento {
 	public ParticipacaoEvento() {
 		this.setStatus(false);
 	}
+	
+	public ParticipacaoEvento(Usuario usuario, Evento evento, Papel papel, boolean status) {
+		setUsuario(usuario);
+		setEvento(evento);
+		setPapel(papel);
+		setStatus(status);
+	}
 
 	public Long getId() {
 		return id;
