@@ -14,6 +14,9 @@ import br.ufc.npi.joyn.model.Evento;
 @Transactional
 public interface EventoRepository extends JpaRepository<Evento, Long> {
 	
+	@Query("from Evento e where e.id = ?1")
+	public Evento getEvento(Long eventoId);
+
 	@Query("select e "
 			+ "from Evento e, ParticipacaoEvento p "
 			+ "where e.id = p.evento.id and p.usuario.id = ?1 and p.papel = 'ORGANIZADOR'")

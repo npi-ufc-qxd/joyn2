@@ -3,6 +3,8 @@ package br.ufc.npi.joyn.service;
 import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,9 @@ public class UsuarioService {
 		bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	}
 	
-	public void salvarUsuario(Usuario usuario){
+	public Usuario salvarUsuario(Usuario usuario){
 		usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
-		usuarioRepository.save(usuario);
+		return usuarioRepository.save(usuario);
 	}
 	
 	public void atualizaUsuario(Usuario usuario){
@@ -48,6 +50,13 @@ public class UsuarioService {
 	
 	public Usuario getUsuario(String email){
 		return usuarioRepository.findByEmail(email);
+	}
+	
+	public Usuario getUsuarioLogado(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Usuario usuarioLogado = this.getUsuario(email);
+		return usuarioLogado;
 	}
 
 }
