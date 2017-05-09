@@ -108,7 +108,7 @@ public class EventoController {
 		return model;
 	}
 
-	@GetMapping(path="/editar={id}")
+	@GetMapping(path="/editar/{id}")
 	public ModelAndView editarEvento(@PathVariable("id") Long id){
 		Evento evento = eventoService.buscarEvento(id);
 		ModelAndView model = new ModelAndView("formEditarEvento");
