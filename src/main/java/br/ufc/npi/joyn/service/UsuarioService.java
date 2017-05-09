@@ -21,9 +21,9 @@ public class UsuarioService {
 		bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	}
 	
-	public void salvarUsuario(Usuario usuario){
+	public Usuario salvarUsuario(Usuario usuario){
 		usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
-		usuarioRepository.save(usuario);
+		return usuarioRepository.save(usuario);
 	}
 	
 	public void atualizaUsuario(Usuario usuario){

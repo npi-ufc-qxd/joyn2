@@ -40,10 +40,18 @@
 				
 				<div class="">
 					<h2>Organizadores do Evento</h2>
-					<form action="#">
-						<input type="email" name="associar" placeholder="Email" />
-						<button type="submit">Associar Organizador</button>
-					</form>
+					
+					<div class="">
+						<form method="POST" th:action="@{/evento/convidar}">
+							<label for="emailOrg">Email</label> 
+							<input id="emailOrg" th:name="email" type="email"/>
+							<input type="hidden" name="id" th:value="${evento.id}" />
+				
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+							<button type="submit">Convidar</button>
+						</form>
+					</div>
+					
 					<br/>
 					<table class="striped">
 					  <thead>
