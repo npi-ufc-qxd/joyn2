@@ -2,6 +2,14 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorator="base/base">
+
+<head>
+	<title>Meus Eventos</title>
+	<meta name="_csrf" content="${_csrf.token}"/>
+	<!-- default header name is X-CSRF-TOKEN -->
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+</head>
+
 	  
 <body>
 
@@ -24,6 +32,9 @@
                 				<h3>Preencha todos os campos corretamente!</h3>
                 			</div>
                 			<input th:field="*{id}" type="hidden" value="th:text=${evento.id}"/>
+                			<input th:field="*{atividades}" type="hidden" value="th:text=${evento.atividades}"/>
+                			<input th:field="*{participantes}" type="hidden" value="th:text=${evento.participantes}"/>
+                			
                 			<label for="nome">Nome do Evento</label>
                 			<input id="nome" th:field="*{nome}" type="text"  value="th:text=${evento.nome}"  />
                 			<br />

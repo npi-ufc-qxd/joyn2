@@ -1,16 +1,16 @@
 package br.ufc.npi.joyn.controller;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +52,24 @@ public class EventoController {
 	
 	@Autowired
 	SendEmailService service;
+		
+	@GetMapping(path="/meus_eventos")
+	public ModelAndView meusEventos(){
+		ModelAndView model = new ModelAndView("meusEventos");
+		Usuario logado = usuarioService.getUsuarioLogado();
+		List<Evento> eventos = eventoService.getMeusEventos(logado.getId());
+		model.addObject("eventos", eventos);		
+		return model;
+	}
+	
+	@PostMapping(path="/meus_eventos")
+	public ModelAndView meusEventosPorNome(@RequestParam("nome") String nome){
+		ModelAndView model = new ModelAndView("meusEventos");
+		Usuario logado = usuarioService.getUsuarioLogado();
+		List<Evento> eventos = eventoService.getMeusEventosPorNome(logado.getId(), nome.toUpperCase());		
+		model.addObject("eventos", eventos);
+		return model;
+	}
 	
 	@GetMapping(path="/salvar")
 	public ModelAndView salvarEventoFormulario(){
@@ -90,7 +108,7 @@ public class EventoController {
 		return model;
 	}
 
-	@GetMapping(path="/editar={id}")
+	@GetMapping(path="/editar/{id}")
 	public ModelAndView editarEvento(@PathVariable("id") Long id){
 		Evento evento = eventoService.buscarEvento(id);
 		ModelAndView model = new ModelAndView("formEditarEvento");
@@ -147,5 +165,13 @@ public class EventoController {
 		}
 		return "redirect:/evento/"+id;
 
+	}
+	
+	public Usuario getUsuarioLogado(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Usuario usuarioLogado = usuarioService.getUsuario(email);
+		return usuarioLogado;
+		
 	}
 }
