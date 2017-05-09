@@ -68,6 +68,14 @@ public class EventoController {
 		if (!verificarFormulario(evento, result)) return "formCadastroEvento"; 
 
 		Evento salvo = eventoService.salvarEvento(evento);
+		
+		Usuario usuario = usuarioService.getUsuarioLogado();
+		
+		if(usuario != null){
+			ParticipacaoEvento pe = new ParticipacaoEvento(usuario, salvo, Papel.ORGANIZADOR, true);
+			participacaoEventoService.addParticipacaoEvento(pe);
+		}
+		
 		return "redirect:/evento/" + salvo.getId();
 	}
 	
@@ -114,6 +122,7 @@ public class EventoController {
 		if (evento.getDataInicio().toString().compareTo(data_atual) < 0) return false;
 		
 		return true;
+	}
 
 	@PostMapping(path="/convidar")
 	public String convidar(HttpServletRequest request, @RequestParam String email, @RequestParam Long id){
