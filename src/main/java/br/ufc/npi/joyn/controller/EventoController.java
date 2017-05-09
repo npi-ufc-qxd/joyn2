@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.ufc.npi.joyn.model.Evento;
-import br.ufc.npi.joyn.model.ParticipacaoEvento;
-import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.service.EventoService;
 
 @Controller
@@ -25,9 +23,6 @@ public class EventoController {
 
 	@Autowired
 	EventoService eventoService;
-	
-	//@Autowired
-	//UsuarioController usuarioController;
 	
 	@GetMapping(path="/salvar")
 	public ModelAndView salvarEventoFormulario(){
@@ -61,15 +56,6 @@ public class EventoController {
 	public ModelAndView visualizarEvento(@PathVariable("id") Long id){
 		
 		Evento evento = eventoService.buscarEvento(id);
-		
-		/*Usuario usuarioLogado = usuarioController.getUsuarioLogado();
-		for (ParticipacaoEvento u : evento.getParticipantes()) {
-			if(u.getPapel().equals("ORGANIZADOR")){
-				if (u.getUsuario().equals(usuarioLogado)){
-					// Alguma coisa
-				}
-			}
-		} */
 		
 		ModelAndView model = new ModelAndView("detalhesEvento");
 		model.addObject("evento", evento);
