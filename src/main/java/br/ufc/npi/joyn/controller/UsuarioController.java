@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,7 +100,7 @@ public class UsuarioController {
 	@GetMapping(path = "/home")
 	public ModelAndView homeUsuario() {
 		ModelAndView model = new ModelAndView("homeUsuario");
-		Usuario usuarioLogado = getUsuarioLogado();
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		model.addObject("usuario", usuarioLogado);
 		return model;
 	}
@@ -117,12 +115,5 @@ public class UsuarioController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
                 .body(file);
     }
-	
-	public Usuario getUsuarioLogado(){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName();
-		Usuario usuarioLogado = usuarioService.getUsuario(email);
-		return usuarioLogado;
-	}
 	
 }
