@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="base/base">
+	  
+<body>
+
+<div class="container-fluid" layout:fragment="conteudo">
+				<div class="row bg-title">
+					<!-- .page title -->
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Editar Evento</h4> <!-- Pode ser alterado -->
+					</div>
+					<!-- /.page title -->
+				</div>
+				<div class="col-md-12">
+				<!-- Conteudo principal -->
+            		<div class="white-box">
+                		<form action="/evento/editar" method="POST" th:object="${evento}">
+                			
+                			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                			
+                			<div th:if="${#fields.hasAnyErrors()}">
+                				<h3>Preencha todos os campos corretamente!</h3>
+                			</div>
+                			<input th:field="*{id}" type="hidden" value="th:text=${evento.id}"/>
+                			<label for="nome">Nome do Evento</label>
+                			<input id="nome" th:field="*{nome}" type="text"  value="th:text=${evento.nome}"  />
+                			<br />
+                			
+                			<label for="descricao">Descrição</label>
+                			<input id="descricao" th:field="*{descricao}" type="text"  value="th:text=${evento.descricao}"/>
+                			<br />
+                			
+                			<label for="dataIni">Data de Início</label>
+							<input id="dataIni" th:field="*{dataInicio}" type="date"  value="th:text=${evento.dataInicio}"/>
+							<br />
+							
+							<label for="dataFim">Data de Término</label>
+							<input id="dataFim" th:field="*{dataFim}" type="date"  value="th:text=${evento.dataFim}"/>
+							<br />
+							
+							<label for="vagas">Quantidade de vagas</label>
+							<input id="vagas" th:field="*{vagas}" type="number"  value="th:text=${evento.vagas}"/>
+							<br />
+							
+							<label for="local">Local</label>
+							<input id="local" th:field="*{local}" type="text"  value="th:text=${evento.local}"/>
+							<br />
+							
+							<label for="porceMin">Porcentagem Mínima de Frequência</label>
+							<input id="porceMin" th:field="*{porcentagemMin}" type="number" value="th:text=${evento.porcentagemMin}" />
+							<br />
+							
+							<label for="status">Status:</label>
+							<input id="status" type="checkbox" th:field="*{status}" value="th:text=${evento.status}"/>
+							<br />
+							
+							<label for="gameficado">Gameficado</label>
+							<input id="gameficado" type="checkbox" th:field="*{gameficado}" value="th:text=${evento.gameficado}"/>
+							<br />
+							
+							<button type="submit">Atualizar</button>
+                			
+                		</form>
+            		</div>
+            		<!-- Fim do Conteudo principal -->
+        		</div>
+
+			</div>
+
+
+</body>
+</html>

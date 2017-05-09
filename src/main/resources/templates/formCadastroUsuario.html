@@ -23,6 +23,7 @@
   <div class="login-box">
     <div class="white-box">
       <form class="form-horizontal form-material" id="loginform" method="POST" th:object="${usuario}" enctype="multipart/form-data">
+           <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <div class="text-center">
         	<img src="/images/joyn-logo.png"  height="100"/>
         	<hr/>
