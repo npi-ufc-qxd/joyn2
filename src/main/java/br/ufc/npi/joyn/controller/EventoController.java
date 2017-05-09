@@ -36,18 +36,8 @@ public class EventoController {
 	@PostMapping(path="/salvar")
 	public String salvarEvento(@Valid Evento evento, BindingResult result){
 		
-		Date data = new Date(); 
-		SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
-		String data_atual = formatador.format(data);
-		
-		if (evento.getNome().equals("")) return "formCadastroEvento";
-		
-		if (result.hasErrors()) return "formCadastroEvento";
-		
-		if (evento.getDataFim().before(evento.getDataInicio())) return "formCadastroEvento";
-		
-		if (evento.getDataInicio().toString().compareTo(data_atual) < 0) return "formCadastroEvento";
-		
+		if (!verificarFormulario(evento, result)) return "formCadastroEvento"; 
+
 		Evento salvo = eventoService.salvarEvento(evento);
 		return "redirect:/evento/" + salvo.getId();
 	}
@@ -73,19 +63,27 @@ public class EventoController {
 	
 	@PostMapping(path="/editar")
 	public String atualizar(Evento evento, BindingResult result){
+		
+		if (!verificarFormulario(evento, result)) return "formEditarEvento"; 
+		
+		Evento evento_salvo = eventoService.salvarEvento(evento);
+		return "redirect:/evento/"+evento_salvo.getId();
+	}
+	
+	
+	public boolean verificarFormulario(Evento evento, BindingResult result){
 		Date data = new Date(); 
 		SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
 		String data_atual = formatador.format(data);
 		
-		if (evento.getNome().equals("")) return "formEditarEvento";
+		if (evento.getNome().equals("")) return false;
 		
-		if (result.hasErrors()) return "formEditarEvento";
+		if (result.hasErrors()) return false;
 		
-		if (evento.getDataFim().before(evento.getDataInicio())) return "formEditarEvento";
+		if (evento.getDataFim().before(evento.getDataInicio())) return false;
 		
-		if (evento.getDataInicio().toString().compareTo(data_atual) < 0) return "formEditarEvento";
+		if (evento.getDataInicio().toString().compareTo(data_atual) < 0) return false;
 		
-		Evento evento_salvo = eventoService.salvarEvento(evento);
-		return "redirect:/evento/"+evento_salvo.getId();
+		return true;
 	}
 }
