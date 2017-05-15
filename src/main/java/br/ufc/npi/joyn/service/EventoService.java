@@ -1,5 +1,7 @@
 package br.ufc.npi.joyn.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,13 @@ public class EventoService {
 	public Evento buscarEvento(Long id){
 		Evento evento = eventoRepo.findOne(id);
 		return evento;
+	}
+	
+	public List<Evento> getMeusEventos(Long id){
+		return eventoRepo.meusEventos(id);
+	}
+	
+	public List<Evento> getMeusEventosPorNome(Long usuarioId, String nome){
+		return eventoRepo.meusEventosPorNome(usuarioId, nome);
 	}
 }

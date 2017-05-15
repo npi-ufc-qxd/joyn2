@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +26,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.ufc.npi.joyn.model.Convite;
+import br.ufc.npi.joyn.model.Evento;
 import br.ufc.npi.joyn.model.Papel;
+import br.ufc.npi.joyn.model.ParticipacaoEvento;
 import br.ufc.npi.joyn.model.Usuario;
+import br.ufc.npi.joyn.service.ConviteService;
+import br.ufc.npi.joyn.service.EventoService;
+import br.ufc.npi.joyn.service.ParticipacaoEventoService;
 import br.ufc.npi.joyn.service.UploadArquivoService;
 import br.ufc.npi.joyn.service.UsuarioService;
 
@@ -38,6 +46,15 @@ public class UsuarioController {
 	
 	@Autowired
 	UploadArquivoService uploadArquivoService;
+	
+	@Autowired
+	EventoService eventoService;
+	
+	@Autowired
+	ConviteService conviteService;
+	
+	@Autowired
+	ParticipacaoEventoService participacaoEventoService;
 	
 	private final String pastaImagensUsuarios = "imagens" + File.separator +"usuarios";
 	
@@ -52,7 +69,16 @@ public class UsuarioController {
 	public String salvarUsuario(HttpServletRequest request, @Valid Usuario usuario, BindingResult result, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
 		if (result.hasErrors()) return "formCadastroUsuario";
 		usuario.setPapel(Papel.USUARIO);
+
+		
 		Usuario userBanco = usuarioService.salvarUsuario(usuario);
+				
+		Convite convite = conviteService.getConvite(usuario.getEmail());
+		if(convite != null){
+			Evento eventoConvidado = eventoService.buscarEvento(convite.getIdEvento());
+			ParticipacaoEvento pe = new ParticipacaoEvento(userBanco, eventoConvidado, Papel.ORGANIZADOR, true);
+			participacaoEventoService.addParticipacaoEvento(pe);
+		}
 		
 		String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
 		String fotoUrl = baseUrl + "/usuario/imagens/" + userBanco.getId();
@@ -80,11 +106,12 @@ public class UsuarioController {
 	@GetMapping(path = "/home")
 	public ModelAndView homeUsuario() {
 		ModelAndView model = new ModelAndView("homeUsuario");
-		Usuario usuarioLogado = getUsuarioLogado();
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		model.addObject("usuario", usuarioLogado);
 		return model;
 	}
 	
+
 	@GetMapping(path = "/editar")
 	public ModelAndView editarUsuarioForm() {
 		ModelAndView model = new ModelAndView("editarUsuario");
@@ -124,6 +151,7 @@ public class UsuarioController {
 	}
 	
 	
+
 	@GetMapping("/imagens/{id}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable Long id) {
@@ -140,12 +168,5 @@ public class UsuarioController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
                 .body(file);
     }
-	
-	public Usuario getUsuarioLogado(){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName();
-		Usuario usuarioLogado = usuarioService.getUsuario(email);
-		return usuarioLogado;
-	}
-	
+
 }

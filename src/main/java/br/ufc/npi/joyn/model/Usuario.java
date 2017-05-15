@@ -1,9 +1,11 @@
 package br.ufc.npi.joyn.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -41,16 +43,18 @@ public class Usuario implements UserDetails{
 	@NotBlank
 	private String senha;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	List<ParticipacaoEvento> participacaoEvento;
-
-	@OneToMany
+	
+	@OneToMany(cascade=CascadeType.ALL)
 	List<ParticipacaoAtividade> participacaoAtividade;
 
 	@Enumerated(EnumType.STRING)
 	private Papel papel;
 
 	public Usuario() {
+		participacaoEvento = new ArrayList<>();
+		participacaoAtividade = new ArrayList<>();
 	}
 
 	public Long getId() {
