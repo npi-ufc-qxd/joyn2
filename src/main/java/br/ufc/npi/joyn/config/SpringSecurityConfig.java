@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +25,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
         .authorizeRequests()
         	.antMatchers("/css/**", "/js/**", "/images/**", "/plugins/**", "/bootstrap/**", "/less/**").permitAll()
-            .antMatchers("/usuario/novo", "/usuario/starter" ).permitAll()
+            .antMatchers("/usuario/cadastrar", "/usuario/starter" ).permitAll()
             .antMatchers("/usuario/home").hasRole("USUARIO")
             .anyRequest().authenticated()
             .and()
@@ -35,12 +36,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginPage("/usuario/logar")
             .usernameParameter("email")
             .passwordParameter("senha")
-            .defaultSuccessUrl("/usuario/home")
+            .defaultSuccessUrl("/evento/meus_eventos")
             .failureUrl("/usuario/logar?error=1")
             .permitAll()
             .and()
         .logout()
-            .logoutUrl("/usuario/logout")
+        	.logoutRequestMatcher(new AntPathRequestMatcher("/usuario/logout"))
             .logoutSuccessUrl("/usuario/logar")
             .invalidateHttpSession(true)
             .permitAll();
