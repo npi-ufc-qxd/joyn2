@@ -25,7 +25,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
         .authorizeRequests()
         	.antMatchers("/css/**", "/js/**", "/images/**", "/plugins/**", "/bootstrap/**", "/less/**").permitAll()
-            .antMatchers("/usuario/novo", "/usuario/starter" ).permitAll()
+            .antMatchers("/usuario/cadastrar", "/usuario/starter" ).permitAll()
             .antMatchers("/usuario/home").hasRole("USUARIO")
             .anyRequest().authenticated()
             .and()
@@ -36,7 +36,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginPage("/usuario/logar")
             .usernameParameter("email")
             .passwordParameter("senha")
-            .defaultSuccessUrl("/usuario/editar")
+            .defaultSuccessUrl("/evento/meus_eventos")
             .failureUrl("/usuario/logar?error=1")
             .permitAll()
             .and()
