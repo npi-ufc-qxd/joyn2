@@ -88,7 +88,9 @@ public class UsuarioController {
 		if(imagem != null)
 			salvarImagemUsuario(imagem, userBanco.getId());
 		
-		return "redirect:/usuario/logar";
+
+		return "redirect:/usuario/cadastrar";
+
 	}
 	
 	public String salvarImagemUsuario(MultipartFile imagem, Long idUsuario) throws IOException{

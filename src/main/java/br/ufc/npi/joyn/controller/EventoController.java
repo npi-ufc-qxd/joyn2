@@ -71,7 +71,7 @@ public class EventoController {
 		return model;
 	}
 	
-	@GetMapping(path="/salvar")
+	@GetMapping(path="/cadastrar")
 	public ModelAndView salvarEventoFormulario(){
 
 		ModelAndView model = new ModelAndView("formCadastroEvento");
@@ -80,7 +80,7 @@ public class EventoController {
 		return model;
 	}
 	
-	@PostMapping(path="/salvar")
+	@PostMapping(path="/cadastrar")
 	public String salvarEvento(@Valid Evento evento, BindingResult result){
 		
 		if (!verificarFormulario(evento, result)) return "formCadastroEvento"; 
@@ -100,12 +100,20 @@ public class EventoController {
 	@GetMapping(path="/{id}")
 	public ModelAndView visualizarEvento(@PathVariable("id") Long id){
 		
+		Usuario user = usuarioService.getUsuarioLogado();
 		Evento evento = eventoService.buscarEvento(id);
 		
-		ModelAndView model = new ModelAndView("detalhesEvento");
-		model.addObject("evento", evento);
-		
-		return model;
+		for (ParticipacaoEvento ev : evento.getParticipantes()) {
+			if (user.getId() == ev.getUsuario().getId()) {
+				if (user.getPapel().ORGANIZADOR == Papel.ORGANIZADOR) {
+					ModelAndView model = new ModelAndView("detalhesEvento");
+					model.addObject("evento", evento);
+					
+					return model;
+				}
+			}
+		}
+		return meusEventos();
 	}
 
 	@GetMapping(path="/editar/{id}")
@@ -138,6 +146,10 @@ public class EventoController {
 		if (evento.getDataFim().before(evento.getDataInicio())) return false;
 		
 		if (evento.getDataInicio().toString().compareTo(data_atual) < 0) return false;
+		
+		if (evento.getPorcentagemMin() < 0) return false;
+		
+		if (evento.getVagas() < 0) return false;
 		
 		return true;
 	}
