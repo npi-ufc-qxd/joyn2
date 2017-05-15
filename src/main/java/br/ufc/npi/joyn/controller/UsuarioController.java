@@ -58,14 +58,14 @@ public class UsuarioController {
 	
 	private final String pastaImagensUsuarios = "imagens" + File.separator +"usuarios";
 	
-	@GetMapping(path = "/novo")
+	@GetMapping(path = "/cadastrar")
 	public ModelAndView cadastroUsuario(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("formCadastroUsuario");
 		model.addObject(new Usuario());
 		return model;
 	}
 	
-	@PostMapping(path = "/novo")
+	@PostMapping(path = "/cadastrar")
 	public String salvarUsuario(HttpServletRequest request, @Valid Usuario usuario, BindingResult result, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
 		if (result.hasErrors()) return "formCadastroUsuario";
 		usuario.setPapel(Papel.USUARIO);
@@ -88,7 +88,7 @@ public class UsuarioController {
 		if(imagem != null)
 			salvarImagemUsuario(imagem, userBanco.getId());
 		
-		return "redirect:/usuario/novo";
+		return "redirect:/usuario/cadastrar";
 	}
 	
 	public String salvarImagemUsuario(MultipartFile imagem, Long idUsuario) throws IOException{

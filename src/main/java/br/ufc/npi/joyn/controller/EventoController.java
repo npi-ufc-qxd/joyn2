@@ -71,7 +71,7 @@ public class EventoController {
 		return model;
 	}
 	
-	@GetMapping(path="/salvar")
+	@GetMapping(path="/cadastrar")
 	public ModelAndView salvarEventoFormulario(){
 
 		ModelAndView model = new ModelAndView("formCadastroEvento");
@@ -80,7 +80,7 @@ public class EventoController {
 		return model;
 	}
 	
-	@PostMapping(path="/salvar")
+	@PostMapping(path="/cadastrar")
 	public String salvarEvento(@Valid Evento evento, BindingResult result){
 		
 		if (!verificarFormulario(evento, result)) return "formCadastroEvento"; 
