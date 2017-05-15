@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,6 +69,7 @@ public class UsuarioController {
 	public String salvarUsuario(HttpServletRequest request, @Valid Usuario usuario, BindingResult result, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
 		if (result.hasErrors()) return "formCadastroUsuario";
 		usuario.setPapel(Papel.USUARIO);
+
 		
 		Usuario userBanco = usuarioService.salvarUsuario(usuario);
 				
@@ -74,13 +80,13 @@ public class UsuarioController {
 			participacaoEventoService.addParticipacaoEvento(pe);
 		}
 		
-		if(imagem != null){
-			salvarImagemUsuario(imagem, usuario.getId());
-			String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
-			String fotoUrl = baseUrl + "/usuario/imagens/" + usuario.getId();
-			usuario.setFotoUrl(fotoUrl);
-			usuarioService.atualizaUsuario(usuario);
-		}
+		String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
+		String fotoUrl = baseUrl + "/usuario/imagens/" + userBanco.getId();
+		userBanco.setFotoUrl(fotoUrl);
+		usuarioService.atualizaUsuario(userBanco);
+		
+		if(imagem != null)
+			salvarImagemUsuario(imagem, userBanco.getId());
 		
 		return "redirect:/usuario/novo";
 	}
@@ -105,11 +111,58 @@ public class UsuarioController {
 		return model;
 	}
 	
+
+	@GetMapping(path = "/editar")
+	public ModelAndView editarUsuarioForm() {
+		ModelAndView model = new ModelAndView("editarUsuario");
+		Usuario usuarioLogado = getUsuarioLogado();
+		model.addObject("usuario", usuarioLogado);
+		return model;
+	}
+	
+	@PostMapping(path = "/editar")
+	public String editarUsuario(Usuario usuario, @RequestParam String senhaAtual, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
+		Usuario usuarioLogado = getUsuarioLogado();
+		Usuario usuarioBanco = usuarioService.getUsuario(usuarioLogado.getEmail());
+		
+		if(imagem != null && !imagem.isEmpty())
+			salvarImagemUsuario(imagem, usuarioBanco.getId());
+		
+		if(senhaAtual != null && !senhaAtual.isEmpty()){
+			if(usuarioService.compararSenha(usuarioBanco.getSenha(), senhaAtual))
+				usuarioBanco.setSenha(usuario.getSenha());
+		}
+		
+		if(!usuario.getNome().isEmpty())
+			usuarioBanco.setNome(usuario.getNome());
+		if(!usuario.getEmail().isEmpty())
+			usuarioBanco.setEmail(usuario.getEmail());
+		usuarioBanco = usuarioService.salvarUsuario(usuarioBanco);
+		
+		Authentication authentication = new UsernamePasswordAuthenticationToken(usuarioBanco.getEmail(), usuarioBanco.getSenha(), usuarioBanco.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		return "redirect:/usuario/home";
+	}
+
+	@GetMapping(path="/starter")
+	public String starter(){
+		return "starter";
+	}
+	
+	
+
 	@GetMapping("/imagens/{id}")
     @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable Long id) throws IOException {
+    public ResponseEntity<Resource> serveFile(@PathVariable Long id) {
 
-        Resource file = uploadArquivoService.loadAsResource(pastaImagensUsuarios + File.separator + id);
+        Resource file;
+		try {
+			file = uploadArquivoService.loadAsResource(pastaImagensUsuarios + File.separator + id);
+		} catch (IOException e) {
+			return ResponseEntity.noContent().build();
+		}
+		
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
