@@ -100,12 +100,20 @@ public class EventoController {
 	@GetMapping(path="/{id}")
 	public ModelAndView visualizarEvento(@PathVariable("id") Long id){
 		
+		Usuario user = usuarioService.getUsuarioLogado();
 		Evento evento = eventoService.buscarEvento(id);
 		
-		ModelAndView model = new ModelAndView("detalhesEvento");
-		model.addObject("evento", evento);
-		
-		return model;
+		for (ParticipacaoEvento ev : evento.getParticipantes()) {
+			if (user.getId() == ev.getUsuario().getId()) {
+				if (user.getPapel().ORGANIZADOR == Papel.ORGANIZADOR) {
+					ModelAndView model = new ModelAndView("detalhesEvento");
+					model.addObject("evento", evento);
+					
+					return model;
+				}
+			}
+		}
+		return meusEventos();
 	}
 
 	@GetMapping(path="/editar/{id}")
