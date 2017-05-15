@@ -139,6 +139,10 @@ public class EventoController {
 		
 		if (evento.getDataInicio().toString().compareTo(data_atual) < 0) return false;
 		
+		if (evento.getPorcentagemMin() < 0) return false;
+		
+		if (evento.getVagas() < 0) return false;
+		
 		return true;
 	}
 
