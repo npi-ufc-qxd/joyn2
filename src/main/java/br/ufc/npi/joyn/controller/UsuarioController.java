@@ -88,7 +88,7 @@ public class UsuarioController {
 		if(imagem != null)
 			salvarImagemUsuario(imagem, userBanco.getId());
 		
-		return "redirect:/usuario/novo";
+		return "redirect:/usuario/logar";
 	}
 	
 	public String salvarImagemUsuario(MultipartFile imagem, Long idUsuario) throws IOException{
@@ -101,16 +101,6 @@ public class UsuarioController {
 		model.addObject(new Usuario());
 		return model;
 	}
-	
-	
-	@GetMapping(path = "/home")
-	public ModelAndView homeUsuario() {
-		ModelAndView model = new ModelAndView("homeUsuario");
-		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
-		model.addObject("usuario", usuarioLogado);
-		return model;
-	}
-	
 
 	@GetMapping(path = "/editar")
 	public ModelAndView editarUsuarioForm() {
@@ -122,27 +112,36 @@ public class UsuarioController {
 	
 	@PostMapping(path = "/editar")
 	public String editarUsuario(Usuario usuario, @RequestParam String senhaAtual, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
-		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
+		Usuario usuarioLogado = getUsuarioLogado();
 		Usuario usuarioBanco = usuarioService.getUsuario(usuarioLogado.getEmail());
 		
 		if(imagem != null && !imagem.isEmpty())
 			salvarImagemUsuario(imagem, usuarioBanco.getId());
 		
-		if(senhaAtual != null && !senhaAtual.isEmpty()){
-			if(usuarioService.compararSenha(usuarioBanco.getSenha(), senhaAtual))
-				usuarioBanco.setSenha(usuario.getSenha());
-		}
-		
 		if(!usuario.getNome().isEmpty())
 			usuarioBanco.setNome(usuario.getNome());
 		if(!usuario.getEmail().isEmpty())
 			usuarioBanco.setEmail(usuario.getEmail());
-		usuarioBanco = usuarioService.salvarUsuario(usuarioBanco);
+		usuarioBanco = usuarioService.atualizaUsuario(usuarioBanco);
+		
+		if(senhaAtual != null && !senhaAtual.isEmpty()){
+			if(usuarioService.compararSenha(usuarioBanco.getSenha(), senhaAtual)){
+				usuarioBanco.setSenha(usuario.getSenha());
+				usuarioService.salvarUsuario(usuarioBanco);
+			}
+		}
 		
 		Authentication authentication = new UsernamePasswordAuthenticationToken(usuarioBanco.getEmail(), usuarioBanco.getSenha(), usuarioBanco.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
-		return "redirect:/usuario/home";
+		return "redirect:/usuario/editar";
+	}
+	
+	public Usuario getUsuarioLogado(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Usuario usuarioLogado = usuarioService.getUsuario(email);
+		return usuarioLogado;
 	}
 
 	@GetMapping(path="/starter")

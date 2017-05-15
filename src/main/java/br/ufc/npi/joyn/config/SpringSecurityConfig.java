@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -35,12 +36,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginPage("/usuario/logar")
             .usernameParameter("email")
             .passwordParameter("senha")
-            .defaultSuccessUrl("/usuario/home")
+            .defaultSuccessUrl("/usuario/editar")
             .failureUrl("/usuario/logar?error=1")
             .permitAll()
             .and()
         .logout()
-            .logoutUrl("/usuario/logout")
+        	.logoutRequestMatcher(new AntPathRequestMatcher("/usuario/logout"))
             .logoutSuccessUrl("/usuario/logar")
             .invalidateHttpSession(true)
             .permitAll();
