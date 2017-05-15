@@ -89,7 +89,7 @@ public class UsuarioController {
 			salvarImagemUsuario(imagem, userBanco.getId());
 		
 
-		return "redirect:/usuario/cadastrar";
+		return "redirect:/usuario/logar";
 
 	}
 	
@@ -114,7 +114,7 @@ public class UsuarioController {
 	
 	@PostMapping(path = "/editar")
 	public String editarUsuario(Usuario usuario, @RequestParam String senhaAtual, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
-		Usuario usuarioLogado = getUsuarioLogado();
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Usuario usuarioBanco = usuarioService.getUsuario(usuarioLogado.getEmail());
 		
 		if(imagem != null && !imagem.isEmpty())
@@ -137,13 +137,6 @@ public class UsuarioController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return "redirect:/usuario/editar";
-	}
-	
-	public Usuario getUsuarioLogado(){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName();
-		Usuario usuarioLogado = usuarioService.getUsuario(email);
-		return usuarioLogado;
 	}
 
 	@GetMapping(path="/starter")
