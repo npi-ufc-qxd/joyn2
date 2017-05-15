@@ -147,7 +147,7 @@ public class EventoController {
 		
 		if (evento.getDataInicio().toString().compareTo(data_atual) < 0) return false;
 		
-		if (evento.getPorcentagemMin() < 0) return false;
+		if (evento.getPorcentagemMin() < 0 && evento.getPorcentagemMin() > 100) return false;
 		
 		if (evento.getVagas() < 0) return false;
 		
@@ -171,7 +171,7 @@ public class EventoController {
 					 "Convite para organizar evento", 
 					 email, 
 					 "Você foi convidado para organizar o evento: " + evento.getNome() 
-					  + "\n Faca seu cadastro em: " + baseUrl + "/usuario/novo");
+					  + "\n Faca seu cadastro em: " + baseUrl + "/usuario/cadastrar");
 			Email emailConvite = new Email(emailBuilder);
 			service.sendEmail(emailConvite);
 		}
