@@ -115,14 +115,14 @@ public class UsuarioController {
 	@GetMapping(path = "/editar")
 	public ModelAndView editarUsuarioForm() {
 		ModelAndView model = new ModelAndView("editarUsuario");
-		Usuario usuarioLogado = getUsuarioLogado();
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		model.addObject("usuario", usuarioLogado);
 		return model;
 	}
 	
 	@PostMapping(path = "/editar")
 	public String editarUsuario(Usuario usuario, @RequestParam String senhaAtual, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
-		Usuario usuarioLogado = getUsuarioLogado();
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Usuario usuarioBanco = usuarioService.getUsuario(usuarioLogado.getEmail());
 		
 		if(imagem != null && !imagem.isEmpty())
