@@ -108,7 +108,7 @@ public class EventoController {
 				if (user.getPapel().ORGANIZADOR == Papel.ORGANIZADOR) {
 					ModelAndView model = new ModelAndView("detalhesEvento");
 					model.addObject("evento", evento);
-					
+					model.addObject("usuarioLogado", usuarioService.getUsuarioLogado());
 					return model;
 				}
 			}
@@ -184,9 +184,11 @@ public class EventoController {
 	@GetMapping(path="/excluirorganizador/{id}")
 	public String excluirOrganizadorEvento(@PathVariable("id") Long id){
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
-		Evento evento = participacaoEventoService.getPartipacaoEvento(id).getEvento();
+		ParticipacaoEvento peExcluir = participacaoEventoService.getPartipacaoEvento(id);
+		Evento evento = peExcluir.getEvento();
 		
-		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR 
+				&& usuarioLogado.getId() != peExcluir.getUsuario().getId())
 			participacaoEventoService.excluirParticipacaoEvento(id);
 		return "redirect:/evento/"+evento.getId();
 	}
