@@ -63,7 +63,7 @@
 					  <tbody>
 					  	<tr  th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
 							<td th:text="${organizador.usuario.nome}"></td>
-							<td><a class="waves-effect waves-teal btn-flat red" href="#">Excluir</a></td>
+							<td th:if="${organizador.usuario.id != usuarioLogado.id}"><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluirorganizador/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
 					    </tr>
 					  </tbody>
 					</table>
