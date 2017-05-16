@@ -11,4 +11,6 @@ import br.ufc.npi.joyn.model.Atividade;
 @Transactional
 public interface AtividadeRepository extends JpaRepository<Atividade, Long>{
 
+	
 }
+
