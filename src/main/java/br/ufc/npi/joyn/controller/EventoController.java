@@ -9,8 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,14 +99,16 @@ public class EventoController {
 	public ModelAndView visualizarEvento(@PathVariable("id") Long id){
 		
 		Usuario user = usuarioService.getUsuarioLogado();
+		List<ParticipacaoEvento> organizadores = participacaoEventoService.organizadoresEvento(id);
+		
 		Evento evento = eventoService.buscarEvento(id);
 		
-		for (ParticipacaoEvento ev : evento.getParticipantes()) {
-			if (user.getId() == ev.getUsuario().getId()) {
-				if (user.getPapel().ORGANIZADOR == Papel.ORGANIZADOR) {
+		for (ParticipacaoEvento org : organizadores) {
+			if (user.getId() == org.getUsuario().getId()) {
+				if (org.getPapel() == Papel.ORGANIZADOR) {
 					ModelAndView model = new ModelAndView("detalhesEvento");
 					model.addObject("evento", evento);
-					model.addObject("usuarioLogado", usuarioService.getUsuarioLogado());
+					model.addObject("usuarioLogado", user);
 					return model;
 				}
 			}
@@ -193,11 +193,24 @@ public class EventoController {
 		return "redirect:/evento/"+evento.getId();
 	}
 	
-	public Usuario getUsuarioLogado(){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName();
-		Usuario usuarioLogado = usuarioService.getUsuario(email);
-		return usuarioLogado;
+	
+	@GetMapping(path="/participantes_evento/{id}")
+	public ModelAndView participantesEvento(@PathVariable("id") Long id){
 		
+		Usuario user = usuarioService.getUsuarioLogado();
+		List<ParticipacaoEvento> organizadores = participacaoEventoService.organizadoresEvento(id);
+		List<ParticipacaoEvento> participantes = participacaoEventoService.participantesEvento(id);
+		
+		for (ParticipacaoEvento org : organizadores) {
+			if (user.getId() == org.getUsuario().getId()) {
+				if (org.getPapel() == Papel.ORGANIZADOR) {
+					ModelAndView model = new ModelAndView("participantesEvento");
+					model.addObject("participantes", participantes);
+					model.addObject("usuarioLogado", user);
+					return model;
+				}
+			}
+		}
+		return meusEventos();
 	}
 }
