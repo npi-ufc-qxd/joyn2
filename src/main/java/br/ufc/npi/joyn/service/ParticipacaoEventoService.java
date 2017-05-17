@@ -1,5 +1,7 @@
 package br.ufc.npi.joyn.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +47,13 @@ public class ParticipacaoEventoService {
 	
 	public Papel getPapelUsuarioEvento(Usuario usuario, Evento evento){
 		return participacaoEventoRepository.getPapelUsuarioEvento(usuario.getId(), evento.getId());
+	}
+	
+	public List<ParticipacaoEvento> participantesEvento(Long id){
+		return participacaoEventoRepository.getListaParticipantes(id);
+	}
+	
+	public List<ParticipacaoEvento> organizadoresEvento(Long id){
+		return participacaoEventoRepository.getListaOrganizadores(id);
 	}
 }
