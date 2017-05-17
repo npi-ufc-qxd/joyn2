@@ -108,7 +108,7 @@ public class EventoController {
 				if (user.getPapel().ORGANIZADOR == Papel.ORGANIZADOR) {
 					ModelAndView model = new ModelAndView("detalhesEvento");
 					model.addObject("evento", evento);
-					
+					model.addObject("usuarioLogado", usuarioService.getUsuarioLogado());
 					return model;
 				}
 			}
@@ -147,7 +147,7 @@ public class EventoController {
 		
 		if (evento.getDataInicio().toString().compareTo(data_atual) < 0) return false;
 		
-		if (evento.getPorcentagemMin() < 0 && evento.getPorcentagemMin() > 100) return false;
+		if (evento.getPorcentagemMin() < 0 || evento.getPorcentagemMin() > 100) return false;
 		
 		if (evento.getVagas() < 0) return false;
 		
@@ -156,27 +156,41 @@ public class EventoController {
 
 	@PostMapping(path="/convidar")
 	public String convidar(HttpServletRequest request, @RequestParam String email, @RequestParam Long id){
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Usuario usuario = usuarioService.getUsuario(email);
 		Evento evento = eventoService.buscarEvento(id);
-		
-		if(usuario != null){
-			ParticipacaoEvento pe = new ParticipacaoEvento(usuario, evento, Papel.ORGANIZADOR, true);
-			participacaoEventoService.addParticipacaoEvento(pe);
-			
-		} else {
-			conviteService.addConvite(new Convite(email, id));
-			String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
-			EmailBuilder emailBuilder = new EmailBuilder("Joyn",
-					 "joyn@npi.com.br",
-					 "Convite para organizar evento", 
-					 email, 
-					 "Você foi convidado para organizar o evento: " + evento.getNome() 
-					  + "\n Faca seu cadastro em: " + baseUrl + "/usuario/cadastrar");
-			Email emailConvite = new Email(emailBuilder);
-			service.sendEmail(emailConvite);
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR){
+			if(usuario != null){
+				ParticipacaoEvento pe = new ParticipacaoEvento(usuario, evento, Papel.ORGANIZADOR, true);
+				participacaoEventoService.addParticipacaoEvento(pe);
+				
+			} else {
+				conviteService.addConvite(new Convite(email, id));
+				String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
+				EmailBuilder emailBuilder = new EmailBuilder("Joyn",
+						 "joyn@npi.com.br",
+						 "Convite para organizar evento", 
+						 email, 
+						 "Você foi convidado para organizar o evento: " + evento.getNome() 
+						  + "\n Faca seu cadastro em: " + baseUrl + "/usuario/cadastrar");
+				Email emailConvite = new Email(emailBuilder);
+				service.sendEmail(emailConvite);
+			}
 		}
 		return "redirect:/evento/"+id;
 
+	}
+	
+	@GetMapping(path="/excluirorganizador/{id}")
+	public String excluirOrganizadorEvento(@PathVariable("id") Long id){
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
+		ParticipacaoEvento peExcluir = participacaoEventoService.getPartipacaoEvento(id);
+		Evento evento = peExcluir.getEvento();
+		
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR 
+				&& usuarioLogado.getId() != peExcluir.getUsuario().getId())
+			participacaoEventoService.excluirParticipacaoEvento(id);
+		return "redirect:/evento/"+evento.getId();
 	}
 	
 	public Usuario getUsuarioLogado(){
