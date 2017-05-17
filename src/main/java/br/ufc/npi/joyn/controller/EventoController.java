@@ -213,4 +213,15 @@ public class EventoController {
 		}
 		return meusEventos();
 	}
+	
+	@GetMapping(path="/excluir_participantes/{id}")
+	public String excluirParticipanteEvento(@PathVariable("id") Long id){
+		/* Depois, quando a atividade estiver pronta, tratar a exclusão de usuário das atividades que ele está! */
+		ParticipacaoEvento partEvento = participacaoEventoService.getPartipacaoEvento(id);
+		Evento evento = partEvento.getEvento();
+		
+		participacaoEventoService.excluirParticipacaoEvento(id);
+		
+		return "redirect:/evento/participantes_evento/"+evento.getId();
+	}
 }
