@@ -1,5 +1,6 @@
 package br.ufc.npi.joyn.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import br.ufc.npi.joyn.model.ParticipacaoEvento;
 import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.service.AtividadeService;
 import br.ufc.npi.joyn.service.EventoService;
+import br.ufc.npi.joyn.service.ParticipacaoAtividadeService;
 import br.ufc.npi.joyn.service.UsuarioService;
 
 @Controller
@@ -32,6 +34,9 @@ public class AtividadeController {
 	
 	@Autowired
 	UsuarioService usuarioService;
+	
+	@Autowired
+	ParticipacaoAtividadeService participacaoAtividadeService;
 	
 	@GetMapping(path="/{idEvento}/cadastrar")
 	public ModelAndView cadastrarAtividade(@PathVariable("idEvento") Long idEvento){
@@ -60,9 +65,32 @@ public class AtividadeController {
 		
 		if (!verificarFormulario(atividade)) return "formCadastroAtividade";
 		
-		//Usuario logado = usuarioService.getUsuarioLogado();
+		List<ParticipacaoAtividade> participantes = new ArrayList<ParticipacaoAtividade>();
+		atividade.setParticipantes(participantes);
+		Atividade atividadeSalva = atividadeService.salvarAtividade(atividade);
 		
-		return "";
+		Evento evento = eventoService.buscarEvento(atividadeSalva.getEvento().getId());
+		List<Atividade> atividades =  evento.getAtividades();
+		atividades.add(atividadeSalva);
+		evento.setAtividades(atividades);
+		eventoService.salvarEvento(evento);
+		
+		Usuario logado = usuarioService.getUsuarioLogado();
+		ParticipacaoAtividade participacaoAtividadeSalva = participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva);		
+		
+		participantes = atividadeSalva.getParticipantes();
+		participantes.add(participacaoAtividadeSalva);
+		atividadeService.salvarAtividade(atividadeSalva);
+		
+		return "redirect:/atividade/" + atividadeSalva.getId();
+	}
+	
+	@GetMapping(path="/{id}")
+	public ModelAndView detalhesAtividade(@PathVariable("id") Long id){
+		ModelAndView model = new ModelAndView("detalhesAtividade");
+		Atividade atividade =  atividadeService.buscarAtividade(id);
+		model.addObject("atividade", atividade);
+		return model;
 	}
 	
 	public boolean verificarFormulario(Atividade atividade){

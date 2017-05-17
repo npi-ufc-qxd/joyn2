@@ -11,6 +11,10 @@ public class AtividadeService {
 	
 	@Autowired
 	AtividadeRepository atividadeRepo;
+	
+	public Atividade buscarAtividade(Long id){
+		return atividadeRepo.getAtividade(id);
+	}
 
 	public Atividade salvarAtividade(Atividade atividade){
 		Atividade atividadeSalva = atividadeRepo.save(atividade);
