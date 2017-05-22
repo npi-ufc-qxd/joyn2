@@ -20,6 +20,7 @@ import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.service.AtividadeService;
 import br.ufc.npi.joyn.service.EventoService;
 import br.ufc.npi.joyn.service.ParticipacaoAtividadeService;
+import br.ufc.npi.joyn.service.ParticipacaoEventoService;
 import br.ufc.npi.joyn.service.UsuarioService;
 
 @Controller
@@ -37,6 +38,9 @@ public class AtividadeController {
 	
 	@Autowired
 	ParticipacaoAtividadeService participacaoAtividadeService;
+	
+	@Autowired
+	ParticipacaoEventoService participacaoEventoService;
 	
 	@GetMapping(path="/{idEvento}/cadastrar")
 	public ModelAndView cadastrarAtividade(@PathVariable("idEvento") Long idEvento){
@@ -91,6 +95,18 @@ public class AtividadeController {
 		Atividade atividade =  atividadeService.buscarAtividade(id);
 		model.addObject("atividade", atividade);
 		return model;
+	}
+	
+	@GetMapping(path="/excluirparticipante/{id}")
+	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
+		ParticipacaoAtividade paExcluir = participacaoAtividadeService.getParticipacaoAtividade(idParticipacaoEvento);
+		Atividade atividade = paExcluir.getAtividade();
+		Evento evento = paExcluir.getAtividade().getEvento();
+		
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
+			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoEvento);
+		return "redirect:/atividade/verparticipantes/"+atividade.getId();
 	}
 	
 	public boolean verificarFormulario(Atividade atividade){
