@@ -57,6 +57,10 @@ public class UsuarioService {
 		return usuarioRepository.findByEmail(email);
 	}
 	
+	public Usuario getUsuario(Long id){
+		return usuarioRepository.findOne(id);
+	}
+	
 	public Usuario getUsuarioLogado(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();

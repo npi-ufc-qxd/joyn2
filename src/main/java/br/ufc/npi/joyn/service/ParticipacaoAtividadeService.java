@@ -13,6 +13,15 @@ import br.ufc.npi.joyn.repository.ParticipacaoAtividadeRepository;
 public class ParticipacaoAtividadeService {
 	
 	@Autowired
+	ParticipacaoAtividadeRepository participacaoAtividadeRepository;
+	
+	@Autowired
+	AtividadeService atividadeService;
+	
+	@Autowired
+	UsuarioService usuarioService;
+	
+	@Autowired
 	ParticipacaoAtividadeRepository participacaoRepo;
 	
 	public ParticipacaoAtividade adicionarAtividade(Usuario usuario, Atividade atividade){
@@ -27,7 +36,25 @@ public class ParticipacaoAtividadeService {
 			participacaoAtividade.setStatus(false);
 		}
 
-		return participacaoRepo.save(participacaoAtividade); 
+		ParticipacaoAtividade paSalvo = participacaoRepo.save(participacaoAtividade);
+		usuario.getParticipacaoAtividade().add(paSalvo);
+		atividade.getParticipantes().add(paSalvo);
+		usuarioService.atualizaUsuario(usuario);
+		atividadeService.salvar(atividade);
+		return paSalvo; 
+	}
+	
+	public void excluirParticipacaoAtividade(Long id){
+		ParticipacaoAtividade paSalvo = getParticipacaoAtividade(id);
+		paSalvo.getUsuario().getParticipacaoAtividade().remove(paSalvo);
+		paSalvo.getAtividade().getParticipantes().remove(paSalvo);
+		usuarioService.atualizaUsuario(paSalvo.getUsuario());
+		atividadeService.salvar(paSalvo.getAtividade());
+		participacaoAtividadeRepository.delete(id);
+	}
+	
+	public ParticipacaoAtividade getParticipacaoAtividade(Long id){
+		return participacaoAtividadeRepository.findOne(id);
 	}
 
 }
