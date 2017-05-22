@@ -29,5 +29,9 @@ public class ParticipacaoAtividadeService {
 
 		return participacaoRepo.save(participacaoAtividade); 
 	}
+	
+	public void removerAtividade(ParticipacaoAtividade pa){
+		participacaoRepo.delete(pa);
+	}
 
 }

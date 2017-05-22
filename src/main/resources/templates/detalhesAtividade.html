@@ -23,17 +23,17 @@
 				<h4> Evento: <span th:text="${atividade.evento.nome}"></span></h4>
 				<h4> Número de vagas: <span th:text="${atividade.vagas}"></span></h4>
 				<h4> Tipo de atividade: <span th:text="${atividade.tipo}"></span></h4>
-				<h4> Quantidade de Turnos: <span th:text="${atividade.minimoParaFreq}"></span></h4>
+				<h4> Quantidade de Turnos: <span th:text="${atividade.dias}"></span></h4>
 				<h4> Mínimo para Frequência: <span th:text="${atividade.minimoParaFreq}"></span></h4>
-				<h4> Pontuação: <span th:text="${atividade.minimoParaFreq}"></span></h4>
+				<h4> Pontuação: <span th:text="${atividade.pontuacao}"></span></h4>
 				<h4 th:if="${atividade.status}">Atividade acessível ao público</h4>
 				<h4 th:unless="${atividade.status}">Atividade não acessível ao público</h4>	
 				
 				<div class="">
 					
 					<h5><a href="#">Participantes</a></h5>
-					<h5><a href="#">Editar</a></h5>
-					<h5><a href="#">Excluir</a></h5>
+					<h5><a th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a></h5>
+					<h5><a th:href="@{${'/atividade/excluir/'+atividade.id}}">Excluir</a></h5>
 				</div>
    			</div>
 			<!-- Fim do Conteudo principal -->
