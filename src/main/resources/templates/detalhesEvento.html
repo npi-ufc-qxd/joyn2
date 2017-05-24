@@ -83,7 +83,7 @@
 					  	<tr  th:each="atividade : ${evento.atividades}">
 							<td th:text="${atividade.nome}"> </td>
 							<td><a class="waves-effect waves-teal btn-flat orange" th:href="@{${'/atividade/'+atividade.id}}"> Ver Detalhes </a></td>
-							<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/atividade/excluir/'+atividade.id}}"> Excluir </a></td>
+							<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')" > Excluir </a></td>
 					    </tr>
 					  </tbody>
 					</table>
