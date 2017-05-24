@@ -20,6 +20,7 @@ import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.service.AtividadeService;
 import br.ufc.npi.joyn.service.EventoService;
 import br.ufc.npi.joyn.service.ParticipacaoAtividadeService;
+import br.ufc.npi.joyn.service.ParticipacaoEventoService;
 import br.ufc.npi.joyn.service.UsuarioService;
 
 @Controller
@@ -37,6 +38,9 @@ public class AtividadeController {
 	
 	@Autowired
 	ParticipacaoAtividadeService participacaoAtividadeService;
+	
+	@Autowired
+	ParticipacaoEventoService participacaoEventoService;
 	
 	@GetMapping(path="/{idEvento}/cadastrar")
 	public ModelAndView cadastrarAtividade(@PathVariable("idEvento") Long idEvento){
@@ -76,11 +80,7 @@ public class AtividadeController {
 		eventoService.salvarEvento(evento);
 		
 		Usuario logado = usuarioService.getUsuarioLogado();
-		ParticipacaoAtividade participacaoAtividadeSalva = participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva);		
-		
-		participantes = atividadeSalva.getParticipantes();
-		participantes.add(participacaoAtividadeSalva);
-		atividadeService.salvarAtividade(atividadeSalva);
+		participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva);		
 		
 		return "redirect:/atividade/" + atividadeSalva.getId();
 	}
@@ -89,6 +89,14 @@ public class AtividadeController {
 	public ModelAndView detalhesAtividade(@PathVariable("id") Long id){
 		ModelAndView model = new ModelAndView("detalhesAtividade");
 		Atividade atividade =  atividadeService.buscarAtividade(id);
+		model.addObject("atividade", atividade);
+		return model;
+	}
+	
+	@GetMapping(path="/verparticipantes/{id}")
+	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){
+		Atividade atividade = atividadeService.buscarAtividade(idAtividade);
+		ModelAndView model = new ModelAndView("listarParticipantesAtividade");
 		model.addObject("atividade", atividade);
 		return model;
 	}

@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="base/base">
+	  
+<body>
+
+<div class="container-fluid" layout:fragment="conteudo">
+	<div class="row bg-title">
+	<!-- .page title -->
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h4 class="page-title">Participantes da Atividade</h4> <!-- Pode ser alterado -->
+		</div>
+	<!-- /.page title -->
+	</div>
+	
+	<div class="col-md-12">
+	<!-- Conteudo principal -->
+		<div class="white-box">
+			<table>
+			  <thead>
+			    <tr>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Excluir</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	<tr  th:each="atividadeParticipante : ${atividade.participantes}">
+					<td th:text="${atividadeParticipante.usuario.nome}"></td>
+					<td th:text="${atividadeParticipante.usuario.email}"></td>
+					<td><a th:href="@{${'/atividade/excluirparticipante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>
+			    </tr>
+			  </tbody>
+			</table>
+	    </div>
+	<!-- Fim do Conteudo principal -->
+	</div>
+	
+</div>
+
+
+</body>
+</html>
