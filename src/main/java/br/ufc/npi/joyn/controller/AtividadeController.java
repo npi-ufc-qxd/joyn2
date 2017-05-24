@@ -137,6 +137,7 @@ public class AtividadeController {
 		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
 			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoEvento);
 		return "redirect:/atividade/verparticipantes/"+atividade.getId();
+	}
 
 	@GetMapping(path="/verparticipantes/{id}")
 	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){

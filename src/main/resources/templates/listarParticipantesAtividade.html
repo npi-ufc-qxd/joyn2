@@ -22,6 +22,7 @@
 			    <tr>
 				<th>Nome</th>
 				<th>Email</th>
+				<th>Foto</th>
 				<th>Excluir</th>
 			    </tr>
 			  </thead>
@@ -29,6 +30,7 @@
 			  	<tr  th:each="atividadeParticipante : ${atividade.participantes}">
 					<td th:text="${atividadeParticipante.usuario.nome}"></td>
 					<td th:text="${atividadeParticipante.usuario.email}"></td>
+					<td><img alt="Foto" th:src="${atividadeParticipante.usuario.fotoUrl}" height="80"></img> </td>
 					<td><a th:href="@{${'/atividade/excluirparticipante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>
 			    </tr>
 			  </tbody>
