@@ -93,7 +93,7 @@ public class AtividadeController {
 		return model;
 	}
 	
-<<<<<<< HEAD
+
 	@GetMapping(path="/editar/{id}")
 	public ModelAndView editarAtividade(@PathVariable("id") Long id){
 		ModelAndView model = new ModelAndView("formEditarAtividade");
@@ -125,7 +125,7 @@ public class AtividadeController {
 		return "redirect:/evento/"+evento.getId();
 	}	
 	
-=======
+
 
 	@GetMapping(path="/excluirparticipante/{id}")
 	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
@@ -147,7 +147,7 @@ public class AtividadeController {
 
 	}
 	
->>>>>>> a2f5abb5fec04041e605af53e9af98df170abaa9
+
 	public boolean verificarFormulario(Atividade atividade){
 		if (atividade.getNome() == null || atividade.getDescricao() == null || 
 				atividade.getDias() == null || atividade.getTipo() == null) return false;
