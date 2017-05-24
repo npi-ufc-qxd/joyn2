@@ -94,6 +94,39 @@ public class AtividadeController {
 	}
 	
 
+	@GetMapping(path="/editar/{id}")
+	public ModelAndView editarAtividade(@PathVariable("id") Long id){
+		ModelAndView model = new ModelAndView("formEditarAtividade");
+		Atividade atividade = atividadeService.buscarAtividade(id);
+		model.addObject("atividade", atividade);
+		return model;
+	}
+	
+	@PostMapping(path="/editar")
+	public String atualizarAtividade(Atividade atividade){
+		//System.err.println(atividade.toString());
+		
+		if (!verificarFormulario(atividade)) return "formEditarAtividade"; 
+		
+		Atividade atividadeSalva = atividadeService.salvarAtividade(atividade);
+		return "redirect:/atividade/"+atividadeSalva.getId();
+	}
+	
+	@GetMapping(path="/excluir/{id}")
+	public String excluirAtividade(@PathVariable("id") Long id){
+		Atividade atividade = atividadeService.buscarAtividade(id);
+		
+		
+		Evento evento = eventoService.buscarEvento(atividade.getEvento().getId());
+		evento.getAtividades().remove(atividade);
+		eventoService.salvarEvento(evento);
+		
+		atividadeService.removerAtividade(atividade);		
+		return "redirect:/evento/"+evento.getId();
+	}	
+	
+
+
 	@GetMapping(path="/excluirparticipante/{id}")
 	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
@@ -114,6 +147,7 @@ public class AtividadeController {
 
 	}
 	
+
 	public boolean verificarFormulario(Atividade atividade){
 		if (atividade.getNome() == null || atividade.getDescricao() == null || 
 				atividade.getDias() == null || atividade.getTipo() == null) return false;

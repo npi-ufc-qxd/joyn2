@@ -56,5 +56,9 @@ public class ParticipacaoAtividadeService {
 	public ParticipacaoAtividade getParticipacaoAtividade(Long id){
 		return participacaoAtividadeRepository.findOne(id);
 	}
+	
+	public void removerAtividade(ParticipacaoAtividade pa){
+		participacaoRepo.delete(pa);
+	}
 
 }

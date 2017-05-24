@@ -24,4 +24,8 @@ public class AtividadeService {
 		Atividade atividadeSalva = atividadeRepo.save(atividade);
 		return atividadeSalva;
 	}
+	
+	public void removerAtividade(Atividade atividade){
+		atividadeRepo.delete(atividade);
+	}
 }

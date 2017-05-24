@@ -2,6 +2,7 @@ package br.ufc.npi.joyn.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,7 +22,7 @@ public class ParticipacaoAtividade {
 	@ManyToOne
 	private Usuario usuario;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	private Atividade atividade;
 
 	@Enumerated(EnumType.STRING)

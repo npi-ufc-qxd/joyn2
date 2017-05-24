@@ -2,6 +2,7 @@ package br.ufc.npi.joyn.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Atividade {
@@ -21,7 +23,7 @@ public class Atividade {
 	private String nome;
 	private String descricao;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.REMOVE)
 	private List<ParticipacaoAtividade> participantes;
 
 	private Integer vagas;
@@ -139,5 +141,14 @@ public class Atividade {
 	public void setHorarios(List<HorarioAtividade> horarios) {
 		this.horarios = horarios;
 	}
+
+	@Override
+	public String toString() {
+		return "Atividade [nome=" + nome + ", descricao=" + descricao + ", vagas=" + vagas + ", dias=" + dias
+				+ ", tipo=" + tipo + ", minimoParaFreq=" + minimoParaFreq + ", pontuacao=" + pontuacao + ", status="
+				+ status + "]";
+	}
+	
+	
 
 }
