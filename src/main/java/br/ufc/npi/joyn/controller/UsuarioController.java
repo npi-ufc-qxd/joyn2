@@ -85,7 +85,7 @@ public class UsuarioController {
 		userBanco.setFotoUrl(fotoUrl);
 		usuarioService.atualizaUsuario(userBanco);
 		
-		if(imagem != null)
+		if(imagem != null && !imagem.isEmpty())
 			salvarImagemUsuario(imagem, userBanco.getId());
 		
 
@@ -137,13 +137,37 @@ public class UsuarioController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return "redirect:/usuario/editar";
-	}
-
+	}	
+	
+	
 	@GetMapping(path="/starter")
 	public String starter(){
 		return "starter";
 	}
 	
+	@GetMapping(path="/recuperarsenha")
+	public String recuperarsenha(){
+		return "formRecuperarSenha";
+	}
+	
+	@PostMapping(path = "/recuperarsenha")
+	public String recuperarsenha(@RequestParam String email){
+		usuarioService.recuperarSenha(email);
+		return "redirect:/usuario/logar";
+	}
+	
+	@GetMapping(path="/alterarsenha/{token}")
+	public ModelAndView alterarSenha(@PathVariable String token){
+		ModelAndView model = new ModelAndView("formAlterarSenha");
+		model.addObject("token", token);
+		return model;
+	}
+	
+	@PostMapping(path = "/novasenha")
+	public String novasenha(@RequestParam String token, @RequestParam String novaSenha){
+		usuarioService.novaSenha(token, novaSenha);
+		return "redirect:/usuario/logar";
+	}
 	
 
 	@GetMapping("/imagens/{id}")
