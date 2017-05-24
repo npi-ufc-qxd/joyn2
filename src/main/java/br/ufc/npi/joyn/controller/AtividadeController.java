@@ -137,7 +137,8 @@ public class AtividadeController {
 		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
 			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoEvento);
 		return "redirect:/atividade/verparticipantes/"+atividade.getId();
-
+	}
+	
 	@GetMapping(path="/verparticipantes/{id}")
 	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){
 		Atividade atividade = atividadeService.buscarAtividade(idAtividade);
@@ -145,6 +146,14 @@ public class AtividadeController {
 		model.addObject("atividade", atividade);
 		return model;
 
+	}
+	
+	@GetMapping(path="/addparticipantes/{idUser}/{atv}")
+	public String addParticipantes(@PathVariable("idUser") Long usuarioid, @PathVariable("atv") Long atividadeid){
+		Usuario usuario = usuarioService.getUsuario(usuarioid);
+		Atividade atividade = atividadeService.buscarAtividade(atividadeid);
+		participacaoAtividadeService.adicionarAtividade(usuario, atividade);
+		return "redirect:/atividade/verparticipantes/"+atividade.getId();
 	}
 	
 

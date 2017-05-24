@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import br.ufc.npi.joyn.model.Atividade;
 import br.ufc.npi.joyn.model.Papel;
 import br.ufc.npi.joyn.model.ParticipacaoAtividade;
+import br.ufc.npi.joyn.model.ParticipacaoEvento;
 import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.repository.ParticipacaoAtividadeRepository;
 
@@ -24,11 +25,15 @@ public class ParticipacaoAtividadeService {
 	@Autowired
 	ParticipacaoAtividadeRepository participacaoRepo;
 	
+	@Autowired
+	ParticipacaoEventoService participacaoEvento;
+	
 	public ParticipacaoAtividade adicionarAtividade(Usuario usuario, Atividade atividade){
 		ParticipacaoAtividade participacaoAtividade = new ParticipacaoAtividade();
+		
 		participacaoAtividade.setUsuario(usuario);
 		participacaoAtividade.setAtividade(atividade);
-		participacaoAtividade.setPapel(Papel.ORGANIZADOR);
+		participacaoAtividade.setPapel(Papel.PARTICIPANTE);
 		
 		if (atividade.getParticipantes().size() < atividade.getVagas()){
 			participacaoAtividade.setStatus(true);
@@ -37,10 +42,12 @@ public class ParticipacaoAtividadeService {
 		}
 
 		ParticipacaoAtividade paSalvo = participacaoRepo.save(participacaoAtividade);
+		
 		usuario.getParticipacaoAtividade().add(paSalvo);
 		atividade.getParticipantes().add(paSalvo);
 		usuarioService.atualizaUsuario(usuario);
 		atividadeService.salvar(atividade);
+		participacaoEvento.addParticipacaoEvento(new ParticipacaoEvento(usuario, atividade.getEvento(), Papel.PARTICIPANTE, true));
 		return paSalvo; 
 	}
 	
