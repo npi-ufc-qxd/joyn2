@@ -20,6 +20,7 @@ import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.service.AtividadeService;
 import br.ufc.npi.joyn.service.EventoService;
 import br.ufc.npi.joyn.service.ParticipacaoAtividadeService;
+import br.ufc.npi.joyn.service.ParticipacaoEventoService;
 import br.ufc.npi.joyn.service.UsuarioService;
 
 @Controller
@@ -37,6 +38,9 @@ public class AtividadeController {
 	
 	@Autowired
 	ParticipacaoAtividadeService participacaoAtividadeService;
+	
+	@Autowired
+	ParticipacaoEventoService participacaoEventoService;
 	
 	@GetMapping(path="/{idEvento}/cadastrar")
 	public ModelAndView cadastrarAtividade(@PathVariable("idEvento") Long idEvento){
@@ -76,11 +80,7 @@ public class AtividadeController {
 		eventoService.salvarEvento(evento);
 		
 		Usuario logado = usuarioService.getUsuarioLogado();
-		ParticipacaoAtividade participacaoAtividadeSalva = participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva);		
-		
-		participantes = atividadeSalva.getParticipantes();
-		participantes.add(participacaoAtividadeSalva);
-		atividadeService.salvarAtividade(atividadeSalva);
+		participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva);		
 		
 		return "redirect:/atividade/" + atividadeSalva.getId();
 	}
@@ -93,6 +93,7 @@ public class AtividadeController {
 		return model;
 	}
 	
+<<<<<<< HEAD
 	@GetMapping(path="/editar/{id}")
 	public ModelAndView editarAtividade(@PathVariable("id") Long id){
 		ModelAndView model = new ModelAndView("formEditarAtividade");
@@ -124,6 +125,29 @@ public class AtividadeController {
 		return "redirect:/evento/"+evento.getId();
 	}	
 	
+=======
+
+	@GetMapping(path="/excluirparticipante/{id}")
+	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
+		ParticipacaoAtividade paExcluir = participacaoAtividadeService.getParticipacaoAtividade(idParticipacaoEvento);
+		Atividade atividade = paExcluir.getAtividade();
+		Evento evento = paExcluir.getAtividade().getEvento();
+		
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
+			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoEvento);
+		return "redirect:/atividade/verparticipantes/"+atividade.getId();
+
+	@GetMapping(path="/verparticipantes/{id}")
+	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){
+		Atividade atividade = atividadeService.buscarAtividade(idAtividade);
+		ModelAndView model = new ModelAndView("listarParticipantesAtividade");
+		model.addObject("atividade", atividade);
+		return model;
+
+	}
+	
+>>>>>>> a2f5abb5fec04041e605af53e9af98df170abaa9
 	public boolean verificarFormulario(Atividade atividade){
 		if (atividade.getNome() == null || atividade.getDescricao() == null || 
 				atividade.getDias() == null || atividade.getTipo() == null) return false;
