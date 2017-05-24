@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>Home</title>
+	</head>
+	<body>
+		<h1>Perfil </h1>
+		Nome: <span th:text="${usuario.nome}"> </span>
+		<br/>
+		Email: <span th:text="${usuario.email}"> </span>
+		<br/>
+		Foto Url: <img th:src="${usuario.fotoUrl}" />
+		<br/>
+		Senha: <span th:text="${usuario.senha}"> </span>
+	</body>
+</html>

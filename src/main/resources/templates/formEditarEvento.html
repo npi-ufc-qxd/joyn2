@@ -1,84 +1,154 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorator="base/base">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/base">
 
 <head>
-	<title>Meus Eventos</title>
-	<meta name="_csrf" content="${_csrf.token}"/>
-	<!-- default header name is X-CSRF-TOKEN -->
-	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+<title>Meus Eventos</title>
+<meta name="_csrf" content="${_csrf.token}" />
+<!-- default header name is X-CSRF-TOKEN -->
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 </head>
 
-	  
+
 <body>
 
-<div class="container-fluid" layout:fragment="conteudo">
-				<div class="row bg-title">
-					<!-- .page title -->
-					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-						<h4 class="page-title">Editar Evento</h4> <!-- Pode ser alterado -->
-					</div>
-					<!-- /.page title -->
-				</div>
-				<div class="col-md-12">
-				<!-- Conteudo principal -->
-            		<div class="white-box">
-                		<form action="/evento/editar" method="POST" th:object="${evento}">
-                			
-                			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                			
-                			<div th:if="${#fields.hasAnyErrors()}">
-                				<h3>Preencha todos os campos corretamente!</h3>
-                			</div>
-                			<input th:field="*{id}" type="hidden" value="th:text=${evento.id}"/>
-                			<input th:field="*{atividades}" type="hidden" value="th:text=${evento.atividades}"/>
-                			<input th:field="*{participantes}" type="hidden" value="th:text=${evento.participantes}"/>
-                			
-                			<label for="nome">Nome do Evento</label>
-                			<input id="nome" th:field="*{nome}" type="text"  value="th:text=${evento.nome}"  />
-                			<br />
-                			
-                			<label for="descricao">Descrição</label>
-                			<input id="descricao" th:field="*{descricao}" type="text"  value="th:text=${evento.descricao}"/>
-                			<br />
-                			
-                			<label for="dataIni">Data de Início</label>
-							<input id="dataIni" th:field="*{dataInicio}" type="date"  value="th:text=${evento.dataInicio}"/>
-							<br />
-							
-							<label for="dataFim">Data de Término</label>
-							<input id="dataFim" th:field="*{dataFim}" type="date"  value="th:text=${evento.dataFim}"/>
-							<br />
-							
-							<label for="vagas">Quantidade de vagas</label>
-							<input id="vagas" th:field="*{vagas}" type="number"  value="th:text=${evento.vagas}"/>
-							<br />
-							
-							<label for="local">Local</label>
-							<input id="local" th:field="*{local}" type="text"  value="th:text=${evento.local}"/>
-							<br />
-							
-							<label for="porceMin">Porcentagem Mínima de Frequência</label>
-							<input id="porceMin" th:field="*{porcentagemMin}" type="number" value="th:text=${evento.porcentagemMin}" />
-							<br />
-							
-							<label for="status">Status:</label>
-							<input id="status" type="checkbox" th:field="*{status}" value="th:text=${evento.status}"/>
-							<br />
-							
-							<label for="gameficado">Gameficado</label>
-							<input id="gameficado" type="checkbox" th:field="*{gameficado}" value="th:text=${evento.gameficado}"/>
-							<br />
-							
-							<button type="submit">Atualizar</button>
-                			
-                		</form>
-            		</div>
-            		<!-- Fim do Conteudo principal -->
-        		</div>
-
+	<div class="container-fluid" layout:fragment="conteudo">
+		<div class="row bg-title">
+			<!-- .page title -->
+			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+				<h4 class="page-title">Editar Evento</h4>
+				<!-- Pode ser alterado -->
 			</div>
+			<!-- /.page title -->
+		</div>
+		<div class="col-md-12">
+			<!-- Conteudo principal -->
+			<div class="white-box">
+				<form action="/evento/editar" method="POST" th:object="${evento}">
+
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
+
+					<div th:if="${#fields.hasAnyErrors()}">
+						<h3>Preencha todos os campos corretamente!</h3>
+					</div>
+					<input th:field="*{id}" type="hidden" value="th:text=${evento.id}" />
+					<input th:field="*{atividades}" type="hidden"
+						value="th:text=${evento.atividades}" /> <input
+						th:field="*{participantes}" type="hidden"
+						value="th:text=${evento.participantes}" />
+
+					<div class="form-group">
+						<label for="nome">Nome do Evento</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar-o"></i>
+							</div>
+							<input type="text" class="form-control" id="nome"
+								th:field="*{nome}" placeholder="Nome do Evento"
+								value="th:text=${evento.nome}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="dataIni">Data de Inicio</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="date" class="form-control" id="dataIni"
+								th:field="*{dataInicio}" placeholder="Data de Inicio"
+								value="th:text=${evento.dataInicio}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="dataFim">Data Fim</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="date" class="form-control" id="dataFim"
+								th:field="*{dataFim}" placeholder="Data Fim"
+								value="th:text=${evento.dataFim}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="descricao">Descrição</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-file-text-o"></i>
+							</div>
+							<textarea class="form-control" id="descricao"
+								th:field="*{descricao}" placeholder="Descrição" rows="10"
+								cols="30" value="th:text=${evento.descricao}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="vagas">Quantidade de vagas</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-group"></i>
+							</div>
+							<input type="number" class="form-control" id="vagas"
+								th:field="*{vagas}" placeholder="Quantidade de Vagas"
+								value="th:text=${evento.vagas}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="local">Local</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-location-arrow"></i>
+							</div>
+							<input type="text" class="form-control" id="local"
+								th:field="*{local}" placeholder="Local"
+								value="th:text=${evento.local}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="porceMin">Porcentagem Mínima de Frequência</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-percent"></i>
+							</div>
+							<input type="number" class="form-control" id="porceMin"
+								th:field="*{porcentagemMin}"
+								placeholder="Porcentagem Mínima de Frequência"
+								value="th:text=${evento.porcentagemMin}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="checkbox checkbox-success">
+							<input id="gameficado" type="checkbox" th:field="*{gameficado}"
+								value="th:text=${evento.gameficado}" /> <label for="gameficado">Gameficado</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="checkbox checkbox-success">
+							<input id="status" type="checkbox" th:field="*{status}"
+								value="th:text=${evento.status}" /> <label for="status">Status</label>
+						</div>
+					</div>
+
+					<button type="submit"
+						class="btn btn-success waves-effect waves-light m-r-10">Cadastrar</button>
+					<button type="submit"
+						class="btn btn-inverse waves-effect waves-light">Cancelar</button>
+
+				</form>
+			</div>
+			<!-- Fim do Conteudo principal -->
+		</div>
+
+	</div>
 
 
 </body>

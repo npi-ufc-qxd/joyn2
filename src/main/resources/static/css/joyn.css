@@ -6,10 +6,10 @@
   float: right;
 }
 
-.joyn-login-box {
+.login-box {
 	width: 800px;
 }
 
-.joyn-white-box {
-  display: flex;
+.white-box {
+  overflow: auto;
 }
