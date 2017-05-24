@@ -93,12 +93,25 @@ public class AtividadeController {
 		return model;
 	}
 	
+
+	@GetMapping(path="/excluirparticipante/{id}")
+	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
+		ParticipacaoAtividade paExcluir = participacaoAtividadeService.getParticipacaoAtividade(idParticipacaoEvento);
+		Atividade atividade = paExcluir.getAtividade();
+		Evento evento = paExcluir.getAtividade().getEvento();
+		
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
+			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoEvento);
+		return "redirect:/atividade/verparticipantes/"+atividade.getId();
+
 	@GetMapping(path="/verparticipantes/{id}")
 	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){
 		Atividade atividade = atividadeService.buscarAtividade(idAtividade);
 		ModelAndView model = new ModelAndView("listarParticipantesAtividade");
 		model.addObject("atividade", atividade);
 		return model;
+
 	}
 	
 	public boolean verificarFormulario(Atividade atividade){
