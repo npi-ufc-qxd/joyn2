@@ -47,7 +47,9 @@ public class ParticipacaoAtividadeService {
 		atividade.getParticipantes().add(paSalvo);
 		usuarioService.atualizaUsuario(usuario);
 		atividadeService.salvar(atividade);
-		participacaoEvento.addParticipacaoEvento(new ParticipacaoEvento(usuario, atividade.getEvento(), Papel.PARTICIPANTE, true));
+		if(participacaoEvento.verificarParticipacaoEvento(usuario, atividade.getEvento()) == false){
+			participacaoEvento.addParticipacaoEvento(new ParticipacaoEvento(usuario, atividade.getEvento(), Papel.PARTICIPANTE, true));
+		}
 		return paSalvo; 
 	}
 	
