@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.ufc.npi.joyn.model.Atividade;
 import br.ufc.npi.joyn.model.Convite;
 import br.ufc.npi.joyn.model.Evento;
 import br.ufc.npi.joyn.model.Papel;
+import br.ufc.npi.joyn.model.ParticipacaoAtividade;
 import br.ufc.npi.joyn.model.ParticipacaoEvento;
 import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.service.ConviteService;
 import br.ufc.npi.joyn.service.EventoService;
+import br.ufc.npi.joyn.service.ParticipacaoAtividadeService;
 import br.ufc.npi.joyn.service.ParticipacaoEventoService;
 import br.ufc.npi.joyn.service.UsuarioService;
 import br.ufc.quixada.npi.model.Email;
@@ -44,6 +47,9 @@ public class EventoController {
 	
 	@Autowired
 	ParticipacaoEventoService participacaoEventoService;
+	
+	@Autowired
+	ParticipacaoAtividadeService participacaoAtividadeService;
 	
 	@Autowired
 	ConviteService conviteService;
@@ -212,5 +218,25 @@ public class EventoController {
 			}
 		}
 		return meusEventos();
+	}
+	
+	@GetMapping(path="/excluir_participantes/{id}")
+	public String excluirParticipanteEvento(@PathVariable("id") Long id){
+		
+		ParticipacaoEvento partEvento = participacaoEventoService.getPartipacaoEvento(id);
+		Evento evento = partEvento.getEvento();
+
+		/* Depois, quando a atividade estiver pronta, tratar a exclusão de usuário das atividades que ele está! */
+		for (Atividade ativ : evento.getAtividades()) {
+			for (ParticipacaoAtividade partAtiv : ativ.getParticipantes()) {
+				if (partAtiv.getUsuario().getId() == partEvento.getUsuario().getId()) {
+					participacaoAtividadeService.excluirParticipacaoAtividade(partAtiv.getId());
+				}
+			}
+		}
+		
+		participacaoEventoService.excluirParticipacaoEvento(id);
+		
+		return "redirect:/evento/participantes_evento/"+evento.getId();
 	}
 }

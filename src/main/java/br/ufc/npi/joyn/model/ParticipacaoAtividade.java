@@ -22,7 +22,7 @@ public class ParticipacaoAtividade {
 	@ManyToOne
 	private Usuario usuario;
 
-	@ManyToOne(cascade=CascadeType.REMOVE)
+	@ManyToOne
 	private Atividade atividade;
 
 	@Enumerated(EnumType.STRING)
