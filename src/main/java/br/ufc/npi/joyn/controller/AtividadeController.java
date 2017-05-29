@@ -93,7 +93,6 @@ public class AtividadeController {
 		return model;
 	}
 	
-<<<<<<< HEAD
 	@GetMapping(path="/editar/{id}")
 	public ModelAndView editarAtividade(@PathVariable("id") Long id){
 		ModelAndView model = new ModelAndView("formEditarAtividade");
@@ -104,7 +103,6 @@ public class AtividadeController {
 	
 	@PostMapping(path="/editar")
 	public String atualizarAtividade(Atividade atividade){
-		//System.err.println(atividade.toString());
 		
 		if (!verificarFormulario(atividade)) return "formEditarAtividade"; 
 		
@@ -115,8 +113,12 @@ public class AtividadeController {
 	@GetMapping(path="/excluir/{id}")
 	public String excluirAtividade(@PathVariable("id") Long id){
 		Atividade atividade = atividadeService.buscarAtividade(id);
-		
-		
+				
+		for (ParticipacaoAtividade pa: atividade.getParticipantes()) {
+			pa.getUsuario().getParticipacaoAtividade().remove(pa);
+			usuarioService.atualizaUsuario(pa.getUsuario());
+		}
+
 		Evento evento = eventoService.buscarEvento(atividade.getEvento().getId());
 		evento.getAtividades().remove(atividade);
 		eventoService.salvarEvento(evento);
@@ -124,8 +126,6 @@ public class AtividadeController {
 		atividadeService.removerAtividade(atividade);		
 		return "redirect:/evento/"+evento.getId();
 	}	
-	
-=======
 
 	@GetMapping(path="/excluirparticipante/{id}")
 	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
@@ -137,6 +137,7 @@ public class AtividadeController {
 		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
 			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoEvento);
 		return "redirect:/atividade/verparticipantes/"+atividade.getId();
+	}
 
 	@GetMapping(path="/verparticipantes/{id}")
 	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){
@@ -147,7 +148,6 @@ public class AtividadeController {
 
 	}
 	
->>>>>>> a2f5abb5fec04041e605af53e9af98df170abaa9
 	public boolean verificarFormulario(Atividade atividade){
 		if (atividade.getNome() == null || atividade.getDescricao() == null || 
 				atividade.getDias() == null || atividade.getTipo() == null) return false;
