@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Token {
 
-	public static long TEMPO_EXPIRAR_MINUTOS = 1;
+	public static long TEMPO_EXPIRAR_MINUTOS = 24 * 60;
 	public static long TEMPO_EXPIRAR = 60000 * TEMPO_EXPIRAR_MINUTOS;
 	
 	@Id
