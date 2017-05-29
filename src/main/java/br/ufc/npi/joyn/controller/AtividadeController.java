@@ -124,8 +124,6 @@ public class AtividadeController {
 		atividadeService.removerAtividade(atividade);		
 		return "redirect:/evento/"+evento.getId();
 	}	
-	
-
 
 	@GetMapping(path="/excluirparticipante/{id}")
 	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
@@ -147,7 +145,16 @@ public class AtividadeController {
 		return model;
 
 	}
-
+	
+	@GetMapping(path="/addparticipantes/{idUser}/{atv}")
+	public String addParticipantes(@PathVariable("idUser") Long usuarioid, @PathVariable("atv") Long atividadeid){
+		Usuario usuario = usuarioService.getUsuario(usuarioid);
+		Atividade atividade = atividadeService.buscarAtividade(atividadeid);
+		participacaoAtividadeService.adicionarAtividade(usuario, atividade);
+		return "redirect:/atividade/verparticipantes/"+atividade.getId();
+	}
+	
+	
 	public boolean verificarFormulario(Atividade atividade){
 		if (atividade.getNome() == null || atividade.getDescricao() == null || 
 				atividade.getDias() == null || atividade.getTipo() == null) return false;
@@ -162,15 +169,6 @@ public class AtividadeController {
 		if (atividade.getPontuacao() != null){
 			if (atividade.getPontuacao() < 0 ) return false;
 		}
-		
 		return true;
-	}
-	
-	@GetMapping(path="/addparticipantes/{idUser}/{atv}")
-	public String addParticipantes(@PathVariable("idUser") Long usuarioid, @PathVariable("atv") Long atividadeid){
-		Usuario usuario = usuarioService.getUsuario(usuarioid);
-		Atividade atividade = atividadeService.buscarAtividade(atividadeid);
-		participacaoAtividadeService.adicionarAtividade(usuario, atividade);
-		return "redirect:/atividade/verparticipantes/"+atividade.getId();
 	}
 }

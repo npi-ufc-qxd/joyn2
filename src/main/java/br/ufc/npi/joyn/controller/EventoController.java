@@ -1,6 +1,7 @@
 package br.ufc.npi.joyn.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import br.ufc.npi.joyn.model.Papel;
 import br.ufc.npi.joyn.model.ParticipacaoAtividade;
 import br.ufc.npi.joyn.model.ParticipacaoEvento;
 import br.ufc.npi.joyn.model.Usuario;
+import br.ufc.npi.joyn.service.AtividadeService;
 import br.ufc.npi.joyn.service.ConviteService;
 import br.ufc.npi.joyn.service.EventoService;
 import br.ufc.npi.joyn.service.ParticipacaoAtividadeService;
@@ -50,6 +52,9 @@ public class EventoController {
 	
 	@Autowired
 	ParticipacaoAtividadeService participacaoAtividadeService;
+	
+	@Autowired
+	AtividadeService atividadeService;
 	
 	@Autowired
 	ConviteService conviteService;
@@ -221,18 +226,22 @@ public class EventoController {
 	}
 	
 	@GetMapping(path="/excluir_participantes/{id}")
-	public String excluirParticipanteEvento(@PathVariable("id") Long id){
+	public String excluirParticipanteEvento(@PathVariable("id") Long id) {
 		
 		ParticipacaoEvento partEvento = participacaoEventoService.getPartipacaoEvento(id);
 		Evento evento = partEvento.getEvento();
+		List<ParticipacaoAtividade> lista = new ArrayList<ParticipacaoAtividade>();
 
-		/* Depois, quando a atividade estiver pronta, tratar a exclusão de usuário das atividades que ele está! */
 		for (Atividade ativ : evento.getAtividades()) {
 			for (ParticipacaoAtividade partAtiv : ativ.getParticipantes()) {
 				if (partAtiv.getUsuario().getId() == partEvento.getUsuario().getId()) {
-					participacaoAtividadeService.excluirParticipacaoAtividade(partAtiv.getId());
+					lista.add(partAtiv);
 				}
 			}
+		}
+		
+		for (ParticipacaoAtividade participacaoAtividade : lista) {
+			participacaoAtividadeService.excluirParticipacaoAtividade(participacaoAtividade.getId());
 		}
 		
 		participacaoEventoService.excluirParticipacaoEvento(id);
