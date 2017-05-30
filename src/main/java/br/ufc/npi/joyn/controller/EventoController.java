@@ -192,7 +192,7 @@ public class EventoController {
 
 	}
 	
-	@GetMapping(path="/excluirorganizador/{id}")
+	@GetMapping(path="/excluir_organizador/{id}")
 	public String excluirOrganizadorEvento(@PathVariable("id") Long id){
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		ParticipacaoEvento peExcluir = participacaoEventoService.getPartipacaoEvento(id);

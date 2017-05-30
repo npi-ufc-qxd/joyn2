@@ -31,7 +31,7 @@
 				
 				<div class="">
 					
-					<h5><a href="#" >Participantes</a></h5>
+					<h5><a th:href="@{${'/atividade/'+atividade.id+'/ver_participantes'}}" >Participantes</a></h5>
 					<h5><a th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a></h5>
 					<h5><a th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')" >Excluir</a></h5>
 				</div>
