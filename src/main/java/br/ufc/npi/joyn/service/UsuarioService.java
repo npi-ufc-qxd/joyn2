@@ -107,7 +107,6 @@ public class UsuarioService {
 	
 	public void novaSenha(String tokenStr, String senha) {
 		Token token = tokenService.buscar(tokenStr);
-		System.out.println("Expirou? " + token.expirou());
 		if (token != null && !token.expirou()) {
 			Usuario usuario = token.getUsuario();
 			usuario.setSenha(senha);
