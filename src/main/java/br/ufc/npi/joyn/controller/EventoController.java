@@ -228,20 +228,20 @@ public class EventoController {
 	@GetMapping(path="/excluir_participantes/{id}")
 	public String excluirParticipanteEvento(@PathVariable("id") Long id) {
 		
-		ParticipacaoEvento partEvento = participacaoEventoService.getPartipacaoEvento(id);
-		Evento evento = partEvento.getEvento();
+		ParticipacaoEvento participacaoEvento = participacaoEventoService.getPartipacaoEvento(id);
+		Evento evento = participacaoEvento.getEvento();
 		List<ParticipacaoAtividade> lista = new ArrayList<ParticipacaoAtividade>();
 
-		for (Atividade ativ : evento.getAtividades()) {
-			for (ParticipacaoAtividade partAtiv : ativ.getParticipantes()) {
-				if (partAtiv.getUsuario().getId() == partEvento.getUsuario().getId()) {
-					lista.add(partAtiv);
+		for (Atividade atividade : evento.getAtividades()) {
+			for (ParticipacaoAtividade participacaoAtividade : atividade.getParticipantes()) {
+				if (participacaoAtividade.getUsuario().getId() == participacaoEvento.getUsuario().getId()) {
+					lista.add(participacaoAtividade);
 				}
 			}
 		}
 		
-		for (ParticipacaoAtividade participacaoAtividade : lista) {
-			participacaoAtividadeService.excluirParticipacaoAtividade(participacaoAtividade.getId());
+		for (ParticipacaoAtividade participacaoAtividadeNova : lista) {
+			participacaoAtividadeService.excluirParticipacaoAtividade(participacaoAtividadeNova.getId());
 		}
 		
 		participacaoEventoService.excluirParticipacaoEvento(id);
