@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,10 +23,10 @@ public class Evento {
 	private Date dataFim;
 	private String descricao;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany
 	private List<Atividade> atividades;
-
-	@OneToMany(cascade=CascadeType.ALL)
+  
+	@OneToMany
 	private List<ParticipacaoEvento> participantes; 
 	
 	private Integer vagas;
