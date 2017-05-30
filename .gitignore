@@ -21,3 +21,4 @@ nbbuild/
 nbdist/
 .nb-gradle/
 /bin/
+/upload-dir/

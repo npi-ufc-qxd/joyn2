@@ -1,6 +1,7 @@
 package br.ufc.npi.joyn.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,13 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.ufc.npi.joyn.model.Atividade;
 import br.ufc.npi.joyn.model.Convite;
 import br.ufc.npi.joyn.model.Evento;
 import br.ufc.npi.joyn.model.Papel;
+import br.ufc.npi.joyn.model.ParticipacaoAtividade;
 import br.ufc.npi.joyn.model.ParticipacaoEvento;
 import br.ufc.npi.joyn.model.Usuario;
+import br.ufc.npi.joyn.service.AtividadeService;
 import br.ufc.npi.joyn.service.ConviteService;
 import br.ufc.npi.joyn.service.EventoService;
+import br.ufc.npi.joyn.service.ParticipacaoAtividadeService;
 import br.ufc.npi.joyn.service.ParticipacaoEventoService;
 import br.ufc.npi.joyn.service.UsuarioService;
 import br.ufc.quixada.npi.model.Email;
@@ -44,6 +49,12 @@ public class EventoController {
 	
 	@Autowired
 	ParticipacaoEventoService participacaoEventoService;
+	
+	@Autowired
+	ParticipacaoAtividadeService participacaoAtividadeService;
+	
+	@Autowired
+	AtividadeService atividadeService;
 	
 	@Autowired
 	ConviteService conviteService;
@@ -212,5 +223,29 @@ public class EventoController {
 			}
 		}
 		return meusEventos();
+	}
+	
+	@GetMapping(path="/excluir_participantes/{id}")
+	public String excluirParticipanteEvento(@PathVariable("id") Long id) {
+		
+		ParticipacaoEvento participacaoEvento = participacaoEventoService.getPartipacaoEvento(id);
+		Evento evento = participacaoEvento.getEvento();
+		List<ParticipacaoAtividade> lista = new ArrayList<ParticipacaoAtividade>();
+
+		for (Atividade atividade : evento.getAtividades()) {
+			for (ParticipacaoAtividade participacaoAtividade : atividade.getParticipantes()) {
+				if (participacaoAtividade.getUsuario().getId() == participacaoEvento.getUsuario().getId()) {
+					lista.add(participacaoAtividade);
+				}
+			}
+		}
+		
+		for (ParticipacaoAtividade participacaoAtividadeNova : lista) {
+			participacaoAtividadeService.excluirParticipacaoAtividade(participacaoAtividadeNova.getId());
+		}
+		
+		participacaoEventoService.excluirParticipacaoEvento(id);
+		
+		return "redirect:/evento/participantes_evento/"+evento.getId();
 	}
 }
