@@ -1,97 +1,201 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorator="base/base">
-	  
-	<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/base">
+
+<body>
 	<div class="container-fluid" layout:fragment="conteudo">
 		<div class="row bg-title">
 			<!-- .page title -->
 			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-				<h4 class="page-title" th:text="${evento.nome}"></h4> <!-- Pode ser alterado -->
+				<h4 class="page-title" th:text="${evento.nome}"></h4>
+				<!-- Pode ser alterado -->
 			</div>
 			<!-- /.page title -->
 		</div>
-		
+
 		<div class="col-md-12">
 			<!-- Conteudo principal -->
-			
+
 			<div class="white-box">
-				<h4> Data de Início: <span th:text="${#calendars.format(evento.dataInicio, 'dd/MM/yyyy')}"></span> </h4>
-				<h4> Data de Término: <span th:text="${#calendars.format(evento.dataFim, 'dd/MM/yyyy')}"></span> </h4>
-				<h4 th:if="${evento.status}">Evento acessível ao público</h4>
-				<h4 th:unless="${evento.status}">Evento não acessível ao público</h4>
-				
-				<h4> Local: <span th:text="${evento.local}"></span></h4>
-				<h4 th:if="${evento.gameficado}">É gameficado</h4>
-				<h4 th:unless="${evento.gameficado}">Não é gameficado</h4>
-				
-				<h4> Número de vagas: <span th:text="${evento.vagas}"></span></h4>
-				<h4> Porcentagem: <span th:text="${evento.porcentagemMin}"></span></h4>
-				<h4> Descrição: <span th:text="${evento.descricao}"></span></h4>
-				
-				<div class="">
-					
-					<h5><a href="#">Ver Ranking</a></h5>
-					<h5><a th:href="@{${'/evento/participantes_evento/'+evento.id}}">Participantes</a></h5>
-					<h5><a th:href="@{${'/evento/editar/'+evento.id}}">Editar</a></h5>
+
+				<div class="col-md-12">
+					<a href="#"	class="btn btn-outline btn-rounded btn-info ">Ranking</a>
+					<a class="btn btn-outline btn-rounded btn-info " href="#">Participantes</a> 
+					<a class="btn btn-outline btn-rounded btn-info " th:href="@{${'/evento/editar/'+evento.id}}">Editar</a>
+					<hr/>
 				</div>
-				
-				<div class="">
-					<h2>Organizadores do Evento</h2>
-					
-					<div class="">
-						<form method="POST" th:action="@{/evento/convidar}">
-							<label for="emailOrg">Email</label> 
-							<input id="emailOrg" th:name="email" type="email"/>
-							<input type="hidden" name="id" th:value="${evento.id}" />
-				
-							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-							<button type="submit">Convidar</button>
-						</form>
+
+				<div class="col-md-4">
+					<div class=" panel panel-info">
+						<div class="panel-heading">
+							Informações do Evento
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+						</div>
+						<div class="panel-wrapper collapse in" aria-expanded="true">
+							<div class="panel-wrapper collapse in">
+								<table class="table table-hover">
+									<thead>
+									</thead>
+									<tbody>
+										<tr>
+											<th>Status:</th>
+											<td><span th:if="${evento.status}">Evento
+													acessível ao público</span> <span th:unless="${evento.status}">Evento
+													não acessível ao público</span></td>
+										</tr>
+										<tr>
+											<th>Data de Início:</th>
+											<td><span
+												th:text="${#calendars.format(evento.dataInicio, 'dd/MM/yyyy')}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Data de Término:</th>
+											<td><span
+												th:text="${#calendars.format(evento.dataFim, 'dd/MM/yyyy')}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Local:</th>
+											<td><span th:text="${evento.local}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Numero de vagas</th>
+											<td><span th:text="${evento.vagas}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Porcentagem</th>
+											<td><span th:text="${evento.porcentagemMin}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Descrição</th>
+											<td><span th:text="${evento.descricao}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Numero de vagas</th>
+											<td><span th:text="${evento.vagas}"></span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
-					
-					<br/>
-					<table class="striped">
-					  <thead>
-					    <tr>
-						<th>Nome</th>
-						<th>Remover</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					  	<tr  th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
-							<td th:text="${organizador.usuario.nome}"></td>
-							<td th:if="${organizador.usuario.id != usuarioLogado.id}"><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluirorganizador/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
-					    </tr>
-					  </tbody>
-					</table>
 				</div>
+
+				<div class="col-md-8">
+					<div class="panel panel-primary lobipanel lobipanel-sortable">
+						<div class="panel-heading">
+							Organizadores
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+						</div>
+						<div class="panel-wrapper collapse in" aria-expanded="true">
+							<div class="panel-wrapper collapse in">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th class="text-center">
+												<form method="POST" th:action="@{/evento/convidar}">
+													<label for="emailOrg">Email</label> <input id="emailOrg"
+														th:name="email" type="email" /> <input type="hidden"
+														name="id" th:value="${evento.id}" /> <input type="hidden"
+														th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+													<button
+														class="fcbtn btn btn-primary btn-outline btn-1c btn-xs"
+														type="submit">Convidar</button>
+												</form>
+											</th>
+
+										</tr>
+										<tr>
+											<th>Nome</th>
+											<th>Status</th>
+											<th>Ação</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="organizador : ${evento.participantes}"
+											th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
+											<td th:text="${organizador.usuario.nome}"></td>
+											<td th:if="${evento.status}">Acessível</td>
+											<td th:unless="${evento.status}">Inacessível</td>
+											<td><a href="#"><button
+														class="btn btn-block btn-outline btn-rounded btn-primary btn-xs">Excluir</button></a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-8">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							Atividades do Evento
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+						</div>
+						<div class="panel-wrapper collapse in" aria-expanded="true">
+							<div class="panel-body">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+									Vestibulum tincidunt est vitae ultrices accumsan. Aliquam
+									ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 
 				<div class="">
 					<h2>Atividades do Evento</h2>
-					<h5><a th:href="@{${'/atividade/'+evento.id+'/cadastrar'}}">Adicionar atividades</a></h5>
+					<h5>
+						<a href="#">Adicionar atividades</a>
+					</h5>
 					<table class="striped">
-					  <thead>
-					    <tr>
-						<th> Nome </th>
-						<th> Detalhes </th>
-						<th> Remover </th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					  	<tr  th:each="atividade : ${evento.atividades}">
-							<td th:text="${atividade.nome}"> </td>
-							<td><a class="waves-effect waves-teal btn-flat orange" th:href="@{${'/atividade/'+atividade.id}}"> Ver Detalhes </a></td>
-							<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')" > Excluir </a></td>
-					    </tr>
-					  </tbody>
+						<thead>
+							<tr>
+								<th>Nome</th>
+								<th></th>
+								<th>Remover</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="atividade : ${evento.atividades}">
+								<td th:text="${atividade.nome}"></td>
+								<td><a class="waves-effect waves-teal btn-flat orange"
+									href="#">Ver Detalhes</a></td>
+								<td><a class="waves-effect waves-teal btn-flat red"
+									href="#">Excluir</a></td>
+							</tr>
+						</tbody>
 					</table>
-					 
+
 				</div>
-   			</div>
+	 -->
+
+
+
+
+
+
+			</div>
 			<!-- Fim do Conteudo principal -->
 		</div>
 	</div>
-	</body>
+</body>
 </html>

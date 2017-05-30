@@ -16,5 +16,8 @@ public interface AtividadeRepository extends JpaRepository<Atividade, Long>{
 	@Query("from Atividade a where a.id = ?1")
 	public Atividade getAtividade(Long id);
 	
+	@Query("delete from Atividade a where a.id = ?1")
+	public void excluirEventoAtividade(Long id);
+	
 }
 

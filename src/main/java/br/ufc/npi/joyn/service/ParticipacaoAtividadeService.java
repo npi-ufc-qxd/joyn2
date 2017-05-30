@@ -13,8 +13,6 @@ import br.ufc.npi.joyn.repository.ParticipacaoAtividadeRepository;
 @Service
 public class ParticipacaoAtividadeService {
 	
-	@Autowired
-	ParticipacaoAtividadeRepository participacaoAtividadeRepository;
 	
 	@Autowired
 	AtividadeService atividadeService;
@@ -59,11 +57,11 @@ public class ParticipacaoAtividadeService {
 		paSalvo.getAtividade().getParticipantes().remove(paSalvo);
 		usuarioService.atualizaUsuario(paSalvo.getUsuario());
 		atividadeService.salvar(paSalvo.getAtividade());
-		participacaoAtividadeRepository.delete(id);
+		participacaoRepo.delete(id);
 	}
 	
 	public ParticipacaoAtividade getParticipacaoAtividade(Long id){
-		return participacaoAtividadeRepository.findOne(id);
+		return participacaoRepo.findOne(id);
 	}
 	
 	public void removerAtividade(ParticipacaoAtividade pa){

@@ -93,7 +93,6 @@ public class AtividadeController {
 		return model;
 	}
 	
-
 	@GetMapping(path="/editar/{id}")
 	public ModelAndView editarAtividade(@PathVariable("id") Long id){
 		ModelAndView model = new ModelAndView("formEditarAtividade");
@@ -104,7 +103,6 @@ public class AtividadeController {
 	
 	@PostMapping(path="/editar")
 	public String atualizarAtividade(Atividade atividade){
-		//System.err.println(atividade.toString());
 		
 		if (!verificarFormulario(atividade)) return "formEditarAtividade"; 
 		
@@ -115,8 +113,12 @@ public class AtividadeController {
 	@GetMapping(path="/excluir/{id}")
 	public String excluirAtividade(@PathVariable("id") Long id){
 		Atividade atividade = atividadeService.buscarAtividade(id);
-		
-		
+				
+		for (ParticipacaoAtividade pa: atividade.getParticipantes()) {
+			pa.getUsuario().getParticipacaoAtividade().remove(pa);
+			usuarioService.atualizaUsuario(pa.getUsuario());
+		}
+
 		Evento evento = eventoService.buscarEvento(atividade.getEvento().getId());
 		evento.getAtividades().remove(atividade);
 		eventoService.salvarEvento(evento);
@@ -139,13 +141,20 @@ public class AtividadeController {
 
 	@GetMapping(path="/verparticipantes/{id}")
 	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Atividade atividade = atividadeService.buscarAtividade(idAtividade);
-		ModelAndView model = new ModelAndView("listarParticipantesAtividade");
-		model.addObject("atividade", atividade);
-		return model;
+		
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, atividade.getEvento()) == Papel.ORGANIZADOR){
+			ModelAndView model = new ModelAndView("listarParticipantesAtividade");
+			model.addObject("atividade", atividade);
+			return model;
+		}
+		
+		return new ModelAndView("redirect:/evento/meus_eventos");
 
 	}
 	
+
 	@GetMapping(path="/addparticipantes/{idUser}/{atv}")
 	public String addParticipantes(@PathVariable("idUser") Long usuarioid, @PathVariable("atv") Long atividadeid){
 		Usuario usuario = usuarioService.getUsuario(usuarioid);

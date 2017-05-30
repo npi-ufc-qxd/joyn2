@@ -26,6 +26,7 @@ public class AtividadeService {
 	}
 	
 	public void removerAtividade(Atividade atividade){
+		
 		atividadeRepo.delete(atividade);
 	}
 }
