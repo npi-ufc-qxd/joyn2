@@ -141,10 +141,16 @@ public class AtividadeController {
 
 	@GetMapping(path="/verparticipantes/{id}")
 	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Atividade atividade = atividadeService.buscarAtividade(idAtividade);
-		ModelAndView model = new ModelAndView("listarParticipantesAtividade");
-		model.addObject("atividade", atividade);
-		return model;
+		
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, atividade.getEvento()) == Papel.ORGANIZADOR){
+			ModelAndView model = new ModelAndView("listarParticipantesAtividade");
+			model.addObject("atividade", atividade);
+			return model;
+		}
+		
+		return new ModelAndView("redirect:/evento/meus_eventos");
 
 	}
 	
