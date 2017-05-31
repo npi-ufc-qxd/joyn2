@@ -4,7 +4,7 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorator="base/base">
 
-	<head th:replace="fragments/head :: head">
+	<head>
 		<meta name="_csrf_header" content="${_csrf.headerName}"/>
 	</head> 
 	  
@@ -22,9 +22,10 @@
 			<div class="col-md-12">
 				<!-- Conteudo principal -->
 	            <div class="white-box">
+                
                  <form class="form-horizontal form-material" id="loginform" method="POST" th:object="${usuario}" enctype="multipart/form-data">
 			        <div class="text-center">
-			        	<img th:src="${usuario.fotoUrl}"  height="100"/>
+			        	<img class="thumb-xl img-circle" th:src="${usuario.fotoUrl}"  height="200"/>
 			        	<hr/>
 			        	<h3 class="box-title m-b-20">Editar usuário</h3>
 			        </div>
@@ -37,9 +38,26 @@
 						
 					<div class="form-group ">
 			          <div class="col-xs-12">
-						<h5>Alterar foto:</h5> 
-						<input type="file" name="imagem"/> 
-			           </div>
+							<div class="form-group">
+								<label class="col-sm-12">Alterar Foto:</label>
+								<div class="col-sm-12">
+									<div class="fileinput input-group fileinput-new"
+										data-provides="fileinput">
+										<div class="form-control" data-trigger="fileinput">
+											<i class="glyphicon glyphicon-file fileinput-exists"></i> <span
+												class="fileinput-filename"></span>
+										</div>
+										<span class="input-group-addon btn btn-info btn-file  ">
+											<span class="fileinput-new">Selecionar Foto</span> <span
+											class="fileinput-exists">Change</span> <input type="hidden"
+											value="" name="..." /><input type="file" name="imagem" />
+										</span> <a href="#"
+											class="input-group-addon btn btn-default fileinput-exists"
+											data-dismiss="fileinput">Remove</a>
+									</div>
+								</div>
+							</div>
+						</div>
 			        </div>
 			        <div class="form-group ">
 			          <div class="col-xs-12">
@@ -89,6 +107,9 @@
 
 		</div>
 
+	<div th:replace="fragments/scripts :: scripts ">
+		
+	</div>
 
 	</body>
 </html>
