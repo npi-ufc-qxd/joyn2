@@ -56,4 +56,13 @@ public class ParticipacaoEventoService {
 	public List<ParticipacaoEvento> organizadoresEvento(Long id){
 		return participacaoEventoRepository.getListaOrganizadores(id);
 	}
+	
+	public boolean verificarParticipacaoEvento(Usuario usuario, Evento evento){
+		for (ParticipacaoEvento participacaoEvento : evento.getParticipantes()) {
+			if(usuario.getId() == participacaoEvento.getUsuario().getId()){
+				return true;
+			}
+		}
+		return false;
+	}
 }

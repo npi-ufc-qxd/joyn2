@@ -127,7 +127,7 @@ public class AtividadeController {
 		return "redirect:/evento/"+evento.getId();
 	}	
 
-	@GetMapping(path="/excluirparticipante/{id}")
+	@GetMapping(path="/excluir_participante/{id}")
 	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		ParticipacaoAtividade paExcluir = participacaoAtividadeService.getParticipacaoAtividade(idParticipacaoEvento);
@@ -136,17 +136,33 @@ public class AtividadeController {
 		
 		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
 			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoEvento);
-		return "redirect:/atividade/verparticipantes/"+atividade.getId();
+		return "redirect:/atividade/"+atividade.getId()+"/ver_participantes";
 	}
 
-	@GetMapping(path="/verparticipantes/{id}")
+	@GetMapping(path="/{id}/ver_participantes")
 	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Atividade atividade = atividadeService.buscarAtividade(idAtividade);
-		ModelAndView model = new ModelAndView("listarParticipantesAtividade");
-		model.addObject("atividade", atividade);
-		return model;
+		
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, atividade.getEvento()) == Papel.ORGANIZADOR){
+			ModelAndView model = new ModelAndView("listarParticipantesAtividade");
+			model.addObject("atividade", atividade);
+			return model;
+		}
+		
+		return new ModelAndView("redirect:/evento/meus_eventos");
 
 	}
+	
+
+	@GetMapping(path="/addparticipantes/{idUser}/{atv}")
+	public String addParticipantes(@PathVariable("idUser") Long usuarioid, @PathVariable("atv") Long atividadeid){
+		Usuario usuario = usuarioService.getUsuario(usuarioid);
+		Atividade atividade = atividadeService.buscarAtividade(atividadeid);
+		participacaoAtividadeService.adicionarAtividade(usuario, atividade);
+		return "redirect:/atividade/"+atividade.getId()+"/ver_participantes";
+	}
+	
 	
 	public boolean verificarFormulario(Atividade atividade){
 		if (atividade.getNome() == null || atividade.getDescricao() == null || 
@@ -162,7 +178,6 @@ public class AtividadeController {
 		if (atividade.getPontuacao() != null){
 			if (atividade.getPontuacao() < 0 ) return false;
 		}
-		
 		return true;
 	}
 }
