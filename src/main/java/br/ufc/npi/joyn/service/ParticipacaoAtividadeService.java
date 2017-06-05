@@ -51,6 +51,31 @@ public class ParticipacaoAtividadeService {
 		return paSalvo; 
 	}
 	
+	public ParticipacaoAtividade criarParticipacaoAtividade(Usuario usuario, Atividade atividade){
+		ParticipacaoAtividade participacaoAtividade = new ParticipacaoAtividade();
+		
+		participacaoAtividade.setUsuario(usuario);
+		participacaoAtividade.setAtividade(atividade);
+		participacaoAtividade.setPapel(Papel.ORGANIZADOR);
+		
+		if (atividade.getParticipantes().size() < atividade.getVagas()){
+			participacaoAtividade.setStatus(true);
+		}else{
+			participacaoAtividade.setStatus(false);
+		}
+
+		ParticipacaoAtividade paSalvo = participacaoRepo.save(participacaoAtividade);
+		
+		usuario.getParticipacaoAtividade().add(paSalvo);
+		atividade.getParticipantes().add(paSalvo);
+		usuarioService.atualizaUsuario(usuario);
+		atividadeService.salvar(atividade);
+		if(participacaoEvento.verificarParticipacaoEvento(usuario, atividade.getEvento()) == false){
+			participacaoEvento.addParticipacaoEvento(new ParticipacaoEvento(usuario, atividade.getEvento(), Papel.PARTICIPANTE, true));
+		}
+		return paSalvo; 
+	}
+	
 	public void excluirParticipacaoAtividade(Long id){
 		ParticipacaoAtividade paSalvo = getParticipacaoAtividade(id);
 		paSalvo.getUsuario().getParticipacaoAtividade().remove(paSalvo);
