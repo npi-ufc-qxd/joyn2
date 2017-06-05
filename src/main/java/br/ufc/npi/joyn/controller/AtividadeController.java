@@ -67,7 +67,6 @@ public class AtividadeController {
 	@PostMapping(path="/cadastrar")
 	public String cadastrarAtividade(Atividade atividade){
 		
-		System.err.println(verificarFormulario(atividade));
 		if (!verificarFormulario(atividade)) return "formCadastroAtividade";
 		
 		List<ParticipacaoAtividade> participantes = new ArrayList<ParticipacaoAtividade>();
