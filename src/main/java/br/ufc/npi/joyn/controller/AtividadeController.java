@@ -165,10 +165,10 @@ public class AtividadeController {
 	
 	
 	public boolean verificarFormulario(Atividade atividade){
-		if (atividade.getNome() == null || atividade.getDescricao() == null || 
+		if (atividade.getNome().isEmpty() || atividade.getDescricao().isEmpty() || 
 				atividade.getDias() == null || atividade.getTipo() == null) return false;
 		
-		if (atividade.getDias() < 0) return false;
+		if (atividade.getDias() < 0 || atividade.getVagas() < 0) return false;
 				
 		if (atividade.getMinimoParaFreq() != null){
 			if (atividade.getMinimoParaFreq() < 0 || 
