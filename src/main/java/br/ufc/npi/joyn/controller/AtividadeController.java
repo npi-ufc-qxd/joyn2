@@ -165,7 +165,6 @@ public class AtividadeController {
 	
 	
 	public boolean verificarFormulario(Atividade atividade){
-		
 		if (atividade.getNome().isEmpty() || atividade.getDescricao().isEmpty() || 
 				atividade.getDias() == null || atividade.getTipo() == null) return false;
 		
