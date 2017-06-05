@@ -80,7 +80,7 @@ public class AtividadeController {
 		eventoService.salvarEvento(evento);
 		
 		Usuario logado = usuarioService.getUsuarioLogado();
-		participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva);		
+		participacaoAtividadeService.criarParticipacaoAtividade(logado, atividadeSalva);		
 		
 		return "redirect:/atividade/" + atividadeSalva.getId();
 	}

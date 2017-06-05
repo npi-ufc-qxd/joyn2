@@ -29,7 +29,26 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				  	<tr  th:each="participante : ${participantes}" >
+				  	<tr  th:each="participante : ${participantes}" th:if="${participante.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
+						<td><img alt="Foto" th:src="${participante.usuario.fotoUrl}" height="80"/></td>
+						<td th:text="${participante.usuario.nome}"></td>
+						<td th:text="${participante.usuario.email}"></td>
+						<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluir_participantes/'+participante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
+				    </tr>
+				  </tbody>
+				</table>
+				<!-- Divida essas tabelas Rodrigo -->
+				<table class="striped">
+				  <thead>
+				    <tr>
+					<th>Foto</th>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>Excluir</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	<tr  th:each="participante : ${participantes}" th:if="${participante.papel == T(br.ufc.npi.joyn.model.Papel).PARTICIPANTE}">
 						<td><img alt="Foto" th:src="${participante.usuario.fotoUrl}" height="80"/></td>
 						<td th:text="${participante.usuario.nome}"></td>
 						<td th:text="${participante.usuario.email}"></td>
