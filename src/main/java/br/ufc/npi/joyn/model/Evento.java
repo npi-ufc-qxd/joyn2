@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Evento {
 
@@ -24,9 +27,11 @@ public class Evento {
 	private String descricao;
 
 	@OneToMany
+	@JsonManagedReference
 	private List<Atividade> atividades;
   
 	@OneToMany
+	@JsonManagedReference
 	private List<ParticipacaoEvento> participantes; 
 	
 	private Integer vagas;

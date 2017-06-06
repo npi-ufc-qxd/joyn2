@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 public class Atividade {
@@ -23,6 +26,7 @@ public class Atividade {
 	private String descricao;
 
 	@OneToMany(cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private List<ParticipacaoAtividade> participantes;
 
 	private Integer vagas;
@@ -36,6 +40,7 @@ public class Atividade {
 	private boolean status;
 
 	@ManyToOne
+	@JsonBackReference
 	private Evento evento;
 
 	@OneToMany

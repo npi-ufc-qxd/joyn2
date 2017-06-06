@@ -3,12 +3,14 @@ package br.ufc.npi.joyn.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -26,8 +28,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         	.antMatchers("/css/**", "/js/**", "/images/**", "/plugins/**", "/bootstrap/**", "/less/**").permitAll()
             .antMatchers("/usuario/cadastrar", "/usuario/starter", "/usuario/recuperarsenha",
-            		"/usuario/alterarsenha/**", "/usuario/novasenha" ).permitAll()
-            .antMatchers("/usuario/home").hasRole("USUARIO")
+            		"/usuario/alterarsenha/**", "/usuario/novasenha", "/usuariorest/token", 
+            		"/usuariorest/teste" ,"/usuariorest/cadastrar", "/usuariorest/csrf-token", "/usuario" ).permitAll()
+            .antMatchers("/usuario/home","/api/**").hasRole("USUARIO")
             .anyRequest().authenticated()
             .and()
         .exceptionHandling()
@@ -45,7 +48,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         	.logoutRequestMatcher(new AntPathRequestMatcher("/usuario/logout"))
             .logoutSuccessUrl("/usuario/logar")
             .invalidateHttpSession(true)
-            .permitAll();
+            .permitAll()
+            .and().httpBasic();
 	}
 	
 	
