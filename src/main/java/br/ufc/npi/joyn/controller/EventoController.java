@@ -38,7 +38,6 @@ import br.ufc.quixada.npi.service.SendEmailService;
 
 @Controller
 @RequestMapping(path="/evento")
-@ComponentScan("br.ufc.quixada.npi.service")
 public class EventoController {
 
 	@Autowired
@@ -58,9 +57,6 @@ public class EventoController {
 	
 	@Autowired
 	ConviteService conviteService;
-	
-	@Autowired
-	SendEmailService service;
 		
 	@GetMapping(path="/meus_eventos")
 	public ModelAndView meusEventos(){
@@ -166,7 +162,7 @@ public class EventoController {
 	}
 
 	@PostMapping(path="/convidar")
-	public String convidar(HttpServletRequest request, @RequestParam String email, @RequestParam Long id){
+	public String convidar(@RequestParam String email, @RequestParam Long id){
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Usuario usuario = usuarioService.getUsuario(email);
 		Evento evento = eventoService.buscarEvento(id);
@@ -174,18 +170,10 @@ public class EventoController {
 			if(usuario != null){
 				ParticipacaoEvento pe = new ParticipacaoEvento(usuario, evento, Papel.ORGANIZADOR, true);
 				participacaoEventoService.addParticipacaoEvento(pe);
-				
 			} else {
-				conviteService.addConvite(new Convite(email, id));
-				String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
-				EmailBuilder emailBuilder = new EmailBuilder("Joyn",
-						 "joyn@npi.com.br",
-						 "Convite para organizar evento", 
-						 email, 
-						 "Você foi convidado para organizar o evento: " + evento.getNome() 
-						  + "\n Faca seu cadastro em: " + baseUrl + "/usuario/cadastrar");
-				Email emailConvite = new Email(emailBuilder);
-				service.sendEmail(emailConvite);
+				Convite convite = new Convite(email, id);
+				conviteService.addConvite(convite);
+				conviteService.enviarEmail(convite);
 			}
 		}
 		return "redirect:/evento/"+id;

@@ -18,7 +18,6 @@ import br.ufc.quixada.npi.model.Email.EmailBuilder;
 import br.ufc.quixada.npi.service.SendEmailService;
 
 @Service
-@ComponentScan("br.ufc.quixada.npi.service")
 public class UsuarioService {
 	
 	@Autowired
@@ -26,9 +25,6 @@ public class UsuarioService {
 	
 	@Autowired
 	private TokenService tokenService;
-	
-	@Autowired
-	SendEmailService service;
 	
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -95,13 +91,7 @@ public class UsuarioService {
 				tokenService.salvar(token);
 			}
 
-			EmailBuilder emailBuilder = new EmailBuilder("Joyn",
-					 "joyn@npi.com.br",
-					 "Recuperacao de senha", 
-					 email,
-					 "\n Altera sua senha em: http://localhost:8080/usuario/alterarsenha/" + token.getToken());
-			Email emailSenha = new Email(emailBuilder);
-			service.sendEmail(emailSenha);
+			tokenService.enviarEmailRecuperacao(token);
 		}
 	}
 	
