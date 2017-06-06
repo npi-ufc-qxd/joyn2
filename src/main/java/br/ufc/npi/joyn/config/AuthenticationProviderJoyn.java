@@ -24,7 +24,7 @@ public class AuthenticationProviderJoyn implements AuthenticationProvider {
 		
 		if(usuarioService.logar(email, senha)){
 			Usuario userBanco = usuarioService.getUsuario(email);
-			return new UsernamePasswordAuthenticationToken(email, senha, userBanco.getAuthorities());
+			return new UsernamePasswordAuthenticationToken(userBanco, senha, userBanco.getAuthorities());
 		}
 		
 		throw new UsernameNotFoundException("Login e/ou Senha inválidos.");
@@ -34,4 +34,6 @@ public class AuthenticationProviderJoyn implements AuthenticationProvider {
 	public boolean supports(Class<?> authentication) {
 		return true;
 	}
+	
+	
 }

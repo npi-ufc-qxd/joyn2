@@ -80,17 +80,22 @@ public class AtividadeController {
 		eventoService.salvarEvento(evento);
 		
 		Usuario logado = usuarioService.getUsuarioLogado();
-		participacaoAtividadeService.criarParticipacaoAtividade(logado, atividadeSalva);		
+		participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva, Papel.ORGANIZADOR);		
 		
 		return "redirect:/atividade/" + atividadeSalva.getId();
 	}
 	
 	@GetMapping(path="/{id}")
 	public ModelAndView detalhesAtividade(@PathVariable("id") Long id){
-		ModelAndView model = new ModelAndView("detalhesAtividade");
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Atividade atividade =  atividadeService.buscarAtividade(id);
-		model.addObject("atividade", atividade);
-		return model;
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, atividade.getEvento()) == Papel.ORGANIZADOR){
+			ModelAndView model = new ModelAndView("detalhesAtividade");
+			model.addObject("atividade", atividade);
+			return model;
+		}
+		
+		return new ModelAndView("redirect:/evento/meus_eventos");
 	}
 	
 	@GetMapping(path="/editar/{id}")
@@ -159,7 +164,7 @@ public class AtividadeController {
 	public String addParticipantes(@PathVariable("idUser") Long usuarioid, @PathVariable("atv") Long atividadeid){
 		Usuario usuario = usuarioService.getUsuario(usuarioid);
 		Atividade atividade = atividadeService.buscarAtividade(atividadeid);
-		participacaoAtividadeService.adicionarAtividade(usuario, atividade);
+		participacaoAtividadeService.adicionarAtividade(usuario, atividade, Papel.PARTICIPANTE);
 		return "redirect:/atividade/"+atividade.getId()+"/ver_participantes";
 	}
 	

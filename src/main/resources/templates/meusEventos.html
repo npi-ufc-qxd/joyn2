@@ -27,6 +27,7 @@
                 <div>
                 	<form action="/evento/meus_eventos" method="POST">
 	                	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	                	
 						Buscar Evento: <input type="text" name="nome"/> 
 						<button type="submit" name="action"> Buscar </button>
 					</form>
