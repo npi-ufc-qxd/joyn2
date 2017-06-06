@@ -24,11 +24,15 @@
 			<!-- Conteudo principal -->
             <div class="white-box">
                 
-                <div>
-                	<form action="/evento/meus_eventos" method="POST">
-	                	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-						Buscar Evento: <input type="text" name="nome"/> 
-						<button type="submit" name="action"> Buscar </button>
+                <div class="col-xs-12">
+                	<form action="/evento/meus_eventos" method="POST" class="floating-labels">
+	                	<div class="form-group has-error m-b-40">
+	                		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	                		<input type="text" class="form-control " name="nome"  required=""/>
+	                		<span class="highlight"></span>
+							<label for="input1">Pesquisar</label> 
+							d
+						</div>
 					</form>
                 </div>
                 <hr/>

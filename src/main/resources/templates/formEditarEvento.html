@@ -52,30 +52,6 @@
 					</div>
 
 					<div class="form-group">
-						<label for="dataIni">Data de Inicio</label>
-						<div class="input-group">
-							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
-							</div>
-							<input type="date" class="form-control" id="dataIni"
-								th:field="*{dataInicio}" placeholder="Data de Inicio"
-								value="th:text=${evento.dataInicio}" />
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="dataFim">Data Fim</label>
-						<div class="input-group">
-							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
-							</div>
-							<input type="date" class="form-control" id="dataFim"
-								th:field="*{dataFim}" placeholder="Data Fim"
-								value="th:text=${evento.dataFim}" />
-						</div>
-					</div>
-
-					<div class="form-group">
 						<label for="descricao">Descrição</label>
 						<div class="input-group">
 							<div class="input-group-addon">
@@ -84,6 +60,30 @@
 							<textarea class="form-control" id="descricao"
 								th:field="*{descricao}" placeholder="Descrição" rows="10"
 								cols="30" value="th:text=${evento.descricao}" />
+						</div>
+					</div>
+					
+					<div class="col-md-6 form-group">
+						<label for="dataIni">Data de Inicio</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" class="form-control mydatepicker" id="dataIni"
+								th:field="*{dataInicio}" placeholder="Data de Inicio"
+								value="th:text=${evento.dataInicio}" />
+						</div>
+					</div>
+
+					<div class="col-md-6 form-group">
+						<label for="dataFim">Data Fim</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" class="form-control mydatepicker" id="dataFim"
+								th:field="*{dataFim}" placeholder="Data Fim"
+								value="th:text=${evento.dataFim}" />
 						</div>
 					</div>
 
@@ -125,14 +125,14 @@
 					</div>
 
 					<div class="form-group">
-						<div class="checkbox checkbox-success">
+						<div class="col-md-2">
 							<input id="gameficado" type="checkbox" th:field="*{gameficado}"
 								value="th:text=${evento.gameficado}" /> <label for="gameficado">Gameficado</label>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<div class="checkbox checkbox-success">
+						<div class="col-md-10">
 							<input id="status" type="checkbox" th:field="*{status}"
 								value="th:text=${evento.status}" /> <label for="status">Status</label>
 						</div>
@@ -144,12 +144,13 @@
 						class="btn btn-inverse waves-effect waves-light">Cancelar</button>
 
 				</form>
+				
 			</div>
 			<!-- Fim do Conteudo principal -->
 		</div>
 
 	</div>
-
-
+	<div th:replace="fragments/scripts :: scripts "></div>
+				<div th:replace="fragments/datas_formularios :: datas_formularios "></div>
 </body>
 </html>
