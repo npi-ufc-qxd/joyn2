@@ -6,11 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import br.ufc.npi.joyn.util.Constants;
+
 @Entity
 public class Token {
 
-	public static long TEMPO_EXPIRAR_MINUTOS = 24 * 60;
-	public static long TEMPO_EXPIRAR = 60000 * TEMPO_EXPIRAR_MINUTOS;
+	private static final long TEMPO_EXPIRAR_MS = 60000 * Constants.TOKEN_EXPIRAR_MINUTOS;
 	
 	@Id
 	private String token;
@@ -51,7 +52,7 @@ public class Token {
 	public boolean expirou(){
 		Long tempoPassadoMS = new Date().getTime() - getTempoCriacao();
 		System.out.println(tempoPassadoMS);
-		if(tempoPassadoMS < TEMPO_EXPIRAR) return false;
+		if(tempoPassadoMS < TEMPO_EXPIRAR_MS) return false;
 		else return true;
 	}
 
