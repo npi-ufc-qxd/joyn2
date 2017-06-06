@@ -97,13 +97,6 @@ public class UsuarioController {
 		return uploadArquivoService.store(imagem, pastaImagensUsuarios, String.valueOf(idUsuario));
 	}
 	
-	@GetMapping(path = "/logar")
-	public ModelAndView loginUsuario() {
-		ModelAndView model = new ModelAndView("formLoginUsuario");
-		model.addObject(new Usuario());
-		return model;
-	}
-
 	@GetMapping(path = "/editar")
 	public ModelAndView editarUsuarioForm() {
 		ModelAndView model = new ModelAndView("editarUsuario");
