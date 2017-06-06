@@ -1,9 +1,0 @@
-git status
-git checkout -b 1_cadastro_simples
-git add .
-git commit -m "Cadastro e login simples"
-git push origin 1_cadastro_simples
-
-git checkout master
-git pull origin master
-
