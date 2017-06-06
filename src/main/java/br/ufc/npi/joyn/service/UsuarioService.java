@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,12 +12,8 @@ import org.springframework.stereotype.Service;
 import br.ufc.npi.joyn.model.Token;
 import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.repository.UsuarioRepository;
-import br.ufc.quixada.npi.model.Email;
-import br.ufc.quixada.npi.model.Email.EmailBuilder;
-import br.ufc.quixada.npi.service.SendEmailService;
 
 @Service
-@ComponentScan("br.ufc.quixada.npi.service")
 public class UsuarioService {
 	
 	@Autowired
@@ -26,9 +21,6 @@ public class UsuarioService {
 	
 	@Autowired
 	private TokenService tokenService;
-	
-	@Autowired
-	SendEmailService service;
 	
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -95,13 +87,7 @@ public class UsuarioService {
 				tokenService.salvar(token);
 			}
 
-			EmailBuilder emailBuilder = new EmailBuilder("Joyn",
-					 "joyn@npi.com.br",
-					 "Recuperacao de senha", 
-					 email,
-					 "\n Altera sua senha em: http://localhost:8080/usuario/alterarsenha/" + token.getToken());
-			Email emailSenha = new Email(emailBuilder);
-			service.sendEmail(emailSenha);
+			tokenService.enviarEmailRecuperacao(token);
 		}
 	}
 	
