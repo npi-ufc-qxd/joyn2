@@ -65,23 +65,26 @@
 										</tr>
 
 										<tr>
-											<th>Numero de vagas</th>
+											<th>Numero de vagas: </th>
 											<td><span th:text="${evento.vagas}"></span></td>
 										</tr>
 
 										<tr>
-											<th>Porcentagem</th>
+											<th>Porcentagem: </th>
 											<td><span th:text="${evento.porcentagemMin}"></span></td>
 										</tr>
 
 										<tr>
-											<th>Descrição</th>
+											<th>Descrição: </th>
 											<td><span th:text="${evento.descricao}"></span></td>
 										</tr>
 
 										<tr>
-											<th>Numero de vagas</th>
-											<td><span th:text="${evento.vagas}"></span></td>
+											<th>Gameficado: </th>
+											<td>
+											    <span th:if="${evento.gameficado}">Evento gameficado </span>
+												<span th:unless="${evento.gameficado}">Evento não gameficado </span>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -125,8 +128,8 @@
 									<tbody>
 										<tr th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
 											<td th:text="${organizador.usuario.nome}"></td>
-											<td th:if="${organizador.usuario.id != usuarioLogado.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs" th:href="@{${'/evento/excluir_organizador/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
-											<td th:unless="${organizador.usuario.id != usuarioLogado.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs disabled">Excluir</a></td>
+											<td th:if="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs" th:href="@{${'/evento/excluir_organizador/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
+											<td th:unless="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs disabled">Excluir</a></td>
 										</tr>
 									</tbody>
 								</table>

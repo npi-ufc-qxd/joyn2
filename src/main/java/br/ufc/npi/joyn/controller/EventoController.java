@@ -119,7 +119,7 @@ public class EventoController {
 				if (org.getPapel() == Papel.ORGANIZADOR) {
 					ModelAndView model = new ModelAndView("detalhesEvento");
 					model.addObject("evento", evento);
-					model.addObject("usuarioLogado", user);
+					model.addObject("usuario", user);
 					return model;
 				}
 			}
