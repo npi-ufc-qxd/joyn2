@@ -83,12 +83,12 @@
 			        </div>
 			        <div class="form-group">
 			          <div class="col-xs-12">
-			            <input class="form-control" type="password" th:field="*{senha}" placeholder="Nova Senha"/>
+			            <input class="form-control" id="password" type="password" th:field="*{senha}" placeholder="Nova Senha"/>
 			          </div>
 			        </div>
 			        <div class="form-group">
 			          <div class="col-xs-12">
-			            <input class="form-control" type="password"  placeholder="Confirmar Nova Senha"/>
+			            <input class="form-control" id="confirm_password" type="password"  placeholder="Confirmar Nova Senha"/>
 			          </div>
 			        </div>
 			        
@@ -107,9 +107,13 @@
 
 		</div>
 
+
 	<div th:replace="fragments/scripts :: scripts ">
 		
 	</div>
+
+
+		<div th:replace="fragments/confirmar-senha :: confirmar" ></div>
 
 	</body>
 </html>

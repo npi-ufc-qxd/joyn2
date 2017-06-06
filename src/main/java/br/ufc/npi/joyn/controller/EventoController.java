@@ -217,6 +217,7 @@ public class EventoController {
 				if (org.getPapel() == Papel.ORGANIZADOR) {
 					ModelAndView model = new ModelAndView("participantesEvento");
 					model.addObject("participantes", participantes);
+					model.addObject("organizadores", organizadores);
 					model.addObject("usuarioLogado", user);
 					return model;
 				}
