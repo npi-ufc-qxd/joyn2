@@ -90,9 +90,7 @@ public class UsuarioController {
 	}
 	
 	public void salvarImagemUsuario(MultipartFile imagem, Long idUsuario) throws IOException{
-		File convFile = new File(imagem.getOriginalFilename());
-		imagem.transferTo(convFile);
-		String mimetype= new MimetypesFileTypeMap().getContentType(convFile);
+		String mimetype= new MimetypesFileTypeMap().getContentType(imagem.getOriginalFilename());
         String type = mimetype.split("/")[0];
         if(type.equals("image"))
         	uploadArquivoService.store(imagem, Constants.PATH_IMAGENS_USUARIOS, String.valueOf(idUsuario));
