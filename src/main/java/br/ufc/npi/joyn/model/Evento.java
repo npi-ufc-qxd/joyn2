@@ -1,6 +1,6 @@
 package br.ufc.npi.joyn.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Evento {
 
@@ -18,8 +20,10 @@ public class Evento {
 	private Long id;
 	private String nome;
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataInicio;
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataFim;
 	private String descricao;
 
