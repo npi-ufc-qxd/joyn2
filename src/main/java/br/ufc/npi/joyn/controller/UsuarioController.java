@@ -126,7 +126,7 @@ public class UsuarioController {
 			}
 		}
 		
-		Authentication authentication = new UsernamePasswordAuthenticationToken(usuarioBanco.getEmail(), usuarioBanco.getSenha(), usuarioBanco.getAuthorities());
+		Authentication authentication = new UsernamePasswordAuthenticationToken(usuarioBanco, usuarioBanco.getSenha(), usuarioBanco.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return "redirect:/usuario/editar";
