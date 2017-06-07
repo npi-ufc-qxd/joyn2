@@ -1,15 +1,14 @@
 package br.ufc.npi.joyn.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +31,6 @@ import br.ufc.npi.joyn.service.EventoService;
 import br.ufc.npi.joyn.service.ParticipacaoAtividadeService;
 import br.ufc.npi.joyn.service.ParticipacaoEventoService;
 import br.ufc.npi.joyn.service.UsuarioService;
-import br.ufc.quixada.npi.model.Email;
-import br.ufc.quixada.npi.model.Email.EmailBuilder;
-import br.ufc.quixada.npi.service.SendEmailService;
 
 @Controller
 @RequestMapping(path="/evento")
@@ -86,8 +82,8 @@ public class EventoController {
 	}
 	
 	@PostMapping(path="/cadastrar")
-	public String salvarEvento(@Valid Evento evento, BindingResult result){
-		
+	public String salvarEvento(@Valid Evento evento, @RequestParam("dataInicio") String dataInicioStr, @RequestParam("dataFim") String dataFimStr, BindingResult result) throws ParseException{
+
 		if (!verificarFormulario(evento, result)) return "formCadastroEvento"; 
 
 		Evento salvo = eventoService.salvarEvento(evento);
@@ -132,8 +128,7 @@ public class EventoController {
 	}
 	
 	@PostMapping(path="/editar")
-	public String atualizar(Evento evento, BindingResult result){
-		
+	public String atualizar(@Valid Evento evento, @RequestParam("dataInicio") String dataInicioStr, @RequestParam("dataFim") String dataFimStr, BindingResult result) throws ParseException{
 		if (!verificarFormulario(evento, result)) return "formEditarEvento"; 
 		
 		Evento evento_salvo = eventoService.salvarEvento(evento);
@@ -142,17 +137,14 @@ public class EventoController {
 	
 	
 	public boolean verificarFormulario(Evento evento, BindingResult result){
-		Date data = new Date(); 
-		SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
-		String data_atual = formatador.format(data);
-		
+		Date dataAtual = new Date();
 		if (evento.getNome().equals("")) return false;
 		
 		if (result.hasErrors()) return false;
 		
 		if (evento.getDataFim().before(evento.getDataInicio())) return false;
 		
-		if (evento.getDataInicio().toString().compareTo(data_atual) < 0) return false;
+		if (evento.getDataInicio().before(dataAtual) ) return false;
 		
 		if (evento.getPorcentagemMin() < 0 || evento.getPorcentagemMin() > 100) return false;
 		
