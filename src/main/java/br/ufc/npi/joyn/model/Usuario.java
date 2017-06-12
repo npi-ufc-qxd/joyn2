@@ -19,6 +19,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Usuario implements UserDetails{
 
@@ -43,9 +45,11 @@ public class Usuario implements UserDetails{
 	private String senha;
 	
 	@OneToMany
+	@JsonManagedReference(value="participacaoEventoUsuario")
 	List<ParticipacaoEvento> participacaoEvento;
 	
 	@OneToMany
+	@JsonManagedReference(value="participacaoAtividadeAtividade")
 	List<ParticipacaoAtividade> participacaoAtividade;
 
 	@Enumerated(EnumType.STRING)
