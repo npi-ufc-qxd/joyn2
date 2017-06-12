@@ -22,7 +22,7 @@
 
 				<div class="col-md-12">
 					<a href="#"	class="btn btn-outline btn-rounded btn-info ">Ranking</a>
-					<a class="btn btn-outline btn-rounded btn-info " href="#">Participantes</a> 
+					<a class="btn btn-outline btn-rounded btn-info " th:href="@{${'/evento/participantes_evento/'+evento.id}}">Participantes</a> 
 					<a class="btn btn-outline btn-rounded btn-info " th:href="@{${'/evento/editar/'+evento.id}}">Editar</a>
 					<hr/>
 				</div>
@@ -44,20 +44,19 @@
 									<tbody>
 										<tr>
 											<th>Status:</th>
-											<td><span th:if="${evento.status}">Evento
-													acessível ao público</span> <span th:unless="${evento.status}">Evento
-													não acessível ao público</span></td>
+											<td>
+												<span th:if="${evento.status}">Evento acessível ao público</span>
+												<span th:unless="${evento.status}">Evento não acessível ao público</span>
+											</td>
 										</tr>
 										<tr>
 											<th>Data de Início:</th>
-											<td><span
-												th:text="${#calendars.format(evento.dataInicio, 'dd/MM/yyyy')}"></span></td>
+											<td><span th:text="${#calendars.format(evento.dataInicio, 'dd/MM/yyyy')}"></span></td>
 										</tr>
 
 										<tr>
 											<th>Data de Término:</th>
-											<td><span
-												th:text="${#calendars.format(evento.dataFim, 'dd/MM/yyyy')}"></span></td>
+											<td><span th:text="${#calendars.format(evento.dataFim, 'dd/MM/yyyy')}"></span></td>
 										</tr>
 
 										<tr>
@@ -66,23 +65,26 @@
 										</tr>
 
 										<tr>
-											<th>Numero de vagas</th>
+											<th>Numero de vagas: </th>
 											<td><span th:text="${evento.vagas}"></span></td>
 										</tr>
 
 										<tr>
-											<th>Porcentagem</th>
+											<th>Porcentagem: </th>
 											<td><span th:text="${evento.porcentagemMin}"></span></td>
 										</tr>
 
 										<tr>
-											<th>Descrição</th>
+											<th>Descrição: </th>
 											<td><span th:text="${evento.descricao}"></span></td>
 										</tr>
 
 										<tr>
-											<th>Numero de vagas</th>
-											<td><span th:text="${evento.vagas}"></span></td>
+											<th>Gameficado: </th>
+											<td>
+											    <span th:if="${evento.gameficado}">Evento gameficado </span>
+												<span th:unless="${evento.gameficado}">Evento não gameficado </span>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -120,19 +122,14 @@
 										</tr>
 										<tr>
 											<th>Nome</th>
-											<th>Status</th>
-											<th>Ação</th>
+											<th>Remover</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="organizador : ${evento.participantes}"
-											th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
+										<tr th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
 											<td th:text="${organizador.usuario.nome}"></td>
-											<td th:if="${evento.status}">Acessível</td>
-											<td th:unless="${evento.status}">Inacessível</td>
-											<td><a href="#"><button
-														class="btn btn-block btn-outline btn-rounded btn-primary btn-xs">Excluir</button></a>
-											</td>
+											<td th:if="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs" th:href="@{${'/evento/excluir_organizador/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
+											<td th:unless="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs disabled">Excluir</a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -152,47 +149,27 @@
 						</div>
 						<div class="panel-wrapper collapse in" aria-expanded="true">
 							<div class="panel-body">
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									Vestibulum tincidunt est vitae ultrices accumsan. Aliquam
-									ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+								<h5><a th:href="@{${'/atividade/'+evento.id+'/cadastrar'}}">Adicionar atividades</a></h5>
+								<table class="striped">
+								  <thead>
+								    <tr>
+									<th>Nome</th>
+									<th>Detalhes</th>
+									<th>Remover</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								  	<tr  th:each="atividade : ${evento.atividades}">
+										<td th:text="${atividade.nome}"></td>
+										<td><a class="waves-effect waves-teal btn-flat orange" th:href="@{${'/atividade/'+atividade.id}}">Ver Detalhes</a></td>
+										<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')">Excluir</a></td>
+								    </tr>
+								  </tbody>
+								</table>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<!-- 
-				<div class="">
-					<h2>Atividades do Evento</h2>
-					<h5>
-						<a href="#">Adicionar atividades</a>
-					</h5>
-					<table class="striped">
-						<thead>
-							<tr>
-								<th>Nome</th>
-								<th></th>
-								<th>Remover</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="atividade : ${evento.atividades}">
-								<td th:text="${atividade.nome}"></td>
-								<td><a class="waves-effect waves-teal btn-flat orange"
-									href="#">Ver Detalhes</a></td>
-								<td><a class="waves-effect waves-teal btn-flat red"
-									href="#">Excluir</a></td>
-							</tr>
-						</tbody>
-					</table>
-
-				</div>
-	 -->
-
-
-
-
-
-
 			</div>
 			<!-- Fim do Conteudo principal -->
 		</div>

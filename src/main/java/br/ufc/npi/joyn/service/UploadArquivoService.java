@@ -14,14 +14,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.ufc.npi.joyn.util.Constants;
+
 @Service
 public class UploadArquivoService {
 
-	private final String rootLocString = "upload-dir";
-	private final Path rootLocation;
+	private Path rootLocation;
 	
 	public UploadArquivoService() {
-		rootLocation = Paths.get(rootLocString);
+		rootLocation = Paths.get(Constants.PATH_UPLOAD);
 	}
 	
 	public String store(MultipartFile arquivoUpload, String pastaDeDestino, String nomeArquivo) throws IOException {	

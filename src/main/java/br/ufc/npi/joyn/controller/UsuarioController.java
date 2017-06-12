@@ -3,6 +3,7 @@ package br.ufc.npi.joyn.controller;
 import java.io.File;
 import java.io.IOException;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -36,6 +37,7 @@ import br.ufc.npi.joyn.service.EventoService;
 import br.ufc.npi.joyn.service.ParticipacaoEventoService;
 import br.ufc.npi.joyn.service.UploadArquivoService;
 import br.ufc.npi.joyn.service.UsuarioService;
+import br.ufc.npi.joyn.util.Constants;
 
 @Controller
 @RequestMapping(path="/usuario")
@@ -56,8 +58,6 @@ public class UsuarioController {
 	@Autowired
 	ParticipacaoEventoService participacaoEventoService;
 	
-	private final String pastaImagensUsuarios = "imagens" + File.separator +"usuarios";
-	
 	@GetMapping(path = "/cadastrar")
 	public ModelAndView cadastroUsuario(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView("formCadastroUsuario");
@@ -66,11 +66,9 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(path = "/cadastrar")
-	public String salvarUsuario(HttpServletRequest request, @Valid Usuario usuario, BindingResult result, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
+	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
 		if (result.hasErrors()) return "formCadastroUsuario";
 		usuario.setPapel(Papel.USUARIO);
-
-		
 		Usuario userBanco = usuarioService.salvarUsuario(usuario);
 				
 		Convite convite = conviteService.getConvite(usuario.getEmail());
@@ -80,30 +78,25 @@ public class UsuarioController {
 			participacaoEventoService.addParticipacaoEvento(pe);
 		}
 		
-		String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath());
-		String fotoUrl = baseUrl + "/usuario/imagens/" + userBanco.getId();
+		String fotoUrl = Constants.BASE_URL + "/usuario/imagens/" + userBanco.getId();
 		userBanco.setFotoUrl(fotoUrl);
 		usuarioService.atualizaUsuario(userBanco);
 		
 		if(imagem != null && !imagem.isEmpty())
 			salvarImagemUsuario(imagem, userBanco.getId());
-		
 
 		return "redirect:/usuario/logar";
 
 	}
 	
-	public String salvarImagemUsuario(MultipartFile imagem, Long idUsuario) throws IOException{
-		return uploadArquivoService.store(imagem, pastaImagensUsuarios, String.valueOf(idUsuario));
+	public void salvarImagemUsuario(MultipartFile imagem, Long idUsuario) throws IOException{
+		String mimetype= new MimetypesFileTypeMap().getContentType(imagem.getOriginalFilename());
+		String type = mimetype.split("/")[0];
+		if(type.equals("image"))
+			uploadArquivoService.store(imagem, Constants.PATH_IMAGENS_USUARIOS, String.valueOf(idUsuario));
+		else throw new IOException("Arquivo não é uma imagem");
 	}
 	
-	@GetMapping(path = "/logar")
-	public ModelAndView loginUsuario() {
-		ModelAndView model = new ModelAndView("formLoginUsuario");
-		model.addObject(new Usuario());
-		return model;
-	}
-
 	@GetMapping(path = "/editar")
 	public ModelAndView editarUsuarioForm() {
 		ModelAndView model = new ModelAndView("editarUsuario");
@@ -133,7 +126,7 @@ public class UsuarioController {
 			}
 		}
 		
-		Authentication authentication = new UsernamePasswordAuthenticationToken(usuarioBanco.getEmail(), usuarioBanco.getSenha(), usuarioBanco.getAuthorities());
+		Authentication authentication = new UsernamePasswordAuthenticationToken(usuarioBanco, usuarioBanco.getSenha(), usuarioBanco.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return "redirect:/usuario/editar";
@@ -176,7 +169,7 @@ public class UsuarioController {
 
         Resource file;
 		try {
-			file = uploadArquivoService.loadAsResource(pastaImagensUsuarios + File.separator + id);
+			file = uploadArquivoService.loadAsResource(Constants.PATH_IMAGENS_USUARIOS + File.separator + id);
 		} catch (IOException e) {
 			return ResponseEntity.noContent().build();
 		}

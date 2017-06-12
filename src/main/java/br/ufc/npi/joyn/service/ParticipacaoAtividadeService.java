@@ -26,12 +26,12 @@ public class ParticipacaoAtividadeService {
 	@Autowired
 	ParticipacaoEventoService participacaoEvento;
 	
-	public ParticipacaoAtividade adicionarAtividade(Usuario usuario, Atividade atividade){
+	public ParticipacaoAtividade adicionarAtividade(Usuario usuario, Atividade atividade, Papel papel){
 		ParticipacaoAtividade participacaoAtividade = new ParticipacaoAtividade();
 		
 		participacaoAtividade.setUsuario(usuario);
 		participacaoAtividade.setAtividade(atividade);
-		participacaoAtividade.setPapel(Papel.PARTICIPANTE);
+		participacaoAtividade.setPapel(papel);
 		
 		if (atividade.getParticipantes().size() < atividade.getVagas()){
 			participacaoAtividade.setStatus(true);

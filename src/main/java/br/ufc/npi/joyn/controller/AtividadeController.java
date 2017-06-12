@@ -80,17 +80,22 @@ public class AtividadeController {
 		eventoService.salvarEvento(evento);
 		
 		Usuario logado = usuarioService.getUsuarioLogado();
-		participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva);		
+		participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva, Papel.ORGANIZADOR);		
 		
 		return "redirect:/atividade/" + atividadeSalva.getId();
 	}
 	
 	@GetMapping(path="/{id}")
 	public ModelAndView detalhesAtividade(@PathVariable("id") Long id){
-		ModelAndView model = new ModelAndView("detalhesAtividade");
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Atividade atividade =  atividadeService.buscarAtividade(id);
-		model.addObject("atividade", atividade);
-		return model;
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, atividade.getEvento()) == Papel.ORGANIZADOR){
+			ModelAndView model = new ModelAndView("detalhesAtividade");
+			model.addObject("atividade", atividade);
+			return model;
+		}
+		
+		return new ModelAndView("redirect:/evento/meus_eventos");
 	}
 	
 	@GetMapping(path="/editar/{id}")
@@ -127,7 +132,7 @@ public class AtividadeController {
 		return "redirect:/evento/"+evento.getId();
 	}	
 
-	@GetMapping(path="/excluirparticipante/{id}")
+	@GetMapping(path="/excluir_participante/{id}")
 	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		ParticipacaoAtividade paExcluir = participacaoAtividadeService.getParticipacaoAtividade(idParticipacaoEvento);
@@ -136,10 +141,10 @@ public class AtividadeController {
 		
 		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
 			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoEvento);
-		return "redirect:/atividade/verparticipantes/"+atividade.getId();
+		return "redirect:/atividade/"+atividade.getId()+"/ver_participantes";
 	}
 
-	@GetMapping(path="/verparticipantes/{id}")
+	@GetMapping(path="/{id}/ver_participantes")
 	public ModelAndView verParticipantes(@PathVariable("id") Long idAtividade){
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Atividade atividade = atividadeService.buscarAtividade(idAtividade);
@@ -159,16 +164,16 @@ public class AtividadeController {
 	public String addParticipantes(@PathVariable("idUser") Long usuarioid, @PathVariable("atv") Long atividadeid){
 		Usuario usuario = usuarioService.getUsuario(usuarioid);
 		Atividade atividade = atividadeService.buscarAtividade(atividadeid);
-		participacaoAtividadeService.adicionarAtividade(usuario, atividade);
-		return "redirect:/atividade/verparticipantes/"+atividade.getId();
+		participacaoAtividadeService.adicionarAtividade(usuario, atividade, Papel.PARTICIPANTE);
+		return "redirect:/atividade/"+atividade.getId()+"/ver_participantes";
 	}
 	
 	
 	public boolean verificarFormulario(Atividade atividade){
-		if (atividade.getNome() == null || atividade.getDescricao() == null || 
+		if (atividade.getNome().isEmpty() || atividade.getDescricao().isEmpty() || 
 				atividade.getDias() == null || atividade.getTipo() == null) return false;
 		
-		if (atividade.getDias() < 0) return false;
+		if (atividade.getDias() < 0 || atividade.getVagas() < 0) return false;
 				
 		if (atividade.getMinimoParaFreq() != null){
 			if (atividade.getMinimoParaFreq() < 0 || 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -67,7 +67,7 @@
 					data-target=".navbar-collapse"><i class="ti-menu"></i></a>
 				<!-- Logo -->
 				<div class="top-left-part">
-					<a class="logo" href="#"> <!-- Logo icon image, you can use font-icon also -->
+					<a class="logo" href="/evento/meus_eventos"> <!-- Logo icon image, you can use font-icon also -->
 						<b><i class="glyphicon glyphicon-qrcode"></i></b> <!-- Logo text image you can use text also -->
 						<span class="hidden-xs">Joyn</span>
 					</a>
@@ -81,13 +81,13 @@
 					<!-- .user dropdown -->
 					<li class="dropdown"><a class="dropdown-toggle profile-pic"
 						data-toggle="dropdown" href="#"> <img
-							src="/images/users/he-man.jpg" alt="user-img" width="36"
-							class="img-circle" /><b class="hidden-xs">He-man</b>
+							th:src="${#authentication.getPrincipal().getFotoUrl()}" alt="user-img" width="36"
+							class="img-circle" /><b class="hidden-xs" th:text="${#authentication.getPrincipal().getNome()}"> </b>
 					</a>
-						<ul class="dropdown-menu dropdown-user scale-up">
-							<li><a href="#"><i class="ti-user"></i> Meu perfil</a></li>
+					 	<ul class="dropdown-menu dropdown-user scale-up">
+							<li><a href="/usuario/editar"><i class="ti-user"></i> Meu perfil</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+							<li><a href="/usuario/logout"><i class="fa fa-power-off"></i> Logout</a></li>
 						</ul> <!-- /.user dropdown-user --></li>
 					<!-- /.user dropdown -->
 					<!-- /.dropdown -->
@@ -148,6 +148,7 @@
 	<!-- /#wrapper -->
 
 	<div th:replace="fragments/scripts :: scripts"></div>
+	<div th:replace="fragments/confirmar-senha :: confirmar" ></div>
 
 </body>
 
