@@ -28,9 +28,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         	.antMatchers("/css/**", "/js/**", "/images/**", "/plugins/**", "/bootstrap/**", "/less/**").permitAll()
             .antMatchers("/usuario/cadastrar", "/usuario/starter", "/usuario/recuperarsenha",
-            		"/usuario/alterarsenha/**", "/usuario/novasenha", "/usuariorest/token", 
-            		"/usuariorest/teste" ,"/usuariorest/cadastrar", "/usuariorest/csrf-token", "/usuario" ).permitAll()
-            .antMatchers("/usuario/home","/api/**").hasRole("USUARIO")
+            		"/usuario/alterarsenha/**", "/usuario/novasenha","/usuariorest/cadastrar", "/usuariorest/csrf-token").permitAll()
+            .antMatchers("/api/**").hasRole("USUARIO")
             .anyRequest().authenticated()
             .and()
         .exceptionHandling()
