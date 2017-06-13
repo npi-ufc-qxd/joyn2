@@ -7,6 +7,8 @@ import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -78,15 +80,20 @@ public class UsuarioController {
 			participacaoEventoService.addParticipacaoEvento(pe);
 		}
 		
-		String fotoUrl = Constants.BASE_URL + "/usuario/imagens/" + userBanco.getId();
-		userBanco.setFotoUrl(fotoUrl);
-		usuarioService.atualizaUsuario(userBanco);
-		
 		if(imagem != null && !imagem.isEmpty())
-			salvarImagemUsuario(imagem, userBanco.getId());
+			userBanco.setFoto64(imagemBase64(imagem));
+		
+		usuarioService.atualizaUsuario(userBanco);
 
 		return "redirect:/usuario/logar";
 
+	}
+	
+	private String imagemBase64(MultipartFile imagem) throws IOException{
+		StringBuilder imagem64 = new StringBuilder();
+		imagem64.append("data:image/png;base64,");
+		imagem64.append(StringUtils.newStringUtf8(Base64.encodeBase64(imagem.getBytes(), false)));
+		return imagem64.toString();
 	}
 	
 	public void salvarImagemUsuario(MultipartFile imagem, Long idUsuario) throws IOException{
@@ -111,7 +118,7 @@ public class UsuarioController {
 		Usuario usuarioBanco = usuarioService.getUsuario(usuarioLogado.getEmail());
 		
 		if(imagem != null && !imagem.isEmpty())
-			salvarImagemUsuario(imagem, usuarioBanco.getId());
+			usuarioBanco.setFoto64(imagemBase64(imagem));
 		
 		if(!usuario.getNome().isEmpty())
 			usuarioBanco.setNome(usuario.getNome());

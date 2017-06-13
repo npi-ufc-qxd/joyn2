@@ -28,7 +28,7 @@
 			  </thead>
 			  <tbody>
 			  	<tr  th:each="atividadeParticipante : ${atividade.participantes}" th:if="${atividadeParticipante.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
-					<td><img alt="Foto" th:src="${atividadeParticipante.usuario.fotoUrl}" height="80"></img> </td>
+					<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="80"></img> </td>
 					<td th:text="${atividadeParticipante.usuario.nome}"></td>
 					<td th:text="${atividadeParticipante.usuario.email}"></td>
 					<td><a th:href="@{${'/atividade/excluir_participante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>
@@ -47,7 +47,7 @@
 			  </thead>
 			  <tbody>
 			  	<tr  th:each="atividadeParticipante : ${atividade.participantes}" th:if="${atividadeParticipante.papel == T(br.ufc.npi.joyn.model.Papel).PARTICIPANTE}">
-					<td><img alt="Foto" th:src="${atividadeParticipante.usuario.fotoUrl}" height="80"></img> </td>
+					<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="80"></img> </td>
 					<td th:text="${atividadeParticipante.usuario.nome}"></td>
 					<td th:text="${atividadeParticipante.usuario.email}"></td>
 					<td><a th:href="@{${'/atividade/excluir_participante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>
