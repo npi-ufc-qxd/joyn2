@@ -8,9 +8,7 @@
 	<div class="container-fluid" layout:fragment="conteudo">
 		<div class="row bg-title">
 			<!-- .page title -->
-			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-				<h4 class="page-title" th:text="${atividade.nome}"></h4> <!-- Pode ser alterado -->
-			</div>
+			
 			<!-- /.page title -->
 		</div>
 		
@@ -18,7 +16,82 @@
 			<!-- Conteudo principal -->
 			
 			<div class="white-box">
+				
+				<div class="col-md-12">
+					<a class="btn  btn-rounded btn-success" th:href="@{${'/atividade/'+atividade.id+'/ver_participantes'}}" >Participantes</a>
+					<a class="btn  btn-rounded btn-warning col-md-offset-9" th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a>
+					<a class="btn  btn-rounded btn-danger " th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')" >Excluir</a>
+					<hr/>
+				</div>
+				
+				<div class="col-md-12">
+					<div class=" panel panel-info">
+						<div class="panel-heading">
+							Informações do Evento
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+						</div>
+						<div class="panel-wrapper collapse in" aria-expanded="true">
+							<div class="panel-wrapper collapse in">
+								<table class="table table-hover">
+									<thead>
+									</thead>
+									<tbody>
+										<tr>
+											<th>Descrição:</th>
+											<td>
+												<span th:text="${atividade.descricao}"></span>
+											</td>
+										</tr>
+										<tr>
+											<th>Evento:</th>
+											<td><span th:text="${atividade.evento.nome}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Número de vagas:</th>
+											<td><span th:text="${atividade.vagas}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Tipo de atividade:</th>
+											<td><span th:text="${atividade.tipo}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Quantidade de Turnos:</th>
+											<td><span th:text="${atividade.dias}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Mínimo para Frequência:</th>
+											<td><span th:text="${atividade.dias}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Pontuação: </th>
+											<td><span th:text="${atividade.pontuacao}"></span></td>
+										</tr>
+
+										<tr>
+											<th>Status: </th>
+											<td>
+											    <h4 class="text-success" th:if="${atividade.status}">Atividade acessível ao público</h4>
+				<h4 class="text-danger" th:unless="${atividade.status}">Atividade não acessível ao público</h4>	
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 			
+			
+			
+			<!--
 				<h4> Descrição: <span th:text="${atividade.descricao}"></span></h4>
 				<h4> Evento: <span th:text="${atividade.evento.nome}"></span></h4>
 				<h4> Número de vagas: <span th:text="${atividade.vagas}"></span></h4>
@@ -28,13 +101,8 @@
 				<h4> Pontuação: <span th:text="${atividade.pontuacao}"></span></h4>
 				<h4 th:if="${atividade.status}">Atividade acessível ao público</h4>
 				<h4 th:unless="${atividade.status}">Atividade não acessível ao público</h4>	
+			-->
 				
-				<div class="">
-					
-					<h5><a th:href="@{${'/atividade/'+atividade.id+'/ver_participantes'}}" >Participantes</a></h5>
-					<h5><a th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a></h5>
-					<h5><a th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')" >Excluir</a></h5>
-				</div>
    			</div>
 			<!-- Fim do Conteudo principal -->
 		</div>
