@@ -29,6 +29,8 @@
     <!-- Date range Plugin JavaScript -->
     <script src="../plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
     <script src="../plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bt-switch -->
+    <script src="../plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js"></script>
     <script>
         // Clock pickers
         $('#single-input').clockpicker({
@@ -100,6 +102,30 @@
             }
         });
     </script>
+    <script type="text/javascript">
+   $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
+   var radioswitch = function() {
+      var bt = function() {
+         $(".radio-switch").on("switch-change", function() {
+            $(".radio-switch").bootstrapSwitch("toggleRadioState")
+         }), 
+         $(".radio-switch").on("switch-change", function() {
+            $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+         }), 
+         $(".radio-switch").on("switch-change", function() {
+            $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+         })
+      };
+      return {
+         init: function() {
+            bt()
+         }
+      }
+   }();
+   $(document).ready(function() {
+      radioswitch.init()
+   });
+</script>
 <!--Style Switcher -->
 	<script src="/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
 	
