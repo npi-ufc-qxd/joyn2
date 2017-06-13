@@ -81,7 +81,7 @@
 					<!-- .user dropdown -->
 					<li class="dropdown"><a class="dropdown-toggle profile-pic"
 						data-toggle="dropdown" href="#"> <img
-							th:src="${#authentication.getPrincipal().getFotoUrl()}" alt="user-img" width="36"
+							th:src="${#authentication.getPrincipal().getFoto64()}" alt="user-img" width="36"
 							class="img-circle" /><b class="hidden-xs" th:text="${#authentication.getPrincipal().getNome()}"> </b>
 					</a>
 					 	<ul class="dropdown-menu dropdown-user scale-up">

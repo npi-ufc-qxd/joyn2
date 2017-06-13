@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import br.ufc.npi.joyn.util.Constants;
 
 @Entity
 public class Usuario implements UserDetails{
@@ -33,7 +33,8 @@ public class Usuario implements UserDetails{
 	@NotBlank
 	private String nome;
 	
-	private String fotoUrl;
+	@Column(columnDefinition = "text", length = Constants.TAM_MAX_IMG_64)
+	private String foto64;
 	private String keyFacebook;
 
 	@Email
@@ -45,11 +46,9 @@ public class Usuario implements UserDetails{
 	private String senha;
 	
 	@OneToMany
-	@JsonManagedReference(value="participacaoEventoUsuario")
 	List<ParticipacaoEvento> participacaoEvento;
 	
 	@OneToMany
-	@JsonManagedReference(value="participacaoAtividadeAtividade")
 	List<ParticipacaoAtividade> participacaoAtividade;
 
 	@Enumerated(EnumType.STRING)
@@ -76,12 +75,12 @@ public class Usuario implements UserDetails{
 		this.nome = nome;
 	}
 
-	public String getFotoUrl() {
-		return fotoUrl;
+	public String getFoto64() {
+		return foto64;
 	}
 
-	public void setFotoUrl(String fotoUrl) {
-		this.fotoUrl = fotoUrl;
+	public void setFoto64(String foto64) {
+		this.foto64 = foto64;
 	}
 
 	public String getEmail() {

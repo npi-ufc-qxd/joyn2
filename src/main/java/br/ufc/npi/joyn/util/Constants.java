@@ -13,6 +13,7 @@ public class Constants {
 	
 	public static final String PATH_UPLOAD = "upload-dir";
 	public static final String PATH_IMAGENS_USUARIOS = "imagens" + File.separator +"usuarios";
+	public static final int TAM_MAX_IMG_64 = 7000000;
 	
 	public static final long TOKEN_EXPIRAR_MINUTOS = 24 * 60;
 }
