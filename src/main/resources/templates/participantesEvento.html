@@ -31,7 +31,7 @@
 				  </thead>
 				  <tbody>
 				  	<tr  th:each="participante : ${participantes}">
-						<td><img alt="Foto" th:src="${participante.usuario.fotoUrl}" height="80"/></td>
+						<td><img alt="Foto" th:src="${participante.usuario.foto64}" height="80"/></td>
 						<td th:text="${participante.usuario.nome}"></td>
 						<td th:text="${participante.usuario.email}"></td>
 						<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluir_participantes/'+participante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
@@ -50,7 +50,7 @@
 				  </thead>
 				  <tbody>
 				  	<tr  th:each="organizador : ${organizadores}">
-						<td><img alt="Foto" th:src="${organizador.usuario.fotoUrl}" height="80"/></td>
+						<td><img alt="Foto" th:src="${organizador.usuario.foto64}" height="80"/></td>
 						<td th:text="${organizador.usuario.nome}"></td>
 						<td th:text="${organizador.usuario.email}"></td>
 						<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluir_participantes/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
