@@ -44,10 +44,11 @@
 							<label for="descricao">Descrição</label>
 							<div class="input-group">
 								<div class="input-group-addon">
-									<i class="fa fa-calendar-o"></i>
+									<i class="fa fa-file-text-o"></i>
 								</div>
-								<input type="text" class="form-control" id="descricao"
-									th:field="*{descricao}" placeholder="Descrição" value="th:text=${atividade.descricao}"/>
+								<textarea type="text" class="form-control" id="descricao"
+									th:field="*{descricao}" placeholder="Descrição" value="th:text=${atividade.descricao}" rows="10"
+									cols="30"/>
 							</div>
 						</div>
 						
@@ -55,7 +56,7 @@
 							<label for="vagas">Quantidade de Vagas</label>
 							<div class="input-group">
 								<div class="input-group-addon">
-									<i class="fa fa-calendar-o"></i>
+									<i class="fa fa-users"></i>
 								</div>
 								<input type="text" class="form-control" id="vagas"
 									th:field="*{vagas}" placeholder="Quantidade de Vagas" value="th:text=${atividade.vagas}"/>
@@ -66,7 +67,7 @@
 							<label for="dias">Duração da Atividade</label>
 							<div class="input-group">
 								<div class="input-group-addon">
-									<i class="fa fa-calendar-o"></i>
+									<i class="fa fa-clock-o"></i>
 								</div>
 								<input type="number" class="form-control" id="dias"
 									th:field="*{dias}" placeholder="Turnos" value="th:text=${atividade.dias}"/>
@@ -77,7 +78,7 @@
 							<label for="minimoParaFreq">Quantidade Mínima de Frequência</label>
 							<div class="input-group">
 								<div class="input-group-addon">
-									<i class="fa fa-calendar-o"></i>
+									<i class="fa fa-percent"></i>
 								</div>
 								<input type="number" class="form-control" id="minimoParaFreq"
 									th:field="*{minimoParaFreq}" placeholder="Turnos" value="th:text=${atividade.minimoParaFreq}"/>
@@ -88,7 +89,7 @@
 							<label for="pontuacao">Pontuação da Atividade</label>
 							<div class="input-group">
 								<div class="input-group-addon">
-									<i class="fa fa-calendar-o"></i>
+									<i class="fa fa-star"></i>
 								</div>
 								<input type="number" class="form-control" id="pontuacao"
 									th:field="*{pontuacao}" placeholder="Turnos" value="th:text=${atividade.pontuacao}"/>
@@ -138,9 +139,8 @@
 						<br />
 					</div>
 						
-						<button type="submit" class="btn btn-success">Cadastrar</button>
-						<button type="submit"
-							class="btn btn-inverse waves-effect waves-light">Cancelar</button>
+						<button  class="btn btn-success" type="submit">Cadastrar</button>
+						<a class="btn btn-inverse" th:href="@{${'/evento/'+atividade.evento.id}}">Cancelar</a>
 						
           			</form>
           			<div th:replace="fragments/scripts :: scripts "></div>
