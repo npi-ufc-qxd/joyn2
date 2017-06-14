@@ -20,14 +20,14 @@
 				<div class="col-md-12">
 					<a class="btn  btn-rounded btn-success" th:href="@{${'/atividade/'+atividade.id+'/ver_participantes'}}" >Participantes</a>
 					<a class="btn  btn-rounded btn-warning col-md-offset-9" th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a>
-					<a class="btn  btn-rounded btn-danger " th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')" >Excluir</a>
+					<a class="btn  btn-rounded btn-danger " th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')" >Excluir</a>				
 					<hr/>
 				</div>
 				
 				<div class="col-md-12">
 					<div class=" panel panel-info">
 						<div class="panel-heading">
-							Informações do Evento
+							Informações da Atividade: <span class="" th:text="${atividade.nome}"></span>
 							<div class="pull-right">
 								<a href="#" data-perform="panel-collapse"><i
 									class="ti-minus"></i></a>

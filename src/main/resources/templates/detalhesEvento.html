@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="base/base">
-
+<head th:replace="fragments/head :: head"></head>
 <body>
 	<div class="container-fluid" layout:fragment="conteudo">
 		<div class="row bg-title">
@@ -22,8 +22,11 @@
 
 				<div class="col-md-12">
 					<a href="#"	class="btn btn-outline btn-rounded btn-info ">Ranking</a>
-					<a class="btn btn-outline btn-rounded btn-info " th:href="@{${'/evento/participantes_evento/'+evento.id}}">Participantes</a> 
-					<a class="btn btn-outline btn-rounded btn-info " th:href="@{${'/evento/editar/'+evento.id}}">Editar</a>
+					<a class="btn btn-outline btn-rounded btn-info " th:href="@{${'/evento/participantes_evento/'+evento.id}}">Participantes</a>
+					
+					
+					
+					<a class="btn btn-rounded btn-warning col-md-offset-9" th:href="@{${'/evento/editar/'+evento.id}}">Editar</a>
 					<hr/>
 				</div>
 
@@ -148,28 +151,36 @@
 							</div>
 						</div>
 						<div class="panel-wrapper collapse in" aria-expanded="true">
-							<div class="panel-body">
-								<h5><a th:href="@{${'/atividade/'+evento.id+'/cadastrar'}}">Adicionar atividades</a></h5>
-								<table class="striped">
-								  <thead>
-								    <tr>
-									<th>Nome</th>
-									<th>Detalhes</th>
-									<th>Remover</th>
-								    </tr>
-								  </thead>
-								  <tbody>
-								  	<tr  th:each="atividade : ${evento.atividades}">
-										<td th:text="${atividade.nome}"></td>
-										<td><a class="waves-effect waves-teal btn-flat orange" th:href="@{${'/atividade/'+atividade.id}}">Ver Detalhes</a></td>
-										<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')">Excluir</a></td>
-								    </tr>
-								  </tbody>
+							
+							<div class="panel-wrapper collapse in">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th class="col-md-6 col-md-offset-4">
+												<a class="col-md-4 fcbtn btn btn-success btn-outline btn-1c btn-xs" type="submit" th:href="@{${'/atividade/'+evento.id+'/cadastrar'}}">Adicionar Atividades</a>
+											</th>
+
+										</tr>
+										<tr>
+											<th>Nome</th>
+											<th>Detalhes</th>
+											<th>Remover</th>
+										</tr>
+									</thead>
+									<tbody >
+										<tr th:each="atividade : ${evento.atividades}" >
+											<td class="col-md-10" th:text="${atividade.nome}" ></td>
+											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" th:href="@{${'/atividade/'+atividade.id}}" >Ver Detalhes</a></td>
+											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs " th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')">Excluir</a></td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div th:replace="fragments/scripts :: scripts "></div>
+				
 			</div>
 			<!-- Fim do Conteudo principal -->
 		</div>
