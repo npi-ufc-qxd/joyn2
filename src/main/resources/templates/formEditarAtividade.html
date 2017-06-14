@@ -31,42 +31,89 @@
                 		<input th:field="*{id}" type="hidden" value="th:text=${atividade.id}"/>
                 		<input th:field="*{participantes}" type="hidden" value="th:text=${atividade.participantes}"/>
                 		
-                		<label for="nome">Nome da Atividade </label>
-                		<input id="nome" th:field="*{nome}" type="text"  value="th:text=${atividade.nome}" />
-                		<br/>
                 		
-                		<label for="descricao">Descrição </label>
-                		<input id="descricao" th:field="*{descricao}" type="text"  value="th:text=${atividade.descricao}" />
-                		<br/>
-                		
-                		<label for="vagas">Quantidade de Vagas </label>
-                		<input id="vagas" th:field="*{vagas}" type="number"  value="th:text=${atividade.vagas}" />
-                		<br/>
-                		
-                		<label for="dias">Duração da Atividade </label>
-                		<input id="dias" th:field="*{dias}" type="number"  value="th:text=${atividade.dias}" placeholder="Turnos" />
-                		<br/>
-                		                		
-                		<label for="nome"> Tipo da Atividade </label>
-                		<select th:field="*{tipo}" >
-						  <option value="CHECKIN" > CheckIn </option> 
-						  <option value="CHECKIN_CHECKOUT" > CheckIn_CheckOut </option>
-						</select>
-                		<br/>
-                		
-                		<label for="minimoParaFreq"> Quantidade Mínima de Frequência </label>
-                		<input id="minimoParaFreq" th:field="*{minimoParaFreq}" type="number"  value="th:text=${atividade.minimoParaFreq}" placeholder="Turnos" />
-                		<br/>
-                		
-                		<label for="pontuacao">Pontuação da Atividade</label>
-						<input id="pontuacao" th:field="*{pontuacao}" type="number"  value="th:text=${atividade.pontuacao}"/>
-						<br />
+                		<div class="form-group">
+							<label for="nome">Nome da Atividade</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-calendar-o"></i>
+								</div>
+								<input type="text" class="form-control" id="nome"
+									th:field="*{nome}" value="th:text=${atividade.nome}"/>
+							</div>
+						</div>
+						
+						<div class=" form-group">
+							<label for="descricao">Descrição</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa  fa-file-text-o"></i>
+								</div>
+								<textarea type="text" class="form-control" id="descricao"
+									th:field="*{descricao}" value="th:text=${atividade.descricao}" rows="10"
+									cols="30"/>
+							</div>
+						</div>
+						
+						<div class=" form-group">
+							<label for="vagas">Quantidade de Vagas</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-users"></i>
+								</div>
+								<input type="text" class="form-control" id="vagas"
+									th:field="*{vagas}"  value="th:text=${atividade.vagas}"/>
+							</div>
+						</div>
+						
+						<div class=" form-group">
+							<label for="dias">Duração da Atividade</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-clock-o"></i>
+								</div>
+								<input type="number" class="form-control" id="dias"
+									th:field="*{dias}" value="th:text=${atividade.dias}"/>
+							</div>
+						</div>
+
+					<div class=" form-group">
+							<label for="minimoParaFreq">Quantidade Mínima de Frequência</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-percent"></i>
+								</div>
+								<input type="number" class="form-control" id="minimoParaFreq"
+									th:field="*{minimoParaFreq}" value="th:text=${atividade.minimoParaFreq}"/>
+							</div>
+					</div>
+					
+					<div class=" form-group">
+							<label for="pontuacao">Pontuação da Atividade</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-star"></i>
+								</div>
+								<input type="number" class="form-control" id="pontuacao"
+									th:field="*{pontuacao}" value="th:text=${atividade.pontuacao}"/>
+							</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="nome"> Tipo da Atividade <font color="red"> * </font></label>
+	                		<select th:field="*{tipo}" >
+							  <option value="CHECKIN" > CheckIn </option> 
+							  <option value="CHECKIN_CHECKOUT" > CheckIn_CheckOut </option>
+							</select>
+	                		<br/>
+                	</div>
                 		
                 		<label for="status">Status: </label>
 						<input id="status" type="checkbox" th:field="*{status}" value="th:text=${atividade.status}"/>
 						<br />
 						
-						<button type="submit">Atualizar</button>
+						<button class="btn btn-success" type="submit">Atualizar</button>
+						<a class="btn btn-inverse" th:href="@{${'/atividade/'+atividade.id}}">Cancelar</a>
 						
           			</form>
 	            </div>
