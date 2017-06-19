@@ -16,44 +16,77 @@
 	
 	<div class="col-md-12">
 	<!-- Conteudo principal -->
-		<div class="white-box">
-			<table>
-			  <thead>
-			    <tr>
-				<th>Foto</th>
-				<th>Nome</th>
-				<th>Email</th>
-				<th>Excluir</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			  	<tr  th:each="atividadeParticipante : ${atividade.participantes}" th:if="${atividadeParticipante.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
-					<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="80"></img> </td>
-					<td th:text="${atividadeParticipante.usuario.nome}"></td>
-					<td th:text="${atividadeParticipante.usuario.email}"></td>
-					<td><a th:href="@{${'/atividade/excluir_participante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>
-			    </tr>
-			  </tbody>
-			</table>
-			<!-- Divida essas tabelas Rodrigo. Em cima são organizadores, abaixo os participantes! -->
-			<table>
-			  <thead>
-			    <tr>
-				<th>Foto</th>
-				<th>Nome</th>
-				<th>Email</th>
-				<th>Excluir</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			  	<tr  th:each="atividadeParticipante : ${atividade.participantes}" th:if="${atividadeParticipante.papel == T(br.ufc.npi.joyn.model.Papel).PARTICIPANTE}">
-					<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="80"></img> </td>
-					<td th:text="${atividadeParticipante.usuario.nome}"></td>
-					<td th:text="${atividadeParticipante.usuario.email}"></td>
-					<td><a th:href="@{${'/atividade/excluir_participante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>
-			    </tr>
-			  </tbody>
-			</table>
+		<div class="white-box">		
+			
+			<div class="col-md-12	">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							Organizadores
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+						</div>
+						<div class="panel-wrapper collapse in" aria-expanded="true">
+							
+							<div class="panel-wrapper collapse in">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Foto</th>
+											<th>Nome</th>
+											<th>email</th>
+											
+										</tr>
+									</thead>
+									<tbody >
+										<tr th:each="atividadeParticipante : ${atividade.participantes}" th:if="${atividadeParticipante.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}" >
+											<td><img class="img-circle" alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="50"></img> </td>
+											<td th:text="${atividadeParticipante.usuario.nome}"></td>
+											<td th:text="${atividadeParticipante.usuario.email}"></td>
+											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" th:href="@{${'/atividade/excluir_participante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>	
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+		<div class="col-md-12	">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							Participantes
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+						</div>
+						<div class="panel-wrapper collapse in" aria-expanded="true">
+							
+							<div class="panel-wrapper collapse in">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Foto</th>
+											<th>Nome</th>
+											<th>email</th>
+											
+										</tr>
+									</thead>
+									<tbody >
+										<tr  th:each="atividadeParticipante : ${atividade.participantes}" th:if="${atividadeParticipante.papel == T(br.ufc.npi.joyn.model.Papel).PARTICIPANTE}">
+											<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="50"></img> </td>
+											<td th:text="${atividadeParticipante.usuario.nome}"></td>
+											<td th:text="${atividadeParticipante.usuario.email}"></td>
+											<td><a class="btn btn-block btn-outline btn-rounded btn-info btn-xs" th:href="@{${'/atividade/excluir_participante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>
+			   							 </tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 	    </div>
 	<!-- Fim do Conteudo principal -->
 	</div>
