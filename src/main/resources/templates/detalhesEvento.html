@@ -48,7 +48,15 @@
 											<th>Status:</th>
 											<td>
 												<span th:if="${evento.status}">Evento acessível ao público</span>
-												<span th:unless="${evento.status}">Evento não acessível ao público</span>
+												<div th:unless="${evento.status}">
+													<form action="/evento/editar_status" method="POST" th:object="${evento}">
+													
+													<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+													
+														<input th:field="*{id}" type="hidden" value="th:text=${evento.id}" />
+														<button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Ativar Evento</button>
+													</form>
+												</div>
 											</td>
 										</tr>
 										<tr>

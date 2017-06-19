@@ -135,6 +135,21 @@ public class EventoController {
 		return "redirect:/evento/"+evento_salvo.getId();
 	}
 	
+	@PostMapping(path="/editar_status")
+	public String atualizarStatus(@Valid Evento evento, @RequestParam("id") Long id){
+		
+		Evento eventoAtivo = eventoService.buscarEvento(evento.getId());
+		if (eventoAtivo != null) {
+			eventoAtivo.setStatus(true);
+			
+			Evento atualizado = eventoService.salvarEvento(eventoAtivo);
+			
+			return "redirect:/evento/" + atualizado.getId();
+		} else {
+			return "redirect:/evento/meus_eventos";
+		}
+		
+	}
 	
 	public boolean verificarFormulario(Evento evento, BindingResult result){
 		Date dataAtual = new Date();
