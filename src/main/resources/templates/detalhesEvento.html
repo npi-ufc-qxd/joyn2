@@ -3,7 +3,9 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="base/base">
-<head th:replace="fragments/head :: head"></head>
+<head>
+	<title>Detalhes Evento</title>
+</head>
 <body>
 	<div class="container-fluid" layout:fragment="conteudo">
 		<div class="row bg-title">
@@ -23,7 +25,7 @@
 				<div class="col-md-12">
 					<a href="#"	class="btn btn-outline btn-rounded btn-info ">Ranking</a>
 					<a class="btn btn-outline btn-rounded btn-info " th:href="@{${'/evento/participantes_evento/'+evento.id}}">Participantes</a>
-					<a class="btn btn-rounded btn-inverse col-md-offset-9" th:href="@{${'/evento/editar/'+evento.id}}">Editar</a>
+					<a class="btn btn-rounded btn-inverse col-md-offset-8" th:href="@{${'/evento/editar/'+evento.id}}">Editar</a>
 					<hr/>
 				</div>
 
@@ -154,7 +156,7 @@
 									<thead>
 										<tr>
 											<th class="col-md-6 col-md-offset-4">
-												<a class="col-md-4 fcbtn btn btn-success btn-outline btn-1c btn-xs" type="submit" th:href="@{${'/atividade/'+evento.id+'/cadastrar'}}">Adicionar Atividades</a>
+												<a class="fcbtn btn btn-success btn-outline btn-1c btn-xs" type="submit" th:href="@{${'/atividade/'+evento.id+'/cadastrar'}}">Adicionar Atividades</a>
 											</th>
 
 										</tr>
@@ -176,7 +178,7 @@
 						</div>
 					</div>
 				</div>
-				<div th:replace="fragments/scripts :: scripts "></div>
+				
 				
 			</div>
 			<!-- Fim do Conteudo principal -->
