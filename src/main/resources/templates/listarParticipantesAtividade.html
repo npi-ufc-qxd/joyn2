@@ -36,7 +36,7 @@
 											<th>Foto</th>
 											<th>Nome</th>
 											<th>email</th>
-											<th>Remover</th>
+											
 										</tr>
 									</thead>
 									<tbody >
@@ -71,12 +71,12 @@
 											<th>Foto</th>
 											<th>Nome</th>
 											<th>email</th>
-											<th>Remover</th>
+											
 										</tr>
 									</thead>
 									<tbody >
 										<tr  th:each="atividadeParticipante : ${atividade.participantes}" th:if="${atividadeParticipante.papel == T(br.ufc.npi.joyn.model.Papel).PARTICIPANTE}">
-											<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="80"></img> </td>
+											<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="50"></img> </td>
 											<td th:text="${atividadeParticipante.usuario.nome}"></td>
 											<td th:text="${atividadeParticipante.usuario.email}"></td>
 											<td><a class="btn btn-block btn-outline btn-rounded btn-info btn-xs" th:href="@{${'/atividade/excluir_participante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>
