@@ -20,43 +20,77 @@
 			<div class="white-box">
 				<input type="hidden" value="th:text=${usuario}"/>
 				
-				<table class="striped">
-				  <thead>
-				    <tr>
-					<th>Foto</th>
-					<th>Nome</th>
-					<th>Email</th>
-					<th>Excluir</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<tr  th:each="participante : ${participantes}">
-						<td><img alt="Foto" th:src="${participante.usuario.foto64}" height="80"/></td>
-						<td th:text="${participante.usuario.nome}"></td>
-						<td th:text="${participante.usuario.email}"></td>
-						<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluir_participantes/'+participante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
-				    </tr>
-				  </tbody>
-				</table>
-				<!-- Divida essas tabelas Rodrigo. Abaixo são organizadores, em cima os participantes! -->
-				<table class="striped">
-				  <thead>
-				    <tr>
-					<th>Foto</th>
-					<th>Nome</th>
-					<th>Email</th>
-					<th>Excluir</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<tr  th:each="organizador : ${organizadores}">
-						<td><img alt="Foto" th:src="${organizador.usuario.foto64}" height="80"/></td>
-						<td th:text="${organizador.usuario.nome}"></td>
-						<td th:text="${organizador.usuario.email}"></td>
-						<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluir_participantes/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
-				    </tr>
-				  </tbody>
-				</table>
+				
+				
+					<div class="col-md-12	">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							Organizadores
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+						</div>
+						<div class="panel-wrapper collapse in" aria-expanded="true">
+							
+							<div class="panel-wrapper collapse in">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Foto</th>
+											<th>Nome</th>
+											<th>email</th>
+											
+										</tr>
+									</thead>
+									<tbody >
+										<tr  th:each="organizador : ${organizadores}">
+											<td><img class="img-circle" alt="Foto" th:src="${organizador.usuario.foto64}" height="50"/></td>
+											<td th:text="${organizador.usuario.nome}"></td>
+											<td th:text="${organizador.usuario.email}"></td>
+										<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" th:href="@{${'/evento/excluir_participantes/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
+				    					</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+		<div class="col-md-12	">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							Participantes
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+						</div>
+						<div class="panel-wrapper collapse in" aria-expanded="true">
+							
+							<div class="panel-wrapper collapse in">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Foto</th>
+											<th>Nome</th>
+											<th>email</th>
+											
+										</tr>
+									</thead>
+									<tbody >
+										<tr  th:each="participante : ${participantes}">
+											<td><img class="img-circle" alt="Foto" th:src="${participante.usuario.foto64}" height="50"/></td>
+											<td th:text="${participante.usuario.nome}"></td>
+											<td th:text="${participante.usuario.email}"></td>
+											<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluir_participantes/'+participante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
+				   					 		</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 			
    			</div>
 			<!-- Fim do Conteudo principal -->
