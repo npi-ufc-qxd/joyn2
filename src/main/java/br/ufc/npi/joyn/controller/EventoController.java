@@ -1,7 +1,6 @@
 package br.ufc.npi.joyn.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -190,12 +189,17 @@ public class EventoController {
 	@GetMapping(path="/excluir_organizador/{id}")
 	public String excluirOrganizadorEvento(@PathVariable("id") Long id){
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
-		ParticipacaoEvento peExcluir = participacaoEventoService.getPartipacaoEvento(id);
-		Evento evento = peExcluir.getEvento();
+		ParticipacaoEvento participacaoEvento = participacaoEventoService.getPartipacaoEvento(id);
+		Usuario usuarioAntigo = usuarioService.getUsuario(participacaoEvento.getUsuario().getId());
+		Evento evento = participacaoEvento.getEvento();
 		
-		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR 
-				&& usuarioLogado.getId() != peExcluir.getUsuario().getId())
+		if (participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR 
+				&& usuarioLogado.getId() != usuarioAntigo.getId()) {
+			
+			alterarOrganizadorAtividades(evento, usuarioLogado, usuarioAntigo);
+			
 			participacaoEventoService.excluirParticipacaoEvento(id);
+		}
 		return "redirect:/evento/"+evento.getId();
 	}
 	
@@ -243,5 +247,18 @@ public class EventoController {
 		participacaoEventoService.excluirParticipacaoEvento(id);
 		
 		return "redirect:/evento/participantes_evento/"+evento.getId();
+	}
+	
+	public void alterarOrganizadorAtividades(Evento evento, Usuario novo, Usuario antigo) {
+		for (Atividade atividade : evento.getAtividades()) {
+			for (ParticipacaoAtividade participacaoAtividade : atividade.getParticipantes()) {
+				if (participacaoAtividade.getUsuario().getId() == antigo.getId()
+						&& participacaoAtividade.getPapel() == Papel.ORGANIZADOR) {
+					participacaoAtividade.setUsuario(novo);
+					
+					participacaoAtividadeService.salvarParticipacaoAtividade(participacaoAtividade);
+				}
+			}
+		}
 	}
 }

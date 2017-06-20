@@ -67,5 +67,9 @@ public class ParticipacaoAtividadeService {
 	public void removerAtividade(ParticipacaoAtividade pa){
 		participacaoRepo.delete(pa);
 	}
+	
+	public ParticipacaoAtividade salvarParticipacaoAtividade(ParticipacaoAtividade pa){
+		return participacaoRepo.save(pa);
+	}
 
 }
