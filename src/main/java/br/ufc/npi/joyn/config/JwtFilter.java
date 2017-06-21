@@ -19,7 +19,6 @@ public class JwtFilter implements Filter{
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -29,36 +28,33 @@ public class JwtFilter implements Filter{
 		final HttpServletRequest request = (HttpServletRequest) req;
 	    final HttpServletResponse response = (HttpServletResponse) res;
 	    final String authHeader = request.getHeader("authorization");
-
-	    System.out.println("aaaa");
 	    
 	    if ("OPTIONS".equals(request.getMethod())) {
 	        response.setStatus(HttpServletResponse.SC_OK);
-
 	        chain.doFilter(req, res);
 	    } else {
 
 	        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-	            throw new ServletException("Missing or invalid Authorization header");
+	        	response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Voce nao tem autorizacao");
+	        }else{
+
+		        final String token = authHeader.substring(7);
+	
+		        try {
+		            final Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
+		            request.setAttribute("claims", claims);
+		        } catch (final SignatureException e) {
+		            throw new ServletException("Invalid token");
+		        }
+	
+		        chain.doFilter(req, res);
 	        }
-
-	        final String token = authHeader.substring(7);
-
-	        try {
-	            final Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
-	            request.setAttribute("claims", claims);
-	        } catch (final SignatureException e) {
-	            throw new ServletException("Invalid token");
-	        }
-
-	        chain.doFilter(req, res);
 	    }
 		
 	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
 		
 	}
 

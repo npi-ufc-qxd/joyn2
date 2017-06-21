@@ -51,15 +51,11 @@ public class UsuarioRestController {
 
         Usuario user = usuarioService.getUsuario(email);
 
-        if (user == null) {
+        if (user == null)
             throw new ServletException("User email not found.");
-        }
-
-        String pwd = user.getPassword();
-
-        if (!password.equals(pwd)) {
+        
+        if (!usuarioService.compararSenha(user.getSenha(), password))
             throw new ServletException("Invalid login. Please check your name and password.");
-        }
 
         jwtToken = Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
