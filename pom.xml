@@ -23,6 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<npi.mail.version>1.0.0</npi.mail.version>
+		 <jjwt.version>0.7.0</jjwt.version>
 	</properties>
 
 	<repositories>
@@ -92,6 +93,12 @@
 	  	<groupId>org.thymeleaf.extras</groupId>
 	  	<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 	  </dependency>
+	  
+	  <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
 	
 	
 	</dependencies>
