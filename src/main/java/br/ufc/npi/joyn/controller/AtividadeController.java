@@ -133,14 +133,21 @@ public class AtividadeController {
 	}	
 
 	@GetMapping(path="/excluir_participante/{id}")
-	public String excluirParticipante(@PathVariable("id") Long idParticipacaoEvento){
+	public String excluirParticipante(@PathVariable("id") Long idParticipacaoAtividade){
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
-		ParticipacaoAtividade paExcluir = participacaoAtividadeService.getParticipacaoAtividade(idParticipacaoEvento);
+		ParticipacaoAtividade paExcluir = participacaoAtividadeService.getParticipacaoAtividade(idParticipacaoAtividade);
 		Atividade atividade = paExcluir.getAtividade();
 		Evento evento = paExcluir.getAtividade().getEvento();
 		
-		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
-			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoEvento);
+		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR){
+			if(paExcluir.getPapel() == Papel.ORGANIZADOR){
+				paExcluir.setUsuario(usuarioLogado);
+				participacaoAtividadeService.salvarParticipacaoAtividade(paExcluir);
+				return "redirect:/atividade/"+atividade.getId()+"/ver_participantes";
+			}
+			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoAtividade);
+		}
+		
 		return "redirect:/atividade/"+atividade.getId()+"/ver_participantes";
 	}
 
@@ -151,6 +158,7 @@ public class AtividadeController {
 		
 		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, atividade.getEvento()) == Papel.ORGANIZADOR){
 			ModelAndView model = new ModelAndView("listarParticipantesAtividade");
+			model.addObject("usuarioLogado", usuarioLogado);
 			model.addObject("atividade", atividade);
 			return model;
 		}
