@@ -44,7 +44,7 @@ public class JwtFilter implements Filter{
 		            final Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
 		            request.setAttribute("claims", claims);
 		        } catch (final SignatureException e) {
-		            throw new ServletException("Invalid token");
+		            throw new ServletException("Token invalido");
 		        }
 	
 		        chain.doFilter(req, res);

@@ -43,7 +43,7 @@ public class UsuarioRestController {
         String jwtToken = "";
 
         if (login.getEmail() == null || login.getPassword() == null) {
-            throw new ServletException("Please fill in username and password");
+            throw new ServletException("Entre com usuario e senha");
         }
 
         String email = login.getEmail();
@@ -52,10 +52,10 @@ public class UsuarioRestController {
         Usuario user = usuarioService.getUsuario(email);
 
         if (user == null)
-            throw new ServletException("User email not found.");
+            throw new ServletException("Email nao encontrado");
         
         if (!usuarioService.compararSenha(user.getSenha(), password))
-            throw new ServletException("Invalid login. Please check your name and password.");
+            throw new ServletException("Login invalido");
 
         jwtToken = Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
