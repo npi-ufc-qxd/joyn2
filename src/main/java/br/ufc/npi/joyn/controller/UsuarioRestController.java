@@ -30,12 +30,6 @@ public class UsuarioRestController {
         return token.getToken();
     }
     
-    /*@PostMapping(path="/cadastrar", consumes={"application/json;charset=UTF-8"})
-	public @ResponseBody Usuario cadastrar(@RequestBody Usuario usuario){
-    	usuario.setPapel(Papel.USUARIO);
-		Usuario userBanco = usuarioService.salvarUsuario(usuario);
-		return userBanco;
-	}*/
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Usuario login) throws ServletException {
