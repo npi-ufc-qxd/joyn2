@@ -34,7 +34,7 @@ public class UsuarioRestController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Usuario login) throws ServletException {
 
-        String jwtToken = "";
+        String jwtToken;
 
         if (login.getEmail() == null || login.getPassword() == null) {
             throw new ServletException("Entre com usuario e senha");
