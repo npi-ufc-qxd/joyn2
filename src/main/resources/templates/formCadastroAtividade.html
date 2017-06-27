@@ -16,9 +16,15 @@
 		<div class="container-fluid" layout:fragment="conteudo">
 			<div class="row bg-title">
 					<!-- .page title -->
-				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-					<h4 class="page-title">Cadastrar Atividade </h4> <!-- Pode ser alterado -->
-				</div>
+				<!-- .breadcrumb -->
+                  <div class="col-lg-5 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="/evento/meus_eventos">Meus Eventos</a></li>
+                        <li><a th:href="@{${'/evento/'+atividade.evento.id}}" th:text="${atividade.evento.nome}"></a></li>
+                        <li class="active text-uppercase">Cadastrar Atividade</li>
+                     </ol>
+                  </div>
+            <!-- /.breadcrumb -->
 					<!-- /.page title -->
 			</div>
 			<div class="col-md-12">
@@ -70,7 +76,7 @@
 									<i class="fa fa-clock-o"></i>
 								</div>
 								<input type="number" class="form-control" id="dias"
-									th:field="*{dias}" placeholder="Turnos" value="th:text=${atividade.dias}"/>
+									th:field="*{dias}" placeholder="Duração da Atividade em Turnos" value="th:text=${atividade.dias}"/>
 							</div>
 						</div>
 
@@ -81,7 +87,7 @@
 									<i class="fa fa-percent"></i>
 								</div>
 								<input type="number" class="form-control" id="minimoParaFreq"
-									th:field="*{minimoParaFreq}" placeholder="Turnos" value="th:text=${atividade.minimoParaFreq}"/>
+									th:field="*{minimoParaFreq}" placeholder="Quantidade Mínima de Frequência em Turnos" value="th:text=${atividade.minimoParaFreq}"/>
 							</div>
 					</div>
 					
@@ -92,7 +98,7 @@
 									<i class="fa fa-star"></i>
 								</div>
 								<input type="number" class="form-control" id="pontuacao"
-									th:field="*{pontuacao}" placeholder="Turnos" value="th:text=${atividade.pontuacao}"/>
+									th:field="*{pontuacao}" placeholder="Pontuação da Atividade" value="th:text=${atividade.pontuacao}"/>
 							</div>
 					</div>
 					

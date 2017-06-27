@@ -16,9 +16,16 @@
 		<div class="container-fluid" layout:fragment="conteudo">
 			<div class="row bg-title">
 					<!-- .page title -->
-				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-					<h4 class="page-title">Editar Atividade </h4> <!-- Pode ser alterado -->
-				</div>
+				<!-- .breadcrumb -->
+                  <div class="col-lg-5 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="/evento/meus_eventos">Meus Eventos</a></li>
+                        <li><a th:href="@{${'/evento/'+atividade.evento.id}}" th:text="${atividade.evento.nome}"></a></li>
+                        <li><a th:href="@{${'/atividade/'+atividade.id}}" th:text="${atividade.nome}"></a></li>
+                        <li class="active text-uppercase">Editar</li>
+                     </ol>
+                  </div>
+            <!-- /.breadcrumb -->
 					<!-- /.page title -->
 			</div>
 			<div class="col-md-12">

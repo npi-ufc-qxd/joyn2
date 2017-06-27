@@ -9,6 +9,16 @@
 		<div class="row bg-title">
 			<!-- .page title -->
 			
+			<!-- .breadcrumb -->
+                  <div class="col-lg-5 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="/evento/meus_eventos">Meus Eventos</a></li>
+                        <li><a th:href="@{${'/evento/'+evento.id}}" th:text="${evento.nome}"></a></li>
+                        <li class="active text-uppercase" th:text="${atividade.nome}"></li>
+                     </ol>
+                  </div>
+            <!-- /.breadcrumb -->
+			
 			<!-- /.page title -->
 		</div>
 		
@@ -67,7 +77,7 @@
 
 										<tr>
 											<th>Mínimo para Frequência:</th>
-											<td><span th:text="${atividade.dias}"></span></td>
+											<td><span th:text="${atividade.minimoParaFreq}"></span></td>
 										</tr>
 
 										<tr>
