@@ -33,11 +33,9 @@ public class Evento {
 	private String descricao;
 
 	@OneToMany
-	@JsonManagedReference
 	private List<Atividade> atividades;
   
 	@OneToMany
-	@JsonManagedReference
 	private List<ParticipacaoEvento> participantes; 
 	
 	private Integer vagas;

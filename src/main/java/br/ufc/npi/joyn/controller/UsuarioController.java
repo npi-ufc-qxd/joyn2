@@ -85,7 +85,7 @@ public class UsuarioController {
 		
 		usuarioService.atualizaUsuario(userBanco);
 
-		return "redirect:/usuario/logar";
+		return "redirect:/evento/meus_eventos";
 
 	}
 	
@@ -153,7 +153,7 @@ public class UsuarioController {
 	@PostMapping(path = "/recuperarsenha")
 	public String recuperarsenha(@RequestParam String email){
 		usuarioService.recuperarSenha(email);
-		return "redirect:/usuario/logar";
+		return "redirect:/evento/meus_eventos";
 	}
 	
 	@GetMapping(path="/alterarsenha/{token}")
@@ -166,7 +166,7 @@ public class UsuarioController {
 	@PostMapping(path = "/novasenha")
 	public String novasenha(@RequestParam String token, @RequestParam String novaSenha){
 		usuarioService.novaSenha(token, novaSenha);
-		return "redirect:/usuario/logar";
+		return "redirect:/evento/meus_eventos";
 	}
 	
 
