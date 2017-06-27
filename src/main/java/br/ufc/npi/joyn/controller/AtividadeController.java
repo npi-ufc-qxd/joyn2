@@ -161,6 +161,7 @@ public class AtividadeController {
 			ModelAndView model = new ModelAndView("listarParticipantesAtividade");
 			model.addObject("usuarioLogado", usuarioLogado);
 			model.addObject("atividade", atividade);
+			model.addObject("usuarioLogado", usuarioLogado);
 			return model;
 		}
 		

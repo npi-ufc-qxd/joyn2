@@ -30,7 +30,7 @@
 				<div class="col-md-12">
 					<a class="btn  btn-rounded btn-success" th:href="@{${'/atividade/'+atividade.id+'/ver_participantes'}}" >Participantes</a>
 					<a class="btn  btn-rounded btn-inverse col-md-offset-9" th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a>
-					<a class="btn  btn-rounded btn-danger " th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')" >Excluir</a>				
+					<a class="btn  btn-rounded btn-danger " id="sa-warning-atividade" th:value="${atividade.id}" >Excluir</a>				
 					<hr/>
 				</div>
 				
