@@ -208,6 +208,7 @@ public class EventoController {
 	public ModelAndView participantesEvento(@PathVariable("id") Long id){
 		
 		Usuario user = usuarioService.getUsuarioLogado();
+		Evento evento = eventoService.buscarEvento(id);
 		List<ParticipacaoEvento> organizadores = participacaoEventoService.organizadoresEvento(id);
 		List<ParticipacaoEvento> participantes = participacaoEventoService.participantesEvento(id);
 		
@@ -218,6 +219,7 @@ public class EventoController {
 					model.addObject("participantes", participantes);
 					model.addObject("organizadores", organizadores);
 					model.addObject("usuarioLogado", user);
+					model.addObject("evento", evento);
 					return model;
 				}
 			}
