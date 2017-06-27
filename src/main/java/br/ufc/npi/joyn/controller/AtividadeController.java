@@ -54,6 +54,7 @@ public class AtividadeController {
 					Atividade atividade = new Atividade();
 					atividade.setEvento(evento);
 					model.addObject("atividade", atividade);
+					model.addObject("evento", evento);
 					return model;	
 				}
 			}
@@ -92,6 +93,7 @@ public class AtividadeController {
 		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, atividade.getEvento()) == Papel.ORGANIZADOR){
 			ModelAndView model = new ModelAndView("detalhesAtividade");
 			model.addObject("atividade", atividade);
+			model.addObject("evento", atividade.getEvento());
 			return model;
 		}
 		
