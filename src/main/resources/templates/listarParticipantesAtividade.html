@@ -52,7 +52,8 @@
 											<td th:text="${atividadeParticipante.usuario.nome}"></td>
 											<td th:text="${atividadeParticipante.usuario.email}"></td>
 											<td th:if="${atividadeParticipante.usuario.id != usuarioLogado.id}"><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" th:href="@{${'/atividade/excluir_participante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador? \n\n Você será o novo organizador desta atividade.')">Excluir</a></td>
-											<td th:unless="${atividadeParticipante.usuario.id != usuarioLogado.id}"><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs disabled">Excluir</a></td>
+											<td th:unless="${atividadeParticipante.usuario.id != usuarioLogado.id}"><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs disabled">Excluir</a></td>	
+
 										</tr>
 									</tbody>
 								</table>
@@ -87,7 +88,7 @@
 											<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="50"></img> </td>
 											<td th:text="${atividadeParticipante.usuario.nome}"></td>
 											<td th:text="${atividadeParticipante.usuario.email}"></td>
-											<td><a class="btn btn-block btn-outline btn-rounded btn-info btn-xs" th:href="@{${'/atividade/excluir_participante/'+atividadeParticipante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse participante?')">Excluir</a></td>
+											<td><a class="btn btn-block btn-outline btn-rounded btn-info btn-xs" id="sa-warning-participante-atividadeb" th:value="${atividadeParticipante.id}">Excluir</a></td>
 			   							 </tr>
 									</tbody>
 								</table>

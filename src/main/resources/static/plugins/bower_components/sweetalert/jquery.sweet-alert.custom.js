@@ -3,6 +3,7 @@
     "use strict";
 
     var SweetAlert = function() {};
+    
 
     //examples 
     SweetAlert.prototype.init = function() {
@@ -23,20 +24,85 @@
     });
 
     //Warning Message
-    $('#sa-warning').click(function(){
+    $('#sa-warning-atividade').click(function(){
+    	var id = $(this).attr('value');
         swal({   
-            title: "Are you sure?",   
-            text: "You will not be able to recover this imaginary file!",   
+            title: "Atenção!",   
+            text: "Tem certeza que deseja deletar atividade?",   
             type: "warning",   
             showCancelButton: true,   
             confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Yes, delete it!",   
-            closeOnConfirm: false 
-        }, function(){   
-            swal("Deleted!", "Your imaginary file has been deleted.", "success"); 
+            confirmButtonText: "Deletar",   
+            closeOnConfirm: false,
+        }, function(){
+        	window.location = '/atividade/excluir/'+id;    	    
         });
     });
-
+  
+    //Warning Message
+    $('#sa-warning-organizador').click(function(){
+    	var id = $(this).attr('value');
+        swal({   
+            title: "Atenção!",   
+            text: "Tem certeza que deseja deletar este organizador?\n Você será o novo organizador das atividade que este usuario organizava!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Deletar",   
+            closeOnConfirm: false,
+        }, function(){
+        	window.location = '/evento/excluir_organizador/'+id;    	    
+        });
+    });
+    
+    //Warning Message
+    $('#sa-warning-organizadorb').click(function(){
+    	var id = $(this).attr('value');
+        swal({   
+            title: "Atenção!",   
+            text: "Tem certeza que deseja deletar este organizador?\n Você será o novo organizador das atividade que este usuario organizava!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Deletar",   
+            closeOnConfirm: false,
+        }, function(){
+        	window.location = '/evento/excluir_participantes/'+id;    	    
+        });
+    });
+    
+    //Warning Message
+    $('#sa-warning-organizador-atividade').click(function(){
+    	var id = $(this).attr('value');
+        swal({   
+            title: "Atenção!",   
+            text: "Tem certeza que deseja deletar este organizador?\n Você será o novo organizador das atividade que este usuario organizava!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Deletar",   
+            closeOnConfirm: false,
+        }, function(){
+        	window.location = '/atividade/excluir_participante/'+id;    	    
+        });
+    });
+    
+    //Warning Message
+    $('#sa-warning-participante-atividadeb').click(function(){
+    	var id = $(this).attr('value');
+        swal({   
+            title: "Atenção!",   
+            text: "Tem certeza que deseja deletar este organizador?\n Você será o novo organizador das atividade que este usuario organizava!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Deletar",   
+            closeOnConfirm: false,
+        }, function(){
+        	window.location = '/evento/excluir_participantes/'+id;    	    
+        });
+    });
+  
     //Parameter
     $('#sa-params').click(function(){
         swal({   

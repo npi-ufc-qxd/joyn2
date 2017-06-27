@@ -31,6 +31,9 @@
 <link
 	th:href="@{/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}"
 	rel="stylesheet" />
+	
+<!--alerts CSS -->
+   		 <link href="/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>	
 <!-- This is a Animation CSS -->
 <link th:href="@{/css/animate.css}" rel="stylesheet" />
 <!-- This is a Custom CSS -->
@@ -48,6 +51,7 @@
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 </head>
 <body class="fix-sidebar">
 	<!-- Preloader -->
@@ -99,9 +103,9 @@
 		</nav>
 		<!-- End Top Navigation -->
 		<!-- Left navbar-sidebar --> <!-- Sweet-Alert  -->
-    <script src="../plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+   <!-- <script src="../plugins/bower_components/sweetalert/sweetalert.min.js"></script>
     <script src="../plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
-		
+	 --> 	
 		<div class="navbar-default sidebar" th:include="base/menu :: menu">
 			
 		</div>

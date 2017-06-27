@@ -144,7 +144,7 @@
 									<tbody>
 										<tr th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
 											<td th:text="${organizador.usuario.nome}"></td>
-											<td th:if="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs" th:href="@{${'/evento/excluir_organizador/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
+											<td th:if="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs" id="sa-warning-organizador" th:value="${organizador.id}">Excluir</a></td>
 											<td th:unless="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs disabled">Excluir</a></td>
 										</tr>
 									</tbody>
@@ -182,9 +182,9 @@
 									</thead>
 									<tbody >
 										<tr th:each="atividade : ${evento.atividades}" >
-											<td class="col-md-10" th:text="${atividade.nome}" ></td>
+											<td class="col-md-10" th:text="${atividade.nome}"></td>
 											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" th:href="@{${'/atividade/'+atividade.id}}" >Ver Detalhes</a></td>
-											<td><button class="btn btn-block btn-outline btn-rounded btn-success btn-xs modal-trigger" data-target="modal1" th:href="@{${'/atividade/excluir/'+atividade.id}}">Excluir</button></td>
+											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" id="sa-warning-atividade" th:value="${atividade.id}">Excluir</a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -192,48 +192,14 @@
 						</div>
 					</div>
 				</div>
-				
-				<!-- modal -->
-				<div class="modal" id="modal1">
-					<div class="modal-content">
-						<h4>Tem certeza que deseja excluir essa Atividade?</h4>
-					</div>
-					<div class="modal-footer">
-						<a href="#!" class="btn-flat modal-action modal-close waves-effect waves-default ">close</a>
-					</div>
-				</div>
-				
-				
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-				
+			
 			</div>
 			<!-- Fim do Conteudo principal -->
 		</div>
 			<!-- Sweet-Alert  -->
-	<div th:replace="fragments/scripts :: scripts "></div>
+	
     	
 	</div>
+	
 </body>
 </html>
