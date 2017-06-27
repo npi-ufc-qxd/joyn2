@@ -44,11 +44,12 @@
 										</tr>
 									</thead>
 									<tbody >
-										<tr  th:each="organizador : ${organizadores}">
+										<tr  th:each="organizador : ${organizadores}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
 											<td><img class="img-circle" alt="Foto" th:src="${organizador.usuario.foto64}" height="50"/></td>
 											<td th:text="${organizador.usuario.nome}"></td>
 											<td th:text="${organizador.usuario.email}"></td>
-										<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" th:href="@{${'/evento/excluir_participantes/'+organizador.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
+											<td th:if="${organizador.usuario.id != usuarioLogado.id}"><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" id="sa-warning-organizadorb" th:value="${organizador.id}">Excluir</a></td>
+											<td th:unless="${organizador.usuario.id != usuarioLogado.id}"><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs disabled">Excluir</a></td>
 				    					</tr>
 									</tbody>
 								</table>
@@ -83,7 +84,7 @@
 											<td><img class="img-circle" alt="Foto" th:src="${participante.usuario.foto64}" height="50"/></td>
 											<td th:text="${participante.usuario.nome}"></td>
 											<td th:text="${participante.usuario.email}"></td>
-											<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluir_participantes/'+participante.id}}" onclick="return confirm('Tem certeza que deseja excluir esse organizador?')">Excluir</a></td>
+											<td><a class="waves-effect waves-teal btn-flat red" th:href="@{${'/evento/excluir_participantes/'+participante.id}}" id="sa-warning-participante" th:value="${organizador.id}">Excluir</a></td>
 				   					 		</tr>
 									</tbody>
 								</table>

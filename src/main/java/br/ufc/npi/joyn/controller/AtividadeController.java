@@ -152,6 +152,7 @@ public class AtividadeController {
 		if(participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, atividade.getEvento()) == Papel.ORGANIZADOR){
 			ModelAndView model = new ModelAndView("listarParticipantesAtividade");
 			model.addObject("atividade", atividade);
+			model.addObject("usuarioLogado", usuarioLogado);
 			return model;
 		}
 		
