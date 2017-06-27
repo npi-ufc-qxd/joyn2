@@ -20,7 +20,7 @@
                   <div class="col-lg-5 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">
                         <li><a href="/evento/meus_eventos">Meus Eventos</a></li>
-                        <li><a th:href="@{${'/evento/'+evento.id}}" th:text="${evento.nome}"></a></li>
+                        <li><a th:href="@{${'/evento/'+atividade.evento.id}}" th:text="${atividade.evento.nome}"></a></li>
                         <li class="active text-uppercase">Cadastrar Atividade</li>
                      </ol>
                   </div>

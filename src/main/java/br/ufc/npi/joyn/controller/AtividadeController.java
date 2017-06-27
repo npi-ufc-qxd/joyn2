@@ -54,7 +54,6 @@ public class AtividadeController {
 					Atividade atividade = new Atividade();
 					atividade.setEvento(evento);
 					model.addObject("atividade", atividade);
-					model.addObject("evento", evento);
 					return model;	
 				}
 			}
