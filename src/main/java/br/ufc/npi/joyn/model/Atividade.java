@@ -26,7 +26,6 @@ public class Atividade {
 	private String descricao;
 
 	@OneToMany(cascade=CascadeType.ALL)
-	@JsonManagedReference
 	private List<ParticipacaoAtividade> participantes;
 
 	private Integer vagas;
@@ -40,7 +39,6 @@ public class Atividade {
 	private boolean status;
 
 	@ManyToOne
-	@JsonBackReference
 	private Evento evento;
 
 	@OneToMany
