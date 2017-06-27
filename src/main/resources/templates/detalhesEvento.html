@@ -19,8 +19,7 @@
                      </ol>
                   </div>
             <!-- /.breadcrumb -->
-	
-				<!-- Pode ser alterado -->
+            
 			<!-- /.page title -->
 		</div>
 
@@ -55,7 +54,15 @@
 											<th>Status:</th>
 											<td>
 												<span th:if="${evento.status}">Evento acessível ao público</span>
-												<span th:unless="${evento.status}">Evento não acessível ao público</span>
+												<div th:unless="${evento.status}">
+													<form action="/evento/editar_status" method="POST" th:object="${evento}">
+													
+													<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+													
+														<input th:field="*{id}" type="hidden" value="th:text=${evento.id}" />
+														<button type="submit" class="btn btn-outline btn-rounded btn-info">Ativar Evento</button>
+													</form>
+												</div>
 											</td>
 										</tr>
 										<tr>
@@ -177,7 +184,7 @@
 										<tr th:each="atividade : ${evento.atividades}" >
 											<td class="col-md-10" th:text="${atividade.nome}" ></td>
 											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" th:href="@{${'/atividade/'+atividade.id}}" >Ver Detalhes</a></td>
-											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs img-responsive model_img" id="sa-warning" th:onclick="'javascript:teste(\'' + ${atividade.id} + '\');'">Excluir</a></td>
+											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs " th:href="@{${'/atividade/excluir/'+atividade.id}}" onclick="return confirm('Tem certeza que deseja excluir essa Atividade?')">Excluir</a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -185,13 +192,11 @@
 						</div>
 					</div>
 				</div>
-			
+				
+				
 			</div>
 			<!-- Fim do Conteudo principal -->
 		</div>
-			<!-- Sweet-Alert  -->
-		
 	</div>
-	
 </body>
 </html>
