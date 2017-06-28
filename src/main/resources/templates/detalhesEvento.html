@@ -144,7 +144,7 @@
 									<tbody>
 										<tr th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
 											<td th:text="${organizador.usuario.nome}"></td>
-											<td th:if="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs" id="sa-warning-organizador" th:value="${organizador.id}">Excluir</a></td>
+											<td th:if="${organizador.usuario.id != usuario.id}"><a class="sa-warning-organizador btn btn-block btn-outline btn-rounded btn-primary btn-xs" th:value="${organizador.id}">Excluir</a></td>
 											<td th:unless="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs disabled">Excluir</a></td>
 										</tr>
 									</tbody>
@@ -184,7 +184,7 @@
 										<tr th:each="atividade : ${evento.atividades}" >
 											<td class="col-md-10" th:text="${atividade.nome}"></td>
 											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" th:href="@{${'/atividade/'+atividade.id}}" >Ver Detalhes</a></td>
-											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" id="sa-warning-atividade" th:value="${atividade.id}">Excluir</a></td>
+											<td><a class="sa-warning-atividade btn btn-block btn-outline btn-rounded btn-success btn-xs" th:value="${atividade.id}">Excluir</a></td>
 										</tr>
 									</tbody>
 								</table>
