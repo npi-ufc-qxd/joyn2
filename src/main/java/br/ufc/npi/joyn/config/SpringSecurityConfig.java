@@ -28,7 +28,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         	.antMatchers("/css/**", "/js/**", "/images/**", "/plugins/**", "/bootstrap/**", "/less/**").permitAll()
             .antMatchers("/usuario/cadastrar", "/usuario/starter", "/usuario/recuperarsenha",
-            		"/usuario/alterarsenha/**", "/usuario/novasenha", "/usuariorest/csrf-token", "/usuariorest/login").permitAll()
+            		"/usuario/alterarsenha/**", "/usuario/novasenha").permitAll()
             .anyRequest().authenticated()
 
             .and()
