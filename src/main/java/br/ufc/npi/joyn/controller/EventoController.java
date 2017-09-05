@@ -263,4 +263,27 @@ public class EventoController {
 			}
 		}
 	}
+	
+	@GetMapping(path="/ver_ranking/{id}")
+	public ModelAndView verRanking(@PathVariable("id") Long id){
+		
+		Usuario user = usuarioService.getUsuarioLogado();
+		Evento evento = eventoService.buscarEvento(id);
+		List<ParticipacaoEvento> organizadores = participacaoEventoService.organizadoresEvento(id);
+		List<ParticipacaoEvento> ranking = participacaoEventoService.gerarRanking(evento.getId());
+		
+		
+		for (ParticipacaoEvento org : organizadores) {
+			if (user.getId() == org.getUsuario().getId()) {
+				if (org.getPapel() == Papel.ORGANIZADOR) {
+					ModelAndView model = new ModelAndView("verRanking");
+					model.addObject("usuarioLogado", user);
+					model.addObject("evento", evento);
+					model.addObject("ranking", ranking);
+					return model;
+				}
+			}
+		}
+		return meusEventos();
+	}
 }
