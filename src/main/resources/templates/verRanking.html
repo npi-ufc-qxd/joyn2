@@ -24,31 +24,43 @@
 				<div class="col-md-12">
 			<!-- Conteudo principal -->
             <div class="white-box">
+            
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						Ranking do evento <span class="" th:text="${evento.nome}"></span>
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+					</div>
+					<div class="panel-wrapper collapse in" aria-expanded="true">
+						<div class="panel-wrapper collapse in">
                 
-                <table class="table table-hover">
-					<thead>
-						<tr>
-							<th>Colocação</th>
-							<th>Nome</th>
-							<th>Pontuação</th>
-							
-						</tr>
-					</thead>
-					<tbody >
-						<tr th:each="eventoParticipante, iter : ${ranking}">
-							<td th:text="${iter.count}"></td>
-							<td th:text="${eventoParticipante.usuario.nome}"></td>
-							<td th:text="${eventoParticipante.pontos}"></td>
-						</tr>
-					</tbody>
-				</table>
+			                <table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Colocação</th>
+										<th>Nome</th>
+										<th>Pontuação</th>
+										
+									</tr>
+								</thead>
+								<tbody >
+									<tr th:each="eventoParticipante, iter : ${ranking}">
+										<td th:text="${iter.count}"></td>
+										<td th:text="${eventoParticipante.usuario.nome}"></td>
+										<td th:text="${eventoParticipante.pontos}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
                 
             </div>
             <!-- Fim do Conteudo principal -->
         </div>
 
-		</div>
-
-
+	</div>
+</div>
 </body>
 </html>
