@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<!--     CONFIGURACAO DO CSRF -->
+<meta name="_csrf" th:content="${_csrf.token}" />
+<!--     default header name is X-CSRF-TOKEN -->
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<!-- CONFIGURACAO DO CONTEXTO -->
+<meta name="_context"
+	th:content="${#httpServletRequest.getContextPath()}" />
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	th:href="@{/plugins/images/favicon.png}" />
+<title>Joyn - Dashboard</title>
+<!-- Bootstrap Core CSS -->
+<link th:href="@{/bootstrap/dist/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<!-- This is Sidebar menu CSS -->
+<link
+	th:href="@{/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}"
+	rel="stylesheet" />
+	
+<!--alerts CSS -->
+   		 <link href="/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>	
+<!-- This is a Animation CSS -->
+<link th:href="@{/css/animate.css}" rel="stylesheet" />
+<!-- This is a Custom CSS -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<!-- Joyn css -->
+<link th:href="@{/css/joyn.css}" rel="stylesheet" />
+<!-- color CSS you can use different color css from css/colors folder -->
+<!-- We have chosen the skin-blue (blue.css) for this starter
+  page. However, you can choose any other skin from folder css / colors .
+-->
+<link th:href="@{/css/colors/blue.css}" id="theme" rel="stylesheet" />
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body class="fix-sidebar">
+	<!-- Preloader -->
+	<div class="preloader">
+		<svg class="circular" viewBox="25 25 50 50">
+      <circle class="path" cx="50" cy="50" r="20" fill="none"
+				stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+	</div>
+	<div id="wrapper">
+		
+		<!-- End Top Navigation -->
+		<!-- Left navbar-sidebar --> <!-- Sweet-Alert  -->
+   <!-- <script src="../plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+    <script src="../plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+	 --> 	
+		
+		<!-- Left navbar-sidebar end -->
+		<!-- Page Content -->
+		<div id="page-wrapper">
+			<div class="container-fluid" layout:fragment="conteudo">
+				<div class="row bg-title">
+					<!-- .page title -->
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+						<h4 class="page-title">Eventos</h4>
+					</div>
+					<!-- /.page title -->
+				</div>
+				<!-- .row -->
+				<div class="row">
+					<div class="col-md-12">
+						<form class="form-group" role="search">
+							<div class="input-group">
+								<input type="text" id="example-input1-group2"
+									name="example-input1-group2" class="form-control"
+									placeholder="Procurar Evento" /> <span class="input-group-btn"><button
+										type="button" class="btn waves-effect waves-light btn-info">
+										<i class="fa fa-search"></i>
+									</button></span>
+							</div>
+						</form>
+					</div>
+
+					<div class="col-md-12">
+						<div class="white-box">
+							<h3 class="box-title">Blank Starter page</h3>
+						</div>
+					</div>
+
+
+				</div>
+				<!-- /.row -->
+
+			</div>
+			<!-- /.container-fluid -->
+			<footer class="footer text-center"> 2017 &copy; Desenvolvido
+				por NPI </footer>
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+
+	<div th:replace="fragments/scripts :: scripts"></div>
+	<div th:replace="fragments/confirmar-senha :: confirmar" ></div> 
+
+</body>
+
+
+</html>

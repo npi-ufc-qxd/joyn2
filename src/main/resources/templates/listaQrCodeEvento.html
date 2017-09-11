@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/baseListarQrCode">
+<head>
+<title>Lista de Qrcodes</title>
+</head>
+
+<body>
+	<div class="container-fluid" layout:fragment="conteudo">
+
+
+		<div class="col-md-12">
+			<!-- Conteudo principal -->
+
+			<div class="white-box">
+				<div class="row"
+					th:each="atividade : ${evento.atividades}"
+					>
+					
+					<div class="break" >
+						<h2 th:text="${atividade.nome}"></h2>
+						<h5 >Código de Checkin</h5>
+						<div th:id="${'qrcode-checkin-'+atividade.id}" class=" qrcode "
+							th:attr="data-atividade=${atividade.id},data-evento=${atividade.evento.id},data-checkin=true,data-size=600"></div>
+					</div>
+					
+					<div class="break" 
+						th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}">
+						<h2 th:text="${atividade.nome}"></h2>
+						<h5 >Código de Checkout</h5>
+						<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode"
+							th:attr="data-atividade=${atividade.id},data-evento=${atividade.evento.id},data-checkin=false,data-size=600"></div>
+					</div>
+					<div style="page-break-before: always;"></div>
+				</div>
+				
+				
+
+			</div>
+			<!-- Fim do Conteudo principal -->
+		</div>
+		<!-- Sweet-Alert  -->
+
+
+	</div>
+
+</body>
+</html>

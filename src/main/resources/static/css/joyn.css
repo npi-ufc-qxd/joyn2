@@ -19,3 +19,16 @@
 	color: white;
 }
 
+#qrcode {
+  width:160px;
+  height:160px;
+  margin-top:15px;
+}
+
+
+@media print{
+ .break{
+ 	page-break-after: always;
+ 	text-align: center;
+ }	
+}
