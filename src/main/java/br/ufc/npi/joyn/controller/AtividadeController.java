@@ -1,5 +1,7 @@
 package br.ufc.npi.joyn.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,13 +67,15 @@ public class AtividadeController {
 	}
 	
 	@PostMapping(path="/cadastrar")
-	public String cadastrarAtividade(Atividade atividade){
+	public String cadastrarAtividade(Atividade atividade) throws UnsupportedEncodingException, NoSuchAlgorithmException{
 		
 		if (!verificarFormulario(atividade)) return "formCadastroAtividade";
 		
 		List<ParticipacaoAtividade> participantes = new ArrayList<ParticipacaoAtividade>();
 		atividade.setParticipantes(participantes);
 		Atividade atividadeSalva = atividadeService.salvarAtividade(atividade);
+		atividadeSalva.gerarCodigos();
+		atividadeService.salvarAtividade(atividadeSalva);
 		
 		Evento evento = eventoService.buscarEvento(atividadeSalva.getEvento().getId());
 		List<Atividade> atividades =  evento.getAtividades();
