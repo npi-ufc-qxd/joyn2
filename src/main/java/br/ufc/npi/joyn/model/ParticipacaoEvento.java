@@ -26,6 +26,8 @@ public class ParticipacaoEvento {
 	@Enumerated(EnumType.STRING)
 	private Papel papel;
 	
+	private int pontos;
+	
 	public ParticipacaoEvento() {
 		this.setStatus(false);
 	}
@@ -35,6 +37,11 @@ public class ParticipacaoEvento {
 		setEvento(evento);
 		setPapel(papel);
 		setStatus(status);
+	}
+	
+	public ParticipacaoEvento(Usuario usuario, int pontos){
+		setUsuario(usuario);
+		setPontos(pontos);
 	}
 
 	public Long getId() {
@@ -76,5 +83,15 @@ public class ParticipacaoEvento {
 	public void setPapel(Papel papel) {
 		this.papel = papel;
 	}
+
+	public int getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(int pontos) {
+		this.pontos = pontos;
+	}
+	
+	
 
 }

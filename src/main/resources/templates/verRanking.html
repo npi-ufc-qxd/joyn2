@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="base/base">
+	  
+<body>
+
+<div class="container-fluid" layout:fragment="conteudo">
+				<div class="row bg-title">
+					<!-- .page title -->
+					
+					<!-- .breadcrumb -->
+                  <div class="col-lg-4 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="/evento/meus_eventos">Meus Eventos</a></li>
+                        <li><a th:href="@{${'/evento/'+evento.id}}" th:text="${evento.nome}"></a></li>
+                        <li class="active text-uppercase">Ranking</li>
+                     </ol>
+                  </div>
+            <!-- /.breadcrumb -->
+            
+					<!-- /.page title -->
+				</div>
+				<div class="col-md-12">
+			<!-- Conteudo principal -->
+            <div class="white-box">
+            
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						Ranking do evento <span class="" th:text="${evento.nome}"></span>
+							<div class="pull-right">
+								<a href="#" data-perform="panel-collapse"><i
+									class="ti-minus"></i></a>
+							</div>
+					</div>
+					<div class="panel-wrapper collapse in" aria-expanded="true">
+						<div class="panel-wrapper collapse in">
+                
+			                <table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Colocação</th>
+										<th>Nome</th>
+										<th>Pontuação</th>
+										
+									</tr>
+								</thead>
+								<tbody >
+									<tr th:each="eventoParticipante, iter : ${ranking}">
+										<td th:text="${iter.count}"></td>
+										<td th:text="${eventoParticipante.usuario.nome}"></td>
+										<td th:text="${eventoParticipante.pontos}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+                
+            </div>
+            <!-- Fim do Conteudo principal -->
+        </div>
+
+	</div>
+</div>
+</body>
+</html>

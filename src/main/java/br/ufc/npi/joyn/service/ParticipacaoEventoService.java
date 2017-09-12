@@ -1,9 +1,13 @@
 package br.ufc.npi.joyn.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import br.ufc.npi.joyn.model.Evento;
 import br.ufc.npi.joyn.model.Papel;
@@ -64,5 +68,25 @@ public class ParticipacaoEventoService {
 			}
 		}
 		return false;
+	}
+	
+	public List<ParticipacaoEvento> gerarRanking(@PathVariable Long eventoId){
+		Evento evento = eventoService.buscarEvento(eventoId);
+		List<ParticipacaoEvento> ranking = new ArrayList<ParticipacaoEvento>();
+		
+		for(ParticipacaoEvento pe : evento.getParticipantes()){
+			ranking.add(new ParticipacaoEvento(pe.getUsuario(), pe.getPontos()));
+		}
+		
+		Collections.sort(ranking, new Comparator<ParticipacaoEvento>() {
+	        public int compare(ParticipacaoEvento participacaoEvento2, ParticipacaoEvento participacaoEvento1)
+	        {
+	            if (participacaoEvento2.getPontos() > participacaoEvento1.getPontos()) return -1;
+	            else if (participacaoEvento2.getPontos() < participacaoEvento1.getPontos()) return 1;
+	            else return 0;
+	        }
+	    });
+		
+		return ranking;
 	}
 }
