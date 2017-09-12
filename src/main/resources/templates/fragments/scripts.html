@@ -34,9 +34,44 @@
     <script src="/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- bt-switch -->
     <script src="/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js"></script>
-   
-     
+   	<!-- qrcode -->
+   	<script src="/js/qrcode/qrcode.min.js"></script>
     
+    <script>
+    
+	    var generateQRCode = function(element,code, size){
+	    
+		   	new QRCode(element, {
+			    text: code,
+			    width: size,
+			    height: size,
+			    colorDark : "#000000",
+			    colorLight : "#ffffff",
+			    correctLevel : QRCode.CorrectLevel.H
+			});
+		    
+	    }
+	
+    </script>
+
+	<script>
+	/*<![CDATA[*/
+		var runQRCode = function(){
+			
+			var i = 0;
+			var tamanho = $('.qrcode').length;
+			
+	    	while(i < tamanho){
+	    		var code = "{\'evento\':"+$("#"+$(".qrcode")[i].id).data("evento")+",\'atividade\':"+$("#"+$(".qrcode")[i].id).data("atividade")+",\'checkin\':"+$("#"+$(".qrcode")[i].id).data("checkin")+"}";
+		    	generateQRCode($(".qrcode")[i].id, code, $("#"+$(".qrcode")[i].id).data("size"));
+	    		i++;
+	    	}
+	    	
+	    };
+	    
+	    runQRCode();
+	/*]]>*/
+	</script>
     
     <script>
         // Clock pickers

@@ -38,7 +38,23 @@
         	window.location = '/atividade/excluir/'+id;    	    
         });
     });
-  
+    
+    //Warning Message QRCODE
+    $('.sa-warning-gerar-qr').click(function(){
+    	
+        swal({   
+            title: "Atenção!",   
+            text: "Tem certeza que deseja deletar atividade?",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Deletar",   
+            closeOnConfirm: false,
+        }, function(){
+        	window.location = '/atividade/excluir/'+id;    	    
+        });
+    });
+    
     //Warning Message
     $('.sa-warning-organizador').click(function(){
     	var id = $(this).attr('value');

@@ -227,6 +227,16 @@ public class EventoController {
 		return meusEventos();
 	}
 	
+	@GetMapping(path="/lista_qrcode_evento/{id}")
+	public ModelAndView qrcodesEvento(@PathVariable("id") Long id){
+		
+		Evento evento = eventoService.buscarEvento(id);
+		
+		ModelAndView model = new ModelAndView("listaQrCodeEvento");
+		model.addObject("evento", evento);
+		return model;
+	}
+	
 	@GetMapping(path="/excluir_participantes/{id}")
 	public String excluirParticipanteEvento(@PathVariable("id") Long id) {
 		
