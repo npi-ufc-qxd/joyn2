@@ -49,11 +49,11 @@
 								
 								
 								<h2>Código de Checkin</h2>
-								<div th:id="${'qrcode-checkin-'+atividade.id}" class="qrcode" th:attr="data-atividade=${atividade.id},data-evento=${atividade.evento.id},data-checkin=true,data-size=250" ></div>
+								<div th:id="${'qrcode-checkin-'+atividade.id}" class="qrcode" th:attr="data-code=${atividade.codeCheckin},data-size=250" ></div>
 								
 								<span th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}">
 									<h2>Código de Checkout</h2>
-									<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode" th:attr="data-atividade=${atividade.id},data-evento=${atividade.evento.id},data-checkin=false,data-size=250"></div>
+									<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode" th:attr="data-code=${atividade.codeCheckout},data-size=250"></div>
 								</span>
 								
 								

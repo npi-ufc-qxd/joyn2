@@ -53,11 +53,11 @@
 									<h2 class="text-info" th:text="${atividade.nome}"></h2>
 									<div class="col-xs-6 col-md-6">
 										<h5 class="text-success">Código de Checkin</h5>							
-										<div th:id="${'qrcode-checkin-'+atividade.id}" class=" qrcode " th:attr="data-atividade=${atividade.id},data-evento=${atividade.evento.id},data-checkin=true,data-size=250" ></div>										
+										<div th:id="${'qrcode-checkin-'+atividade.id}" class="qrcode" th:attr="data-code=${atividade.codeCheckin},data-size=250" ></div>										
 									</div>
 									<div class="col-xs-6 col-md-6" th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}"> 
 										<h5 class=" text-danger">Código de Checkout</h5>
-										<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode" th:attr="data-atividade=${atividade.id},data-evento=${atividade.evento.id},data-checkin=false,data-size=250"></div>
+										<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode" th:attr="data-code=${atividade.codeCheckout},data-size=250"></div>
 									</div>
 									
 														

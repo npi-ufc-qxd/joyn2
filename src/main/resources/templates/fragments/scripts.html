@@ -62,7 +62,7 @@
 			var tamanho = $('.qrcode').length;
 			
 	    	while(i < tamanho){
-	    		var code = "{\'evento\':"+$("#"+$(".qrcode")[i].id).data("evento")+",\'atividade\':"+$("#"+$(".qrcode")[i].id).data("atividade")+",\'checkin\':"+$("#"+$(".qrcode")[i].id).data("checkin")+"}";
+	    		var code = $("#"+$(".qrcode")[i].id).data("code"); 
 		    	generateQRCode($(".qrcode")[i].id, code, $("#"+$(".qrcode")[i].id).data("size"));
 	    		i++;
 	    	}

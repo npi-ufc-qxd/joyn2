@@ -23,7 +23,7 @@
 						<h2 th:text="${atividade.nome}"></h2>
 						<h5 >Código de Checkin</h5>
 						<div th:id="${'qrcode-checkin-'+atividade.id}" class=" qrcode "
-							th:attr="data-atividade=${atividade.id},data-evento=${atividade.evento.id},data-checkin=true,data-size=600"></div>
+							th:attr="data-code=${atividade.codeCheckin},data-size=600"></div>
 					</div>
 					
 					<div class="break" 
@@ -31,7 +31,7 @@
 						<h2 th:text="${atividade.nome}"></h2>
 						<h5 >Código de Checkout</h5>
 						<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode"
-							th:attr="data-atividade=${atividade.id},data-evento=${atividade.evento.id},data-checkin=false,data-size=600"></div>
+							th:attr="data-code=${atividade.codeCheckout},data-size=600"></div>
 					</div>
 					<div style="page-break-before: always;"></div>
 				</div>
