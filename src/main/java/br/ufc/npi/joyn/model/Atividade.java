@@ -1,5 +1,9 @@
 package br.ufc.npi.joyn.model;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -43,9 +47,24 @@ public class Atividade {
 
 	@OneToMany
 	private List<HorarioAtividade> horarios;
+	
+	private String codeCheckin;
+	
+	private String codeCheckout;
 
 	public Atividade() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void gerarCodigos() throws UnsupportedEncodingException, NoSuchAlgorithmException{
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		String codigoCheckinStr = id + "checkin";
+		codeCheckin = String.format("%032x", new BigInteger(1, md.digest(codigoCheckinStr.getBytes("UTF-8"))));
+		
+		if(tipo == TiposAtividades.CHECKIN_CHECKOUT){
+			String codigoCheckoutStr = id + "checkout";
+			codeCheckout = String.format("%032x", new BigInteger(1, md.digest(codigoCheckoutStr.getBytes("UTF-8"))));
+		}
 	}
 
 	public Long getId() {
@@ -142,6 +161,22 @@ public class Atividade {
 
 	public void setHorarios(List<HorarioAtividade> horarios) {
 		this.horarios = horarios;
+	}
+	
+	public String getCodeCheckin() {
+		return codeCheckin;
+	}
+
+	public void setCodeCheckin(String codeCheckin) {
+		this.codeCheckin = codeCheckin;
+	}
+
+	public String getCodeCheckout() {
+		return codeCheckout;
+	}
+
+	public void setCodeCheckout(String codeCheckout) {
+		this.codeCheckout = codeCheckout;
 	}
 
 }
