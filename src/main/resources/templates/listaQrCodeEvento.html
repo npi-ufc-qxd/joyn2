@@ -8,19 +8,20 @@
 </head>
 
 <body>
-	<div class="container-fluid" layout:fragment="conteudo">
+	<div class="container-fluid" layout:fragment="conteudo" >
 
 
-		<div class="col-md-12">
+		<div class="">
 			<!-- Conteudo principal -->
 
-			<div class="white-box">
+			<div class="">
 				<div class="row"
 					th:each="atividade : ${evento.atividades}"
 					>
 					
 					<div class="break" >
-						<h2 th:text="${atividade.nome}"></h2>
+						<h2 th:text="${'Evento: '+evento.nome}"></h2>
+						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
 						<h5 >Código de Checkin</h5>
 						<div th:id="${'qrcode-checkin-'+atividade.id}" class=" qrcode "
 							th:attr="data-code=${atividade.codeCheckin},data-size=600"></div>
