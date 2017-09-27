@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="head">
 	<head>
 	    <meta charset="utf-8"/>
@@ -11,26 +14,26 @@
 		<link rel="icon" href="/favicon.ico" type="image/x-icon"/>
 	    <title>Joyn</title>
 	    <!-- Bootstrap Core CSS -->
-	    <link th:href="@{/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+	    <link th:href="@{bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet"/>
 	    <!-- animation CSS -->
-	    <link href="/css/animate.css" rel="stylesheet"/>
+	    <link th:href="@{css/animate.css}" rel="stylesheet"/>
 	    
 	    
 	    <!-- Menu CSS -->
-	    <link href="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet"/>
+	    <link th:href="@{plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}" rel="stylesheet"/>
 	    <!-- Page plugins css -->
-    <link href="../plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet"/>
+    <link th:href="@{plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css}" rel="stylesheet"/>
     <!-- Color picker plugins css -->
-    <link href="../plugins/bower_components/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet"/>
+    <link th:href="@{plugins/bower_components/jquery-asColorPicker-master/css/asColorPicker.css}" rel="stylesheet"/>
     <!-- Date picker plugins css -->
-    <link href="../plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css}" rel="stylesheet" type="text/css" />
     <!-- Daterange picker plugins css -->
-    <link href="../plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet"/>
-    <link href="../plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"/>
-	<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-	<link href="../plugins/bower_components/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet"/>
+    <link th:href="@{plugins/bower_components/timepicker/bootstrap-timepicker.min.css}" rel="stylesheet"/>
+    <link th:href="@{plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet"/>
+	<link th:href="@{bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+	<link th:href="@{plugins/bower_components/bootstrap-switch/bootstrap-switch.min.css}" rel="stylesheet"/>
 	    <!-- Custom CSS -->
-	    <link href="/css/style.css" rel="stylesheet"/>
+	    <link th:href="@{css/style.css}" rel="stylesheet"/>
 	    <!-- color CSS -->
 	    <link th:href="@{/css/colors/blue.css}" id="theme" rel="stylesheet"/>
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,7 +42,7 @@
 	    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	    <![endif]-->
-	    <link rel="stylesheet" href="/css/joyn.css"/>
+	    <link rel="stylesheet" th:href="@{css/joyn.css}"/>
 	    
 	    
 	</head>
