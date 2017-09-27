@@ -1,4 +1,7 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 
 	<div class="navbar-default sidebar" role="navigation"
@@ -18,11 +21,11 @@
 				</li>
 				<!-- User profile-->
 				<li class="nav-small-cap m-t-10">- Opções</li>
-				<li><a href="/evento/cadastrar" class="waves-effect"><span
+				<li><a th:href="@{/evento/cadastrar}" class="waves-effect"><span
 						class="hide-menu">Adicionar Evento </span></a></li>
-				<li><a href="/evento/meus_eventos" class="waves-effect"> <span
+				<li><a th:href="@{/evento/meus_eventos}" class="waves-effect"> <span
 						class="hide-menu">Meus Eventos </span></a></li>
-				<li><a href="/usuario/editar" class="waves-effect"> <span
+				<li><a th:href="@{/usuario/editar}" class="waves-effect"> <span
 						class="hide-menu">Meu Dados </span></a></li>
 			</ul>
 		</div>

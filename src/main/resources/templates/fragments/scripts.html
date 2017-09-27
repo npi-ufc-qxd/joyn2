@@ -1,41 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="scripts">
 	<!-- jQuery -->
-	<script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+	<script th:src="@{/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
 	<!-- Bootstrap Core JavaScript -->
-	<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script th:src="@{/bootstrap/dist/js/bootstrap.min.js}"></script>
 	<!-- Menu Plugin JavaScript -->
-	<script src="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+	<script th:src="@{/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js}"></script>
 	
 	<!--slimscroll JavaScript -->
-	<script src="/js/jquery.slimscroll.js"></script>
+	<script th:src="@{/js/jquery.slimscroll.js}"></script>
 	<!--Wave Effects -->
-	<script src="/js/waves.js"></script>
+	<script th:src="@{/js/waves.js}"></script>
 	 <!-- Sweet-Alert  -->
-    <script src="/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
-    <script src="/js/jquery.sweet-alert.custom.js"></script>
+    <script th:src="@{/plugins/bower_components/sweetalert/sweetalert.min.js}"></script>
+    <script th:src="@{/js/jquery.sweet-alert.custom.js}"></script>
 	<!-- Custom Theme JavaScript -->
-	<script src="/js/custom.min.js"></script>
-	<script src="/js/jasny-bootstrap.js"></script>
-	<script src="/js/mask.js"></script>
+	<script th:src="@{/js/custom.min.js}"></script>
+	<script th:src="@{/js/jasny-bootstrap.js}"></script>
+	<script th:src="@{/js/mask.js}"></script>
 	 <!-- Plugin JavaScript -->
-    <script src="/plugins/bower_components/moment/moment.js"></script>
+    <script th:src="@{/plugins/bower_components/moment/moment.js}"></script>
 	<!-- Clock Plugin JavaScript -->
-    <script src="/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <script th:src="@{/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js}"></script>
     <!-- Color Picker Plugin JavaScript -->
-    <script src="/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
-    <script src="/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
-    <script src="/plugins/bower_components/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+    <script th:src="@{/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asColor.js}"></script>
+    <script th:src="@{/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asGradient.js}"></script>
+    <script th:src="@{/plugins/bower_components/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js}"></script>
     <!-- Date Picker Plugin JavaScript -->
-    <script src="/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script th:src="@{/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
     <!-- Date range Plugin JavaScript -->
-    <script src="/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script th:src="@{/plugins/bower_components/timepicker/bootstrap-timepicker.min.js}"></script>
+    <script th:src="@{/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js}"></script>
     <!-- bt-switch -->
-    <script src="/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js"></script>
+    <script th:src="@{/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js}"></script>
    	<!-- qrcode -->
-   	<script src="/js/qrcode/qrcode.min.js"></script>
+   	<script th:src="@{/js/qrcode/qrcode.min.js}"></script>
     
     <script>
     
@@ -169,7 +172,7 @@
    });
 </script>
 <!--Style Switcher -->
-	<script src="/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+	<script th:src="@{/plugins/bower_components/styleswitcher/jQuery.style.switcher.js}"></script>
 	
 </div>
 </html>
