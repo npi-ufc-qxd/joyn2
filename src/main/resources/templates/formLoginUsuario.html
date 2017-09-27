@@ -24,7 +24,7 @@
             <div class="col-md-8">
                 <div class="container-fluid">
                     <div class="text-center">
-                    	<img src="/images/joyn-logo.png"  height="100"/>
+                    	<img th:src="@{/images/joyn-logo.png}"  height="100"/>
                     </div>
                     <hr/>
                     <p>
@@ -68,7 +68,7 @@
                                 <input id="checkbox-signup" type="checkbox"/>
                                 <label for="checkbox-signup"> Lembrar de mim </label>
                             </div>
-                            <a href="/usuario/recuperarsenha" id="to-recover" class="text-dark pull-right"><i
+                            <a th:href="@{/usuario/recuperarsenha}" id="to-recover" class="text-dark pull-right"><i
                                     class="fa fa-lock m-r-5"></i> Esqueceu sua senha?</a></div>
                     </div>
                     <div class="form-group text-center m-t-20">
@@ -89,7 +89,7 @@
                     </div>
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
-                            <p>Não tem uma conta? <a href="/usuario/cadastrar"
+                            <p>Não tem uma conta? <a th:href="@{/usuario/cadastrar}"
                                                      class="text-info m-l-5"><b>Cadastrar</b></a></p>
                         </div>
                     </div>
