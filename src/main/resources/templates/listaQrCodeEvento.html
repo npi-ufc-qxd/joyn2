@@ -22,17 +22,32 @@
 					<div class="break" >
 						<h2 th:text="${'Evento: '+evento.nome}"></h2>
 						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
-						<h5 >Código de Checkin</h5>
+						<br />
+						<h1 ><b>Checkin</b></h1>
 						<div th:id="${'qrcode-checkin-'+atividade.id}" class=" qrcode "
-							th:attr="data-code=${atividade.codeCheckin},data-size=600"></div>
+							th:attr="data-code=${atividade.codeCheckin},data-size=600" style="margin-left:50px"></div>
+						<br />
+						<p>Para atividades que possuem código de checkin e checkout, as coletas só serão computadas após a captura dos códigos de checkin e checkout! </p>
+						<center>
+							<img th:src="@{/images/joyn-logo.png}" alt="logo joyn" height="100" style="margin-top:50px" />
+						</center>
+						
+						
 					</div>
 					
 					<div class="break" 
 						th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}">
-						<h2 th:text="${atividade.nome}"></h2>
-						<h5 >Código de Checkout</h5>
+						<h2 th:text="${'Evento: '+evento.nome}"></h2>
+						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
+						<br />
+						<h1 ><b>Checkout</b></h1>
 						<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode"
-							th:attr="data-code=${atividade.codeCheckout},data-size=600"></div>
+							th:attr="data-code=${atividade.codeCheckout},data-size=600" style="margin-left:50px"></div>
+						<br />
+						<p>Para atividades que possuem código de checkin e checkout, as coletas só serão computadas após a captura dos códigos de checkin e checkout! </p>
+						<center>
+							<img th:src="@{/images/joyn-logo.png}" alt="logo joyn" height="100" style="margin-top:50px" />
+						</center>
 					</div>
 					<div style="page-break-before: always;"></div>
 				</div>
