@@ -185,7 +185,7 @@
 									<tbody>
 										<tr th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
 											<td th:text="${organizador.usuario.nome}"></td>
-											<td th:if="${organizador.usuario.id != usuario.id}"><a class="sa-warning-organizador btn btn-block btn-outline btn-rounded btn-primary btn-xs" th:value="@{${organizador.id}}">Excluir</a></td>
+											<td th:if="${organizador.usuario.id != usuario.id}"><a class="sa-warning-organizador btn btn-block btn-outline btn-rounded btn-primary btn-xs" th:value="@{'/evento/excluir_organizador/'+${organizador.id}}">Excluir</a></td>
 											<td th:unless="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs disabled">Excluir</a></td>
 										</tr>
 									</tbody>

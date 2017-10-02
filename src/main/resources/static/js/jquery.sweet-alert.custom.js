@@ -58,7 +58,7 @@
   
     //Warning Message
     $('.sa-warning-organizador').click(function(){
-    	var id = $(this).attr('value');
+    	var href = $(this).attr('value');
         swal({   
             title: "Atenção!",   
             text: "Tem certeza que deseja deletar este organizador?\n Você será o novo organizador das atividade que este usuario organizava!",   
@@ -68,13 +68,13 @@
             confirmButtonText: "Deletar",   
             closeOnConfirm: false,
         }, function(){
-        	window.location = '/evento/excluir_organizador/'+id;    	    
+        	window.location = href;    	    
         });
     });
     
     //Warning Message
     $('.sa-warning-organizadorb').click(function(){
-    	var id = $(this).attr('value');
+    	var href = $(this).attr('value');
         swal({   
             title: "Atenção!",   
             text: "Tem certeza que deseja deletar este organizador?\n Você será o novo organizador das atividade que este usuario organizava!",   
@@ -84,13 +84,13 @@
             confirmButtonText: "Deletar",   
             closeOnConfirm: false,
         }, function(){
-        	window.location = '/evento/excluir_participantes/'+id;    	    
+        	window.location = href;    	    
         });
     });
     
     //Warning Message
     $('.sa-warning-organizador-atividade').click(function(){
-    	var id = $(this).attr('value');
+    	var href = $(this).attr('value');
         swal({   
             title: "Atenção!",   
             text: "Tem certeza que deseja deletar este organizador?\n Você será o novo organizador das atividade que este usuario organizava!",   
@@ -100,13 +100,13 @@
             confirmButtonText: "Deletar",   
             closeOnConfirm: false,
         }, function(){
-        	window.location = '/atividade/excluir_participante/'+id;    	    
+        	window.location = href;    	    
         });
     });
     
     //Warning Message
     $('.sa-warning-participante-atividadeb').click(function(){
-    	var id = $(this).attr('value');
+    	var href = $(this).attr('value');
         swal({   
             title: "Atenção!",   
             text: "Tem certeza que deseja deletar este organizador?\n Você será o novo organizador das atividade que este usuario organizava!",   
@@ -116,7 +116,7 @@
             confirmButtonText: "Deletar",   
             closeOnConfirm: false,
         }, function(){
-        	window.location = '/evento/excluir_participantes/'+id;    	    
+        	window.location = href;    	    
         });
     });
   

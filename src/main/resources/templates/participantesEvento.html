@@ -56,7 +56,7 @@
 											<td><img class="img-circle" alt="Foto" th:src="${organizador.usuario.foto64}" height="50"/></td>
 											<td th:text="${organizador.usuario.nome}"></td>
 											<td th:text="${organizador.usuario.email}"></td>
-											<td th:if="${organizador.usuario.id != usuarioLogado.id}"><a class="sa-warning-organizadorb btn btn-block btn-outline btn-rounded btn-success btn-xs" th:value="@{${organizador.id}}">Excluir</a></td>
+											<td th:if="${organizador.usuario.id != usuarioLogado.id}"><a class="sa-warning-organizadorb btn btn-block btn-outline btn-rounded btn-success btn-xs" th:value="@{'/evento/excluir_organizador/'+${organizador.id}}">Excluir</a></td>
 											<td th:unless="${organizador.usuario.id != usuarioLogado.id}"><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs disabled">Excluir</a></td>
 
 				    					</tr>
