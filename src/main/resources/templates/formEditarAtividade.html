@@ -31,9 +31,11 @@
 			<div class="col-md-12">
 			<!-- Conteudo principal -->
             	<div class="white-box">
-	                <form action="/atividade/editar" method="POST" th:object="${atividade}">
+	                <form th:action="@{/atividade/editar}" method="POST" th:object="${atividade}">
                 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 		<input th:field="*{evento}" type="hidden" value="th:text=${atividade.evento}"/>
+                		<input th:field="*{codeCheckin}" type="hidden" value="th:text=${atividade.codeCheckin}" />
+                		<input th:field="*{codeCheckout}" type="hidden" value="th:text=${atividade.codeCheckout}" />
                 		
                 		<input th:field="*{id}" type="hidden" value="th:text=${atividade.id}"/>
                 		<input th:field="*{participantes}" type="hidden" value="th:text=${atividade.participantes}"/>

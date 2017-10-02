@@ -31,7 +31,7 @@
 					<a class="btn  btn-rounded btn-success" th:href="@{${'/atividade/'+atividade.id+'/ver_participantes'}}" >Participantes</a>
 					<a data-toggle="modal" data-target=".bs-example-modal-lg" class="model_img img-responsive btn btn-rounded btn-info col-md-offset-4" >Gerar QRCode</a>
 					<a class="btn  btn-rounded btn-inverse col-md-offset-4" th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a>
-					<a class="sa-warning-atividade btn  btn-rounded btn-danger " th:value="${atividade.id}">Excluir</a>				
+					<a class="sa-warning-atividade btn  btn-rounded btn-danger " th:value="@{'/atividade/excluir/'+${atividade.id}}">Excluir</a>				
 					<hr/>
 				</div>
 
