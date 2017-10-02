@@ -35,7 +35,7 @@
             confirmButtonText: "Deletar",   
             closeOnConfirm: false,
         }, function(){
-        	window.location = '/atividade/excluir/'+id;    	    
+        	window.location.href = 'https://homologacaosistemas.quixada.ufc.br/atividade/excluir/'+id;    	    
         });
     });
     
