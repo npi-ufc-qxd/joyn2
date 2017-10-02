@@ -25,7 +25,7 @@
 
     //Warning Message
     $('.sa-warning-atividade').click(function(){
-    	var id = $(this).attr('value');
+    	var href = $(this).attr('value');
         swal({   
             title: "Atenção!",   
             text: "Tem certeza que deseja deletar atividade?",   
@@ -35,7 +35,7 @@
             confirmButtonText: "Deletar",   
             closeOnConfirm: false,
         }, function(){
-        	window.location.href = 'https://homologacaosistemas.quixada.ufc.br/atividade/excluir/'+id;    	    
+        	window.location.href = href;    	    
         });
     });
     

@@ -225,7 +225,7 @@
 										<tr th:each="atividade : ${evento.atividades}" >
 											<td class="col-md-10" th:text="${atividade.nome}"></td>
 											<td><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs" th:href="@{${'/atividade/'+atividade.id}}" >Ver Detalhes</a></td>
-											<td><a class="sa-warning-atividade btn btn-block btn-outline btn-rounded btn-success btn-xs" th:value="@{${atividade.id}}">Excluir</a></td>
+											<td><a class="sa-warning-atividade btn btn-block btn-outline btn-rounded btn-success btn-xs" th:value="@{'/atividade/excluir/'+${atividade.id}}">Excluir</a></td>
 										</tr>
 									</tbody>
 								</table>
