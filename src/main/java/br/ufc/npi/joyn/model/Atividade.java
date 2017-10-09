@@ -1,9 +1,8 @@
 package br.ufc.npi.joyn.model;
 
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,9 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -45,25 +41,19 @@ public class Atividade {
 	@ManyToOne
 	private Evento evento;
 
-	@OneToMany
-	private List<HorarioAtividade> horarios;
-	
-	private String codeCheckin;
-	
-	private String codeCheckout;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<CodigosTurno> codigosTurno;
 
 	public Atividade() {
-		// TODO Auto-generated constructor stub
+		codigosTurno = new ArrayList<>();
 	}
 	
 	public void gerarCodigos() throws UnsupportedEncodingException, NoSuchAlgorithmException{
-		MessageDigest md = MessageDigest.getInstance("MD5");
-		String codigoCheckinStr = id + "checkin";
-		codeCheckin = String.format("%032x", new BigInteger(1, md.digest(codigoCheckinStr.getBytes("UTF-8"))));
-		
-		if(tipo == TiposAtividades.CHECKIN_CHECKOUT){
-			String codigoCheckoutStr = id + "checkout";
-			codeCheckout = String.format("%032x", new BigInteger(1, md.digest(codigoCheckoutStr.getBytes("UTF-8"))));
+		for(int i = 0; i < dias; i++){
+			CodigosTurno ct = new CodigosTurno(i);
+			ct.setAtividade(this);
+			ct.gerarCodigos();
+			codigosTurno.add(ct);
 		}
 	}
 
@@ -153,30 +143,6 @@ public class Atividade {
 
 	public void setEvento(Evento evento) {
 		this.evento = evento;
-	}
-
-	public List<HorarioAtividade> getHorarios() {
-		return horarios;
-	}
-
-	public void setHorarios(List<HorarioAtividade> horarios) {
-		this.horarios = horarios;
-	}
-	
-	public String getCodeCheckin() {
-		return codeCheckin;
-	}
-
-	public void setCodeCheckin(String codeCheckin) {
-		this.codeCheckin = codeCheckin;
-	}
-
-	public String getCodeCheckout() {
-		return codeCheckout;
-	}
-
-	public void setCodeCheckout(String codeCheckout) {
-		this.codeCheckout = codeCheckout;
 	}
 
 }

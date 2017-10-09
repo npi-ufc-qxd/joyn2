@@ -5,10 +5,10 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.ufc.npi.joyn.model.HorarioAtividade;
+import br.ufc.npi.joyn.model.CodigosTurno;
 
 @Repository
 @Transactional
-public interface HorarioAtividadeRepository extends JpaRepository<HorarioAtividade, Long> {
+public interface CodigosTurnoRepository extends JpaRepository<CodigosTurno, Long> {
 
 }
