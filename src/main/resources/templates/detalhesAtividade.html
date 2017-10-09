@@ -21,11 +21,19 @@
 			
 			<!-- /.page title -->
 		</div>
-		
-		<div class="col-md-12">
 			<!-- Conteudo principal -->
+		
+			<div class="alert  alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    				<span aria-hidden="true">&times;</span>
+  				</button>
+  				
+				<span th:text="${mensagem}"></span>
+			</div>
 			
 			<div class="white-box">
+		
+				<div class="col-md-12">
 				
 				<div class="col-md-12">
 					<a class="btn  btn-rounded btn-success" th:href="@{${'/atividade/'+atividade.id+'/ver_participantes'}}" >Participantes</a>

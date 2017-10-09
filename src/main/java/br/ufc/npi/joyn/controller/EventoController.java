@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.npi.joyn.model.Atividade;
 import br.ufc.npi.joyn.model.Convite;
@@ -81,7 +82,7 @@ public class EventoController {
 	}
 	
 	@PostMapping(path="/cadastrar")
-	public String salvarEvento(@Valid Evento evento, @RequestParam("dataInicio") String dataInicioStr, @RequestParam("dataFim") String dataFimStr, BindingResult result) throws ParseException{
+	public String salvarEvento(@Valid Evento evento, @RequestParam("dataInicio") String dataInicioStr, @RequestParam("dataFim") String dataFimStr, BindingResult result, RedirectAttributes attributes) throws ParseException{
 
 		if (!verificarFormulario(evento, result)) return "formCadastroEvento"; 
 
@@ -92,7 +93,10 @@ public class EventoController {
 		if(usuario != null){
 			ParticipacaoEvento pe = new ParticipacaoEvento(usuario, salvo, Papel.ORGANIZADOR, true);
 			participacaoEventoService.addParticipacaoEvento(pe);
+			
 		}
+		
+		attributes.addAttribute("id", salvo.getId()).addFlashAttribute("mensagem", "Evento cadastrado com sucesso!");
 		
 		return "redirect:/evento/" + salvo.getId();
 	}
@@ -127,10 +131,13 @@ public class EventoController {
 	}
 	
 	@PostMapping(path="/editar")
-	public String atualizar(@Valid Evento evento, @RequestParam("dataInicio") String dataInicioStr, @RequestParam("dataFim") String dataFimStr, BindingResult result) throws ParseException{
+	public String atualizar(@Valid Evento evento, @RequestParam("dataInicio") String dataInicioStr, @RequestParam("dataFim") String dataFimStr, BindingResult result, RedirectAttributes attributes) throws ParseException{
 		if (!verificarFormulario(evento, result)) return "formEditarEvento"; 
 		
 		Evento evento_salvo = eventoService.salvarEvento(evento);
+		
+		attributes.addAttribute("id", evento_salvo.getId()).addFlashAttribute("mensagem", "Alteração realizada com sucesso!");
+		
 		return "redirect:/evento/"+evento_salvo.getId();
 	}
 	

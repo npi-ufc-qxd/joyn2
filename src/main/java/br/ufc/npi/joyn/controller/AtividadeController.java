@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.npi.joyn.model.Atividade;
 import br.ufc.npi.joyn.model.Evento;
@@ -67,7 +68,7 @@ public class AtividadeController {
 	}
 	
 	@PostMapping(path="/cadastrar")
-	public String cadastrarAtividade(Atividade atividade) throws UnsupportedEncodingException, NoSuchAlgorithmException{
+	public String cadastrarAtividade(Atividade atividade, RedirectAttributes attributes) throws UnsupportedEncodingException, NoSuchAlgorithmException{
 		
 		if (!verificarFormulario(atividade)) return "formCadastroAtividade";
 		
@@ -84,6 +85,8 @@ public class AtividadeController {
 		
 		Usuario logado = usuarioService.getUsuarioLogado();
 		participacaoAtividadeService.adicionarAtividade(logado, atividadeSalva, Papel.ORGANIZADOR);		
+		
+		attributes.addAttribute("id", atividadeSalva.getId()).addFlashAttribute("mensagem", "Atividade cadastrada com sucesso!");
 		
 		return "redirect:/atividade/" + atividadeSalva.getId();
 	}
@@ -111,11 +114,14 @@ public class AtividadeController {
 	}
 	
 	@PostMapping(path="/editar")
-	public String atualizarAtividade(Atividade atividade){
+	public String atualizarAtividade(Atividade atividade, RedirectAttributes attributes){
 		
 		if (!verificarFormulario(atividade)) return "formEditarAtividade"; 
 		
 		Atividade atividadeSalva = atividadeService.salvarAtividade(atividade);
+		
+		attributes.addAttribute("id", atividadeSalva.getId()).addFlashAttribute("mensagem", "Alteração realizada com sucesso!");
+		
 		return "redirect:/atividade/"+atividadeSalva.getId();
 	}
 	
