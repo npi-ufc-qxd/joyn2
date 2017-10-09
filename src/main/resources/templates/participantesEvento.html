@@ -12,7 +12,7 @@
 				<!-- .breadcrumb -->
                   <div class="col-lg-4 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="/evento/meus_eventos">Meus Eventos</a></li>
+                        <li><a th:href="@{/evento/meus_eventos}">Meus Eventos</a></li>
                         <li><a th:href="@{${'/evento/'+evento.id}}" th:text="${evento.nome}"></a></li>
                         <li class="active text-uppercase">Participantes</li>
                      </ol>
@@ -56,7 +56,7 @@
 											<td><img class="img-circle" alt="Foto" th:src="${organizador.usuario.foto64}" height="50"/></td>
 											<td th:text="${organizador.usuario.nome}"></td>
 											<td th:text="${organizador.usuario.email}"></td>
-											<td th:if="${organizador.usuario.id != usuarioLogado.id}"><a class="sa-warning-organizadorb btn btn-block btn-outline btn-rounded btn-success btn-xs" th:value="${organizador.id}">Excluir</a></td>
+											<td th:if="${organizador.usuario.id != usuarioLogado.id}"><a class="sa-warning-organizadorb btn btn-block btn-outline btn-rounded btn-success btn-xs" th:value="@{'/evento/excluir_organizador/'+${organizador.id}}">Excluir</a></td>
 											<td th:unless="${organizador.usuario.id != usuarioLogado.id}"><a class="btn btn-block btn-outline btn-rounded btn-success btn-xs disabled">Excluir</a></td>
 
 				    					</tr>
@@ -93,7 +93,7 @@
 											<td><img class="img-circle" alt="Foto" th:src="${participante.usuario.foto64}" height="50"/></td>
 											<td th:text="${participante.usuario.nome}"></td>
 											<td th:text="${participante.usuario.email}"></td>
-											<td><a class="sa-warning-participante waves-effect waves-teal btn-flat red" th:value="${participante.id}">Excluir</a></td>
+											<td><a class="sa-warning-participante waves-effect waves-teal btn-flat red" th:value="@{${participante.id}}">Excluir</a></td>
 				   					 		</tr>
 									</tbody>
 								</table>

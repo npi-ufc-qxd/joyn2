@@ -19,7 +19,7 @@
 				<!-- .breadcrumb -->
                   <div class="col-lg-5 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="/evento/meus_eventos">Meus Eventos</a></li>
+                        <li><a th:href="@{/evento/meus_eventos}">Meus Eventos</a></li>
                         <li><a th:href="@{${'/evento/'+atividade.evento.id}}" th:text="${atividade.evento.nome}"></a></li>
                         <li class="active text-uppercase">Cadastrar Atividade</li>
                      </ol>
@@ -30,7 +30,7 @@
 			<div class="col-md-12">
 			<!-- Conteudo principal -->
             	<div class="white-box">
-	                  <form action="/atividade/cadastrar" method="POST" th:object="${atividade}">
+	                  <form th:action="@{/atividade/cadastrar}" method="POST" th:object="${atividade}">
                 		
                 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 		<input th:field="*{evento}" type="hidden" value="th:text=${atividade.evento}"/>

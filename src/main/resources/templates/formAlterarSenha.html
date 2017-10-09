@@ -23,10 +23,10 @@
 <section id="wrapper" class="login-register">
   <div class="login-box">
     <div class="white-box">
-      <form class="form-horizontal form-material" id="alterarsenha" action="/usuario/novasenha" method="POST">
+      <form class="form-horizontal form-material" id="alterarsenha" th:action="@{/usuario/novasenha}" method="POST">
            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <div class="text-center">
-        	<img src="/images/joyn-logo.png"  height="100"/>
+        	<img th:src="@{/images/joyn-logo.png}"  height="100"/>
         	<hr/>
         	<h3 class="box-title m-b-20">Alterar Senha</h3>
         </div>

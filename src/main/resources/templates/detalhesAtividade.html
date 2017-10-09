@@ -12,7 +12,7 @@
 			<!-- .breadcrumb -->
                   <div class="col-lg-5 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="/evento/meus_eventos">Meus Eventos</a></li>
+                        <li><a th:href="@{/evento/meus_eventos}">Meus Eventos</a></li>
                         <li><a th:href="@{${'/evento/'+evento.id}}" th:text="${evento.nome}"></a></li>
                         <li class="active text-uppercase" th:text="${atividade.nome}"></li>
                      </ol>
@@ -39,7 +39,7 @@
 					<a class="btn  btn-rounded btn-success" th:href="@{${'/atividade/'+atividade.id+'/ver_participantes'}}" >Participantes</a>
 					<a data-toggle="modal" data-target=".bs-example-modal-lg" class="model_img img-responsive btn btn-rounded btn-info col-md-offset-4" >Gerar QRCode</a>
 					<a class="btn  btn-rounded btn-inverse col-md-offset-4" th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a>
-					<a class="sa-warning-atividade btn  btn-rounded btn-danger " th:value="${atividade.id}">Excluir</a>				
+					<a class="sa-warning-atividade btn  btn-rounded btn-danger " th:value="@{'/atividade/excluir/'+${atividade.id}}">Excluir</a>				
 					<hr/>
 				</div>
 

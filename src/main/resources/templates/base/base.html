@@ -33,7 +33,7 @@
 	rel="stylesheet" />
 	
 <!--alerts CSS -->
-   		 <link href="/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>	
+   		 <link th:href="@{/plugins/bower_components/sweetalert/sweetalert.css}" rel="stylesheet" type="text/css"/>	
 <!-- This is a Animation CSS -->
 <link th:href="@{/css/animate.css}" rel="stylesheet" />
 <!-- This is a Custom CSS -->
@@ -71,7 +71,7 @@
 					data-target=".navbar-collapse"><i class="ti-menu"></i></a>
 				<!-- Logo -->
 				<div class="top-left-part">
-					<a class="logo" href="/evento/meus_eventos"> <!-- Logo icon image, you can use font-icon also -->
+					<a class="logo" th:href="@{/evento/meus_eventos}"> <!-- Logo icon image, you can use font-icon also -->
 						<b><i class="glyphicon glyphicon-qrcode"></i></b> <!-- Logo text image you can use text also -->
 						<span class="hidden-xs">Joyn</span>
 					</a>
@@ -89,9 +89,9 @@
 							class="img-circle" /><b class="hidden-xs" th:text="${#authentication.getPrincipal().getNome()}"> </b>
 					</a>
 					 	<ul class="dropdown-menu dropdown-user scale-up">
-							<li><a href="/usuario/editar"><i class="ti-user"></i> Meu perfil</a></li>
+							<li><a th:href="@{/usuario/editar}"><i class="ti-user"></i> Meu perfil</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="/usuario/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+							<li><a th:href="@{/usuario/logout}"><i class="fa fa-power-off"></i> Logout</a></li>
 						</ul> <!-- /.user dropdown-user --></li>
 					<!-- /.user dropdown -->
 					<!-- /.dropdown -->

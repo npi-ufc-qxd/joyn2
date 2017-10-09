@@ -11,7 +11,7 @@
 		<!-- .breadcrumb -->
                   <div class="col-lg-5 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="/evento/meus_eventos">Meus Eventos</a></li>
+                        <li><a th:href="@{/evento/meus_eventos}">Meus Eventos</a></li>
                         <li><a th:href="@{${'/evento/'+atividade.evento.id}}" th:text="${atividade.evento.nome}"></a></li>
                         <li><a th:href="@{${'/atividade/'+atividade.id}}" th:text="${atividade.nome}"></a></li>
                         <li class="active text-uppercase">Participantes</li>
@@ -88,7 +88,7 @@
 											<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="50"></img> </td>
 											<td th:text="${atividadeParticipante.usuario.nome}"></td>
 											<td th:text="${atividadeParticipante.usuario.email}"></td>
-											<td><a class="sa-warning-participante-atividadeb btn btn-block btn-outline btn-rounded btn-info btn-xs" th:value="${atividadeParticipante.id}">Excluir</a></td>
+											<td><a class="sa-warning-participante-atividadeb btn btn-block btn-outline btn-rounded btn-info btn-xs" th:value="@{'/evento/excluir_organizador/'+${atividadeParticipante.id}}">Excluir</a></td>
 			   							 </tr>
 									</tbody>
 								</table>
