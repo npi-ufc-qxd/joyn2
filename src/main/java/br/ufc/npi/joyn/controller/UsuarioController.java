@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.npi.joyn.model.Convite;
 import br.ufc.npi.joyn.model.Evento;
@@ -84,7 +83,7 @@ public class UsuarioController {
 			userBanco.setFoto64(imagemBase64(imagem));
 		
 		usuarioService.atualizaUsuario(userBanco);
-
+		
 		return "redirect:/evento/meus_eventos";
 
 	}
@@ -113,7 +112,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(path = "/editar")
-	public String editarUsuario(Usuario usuario, @RequestParam String senhaAtual, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
+	public String editarUsuario(Usuario usuario, @RequestParam String senhaAtual, @RequestParam(value="imagem", required=false) MultipartFile imagem, RedirectAttributes attributes) throws IOException {
 		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
 		Usuario usuarioBanco = usuarioService.getUsuario(usuarioLogado.getEmail());
 		
@@ -135,6 +134,8 @@ public class UsuarioController {
 		
 		Authentication authentication = new UsernamePasswordAuthenticationToken(usuarioBanco, usuarioBanco.getSenha(), usuarioBanco.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		attributes.addFlashAttribute("mensagem", "Alteração realizada com sucesso!");
 		
 		return "redirect:/usuario/editar";
 	}	
