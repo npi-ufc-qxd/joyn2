@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/baseListarQrCode">
+<head>
+<title>Lista de Qrcodes</title>
+</head>
+
+<body>
+	<div class="container-fluid" layout:fragment="conteudo" >
+
+
+		<div class="">
+			<!-- Conteudo principal -->
+
+			<div class="">
+				<div class="row"
+					>
+					
+					<div class="break" >
+						<h2 th:text="${'Evento: '+atividade.evento.nome}"></h2>
+						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
+						<br />
+						<h1 ><b>Checkin</b></h1>
+						<div th:id="${'qrcode-checkin-'+atividade.id}" class=" qrcode "
+							th:attr="data-code=${atividade.codeCheckin},data-size=600" style="margin-left:50px"></div>
+						<br />
+						<p>Para atividades que possuem código de checkin e checkout, as coletas só serão computadas após a captura dos códigos de checkin e checkout! </p>
+						<center>
+							<img th:src="@{/images/joyn-logo.png}" alt="logo joyn" height="100" style="margin-top:50px" />
+						</center>
+						
+						
+					</div>
+					
+					<div class="break" 
+						th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}">
+						<h2 th:text="${'Evento: '+atividade.evento.nome}"></h2>
+						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
+						<br />
+						<h1 ><b>Checkout</b></h1>
+						<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode"
+							th:attr="data-code=${atividade.codeCheckout},data-size=600" style="margin-left:50px"></div>
+						<br />
+						<p>Para atividades que possuem código de checkin e checkout, as coletas só serão computadas após a captura dos códigos de checkin e checkout! </p>
+						<center>
+							<img th:src="@{/images/joyn-logo.png}" alt="logo joyn" height="100" style="margin-top:50px" />
+						</center>
+					</div>
+					<div style="page-break-before: always;"></div>
+				</div>
+				
+				
+
+			</div>
+			<!-- Fim do Conteudo principal -->
+		</div>
+		<!-- Sweet-Alert  -->
+
+
+	</div>
+
+</body>
+</html>
