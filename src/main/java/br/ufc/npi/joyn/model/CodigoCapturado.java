@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class CodigoCapturado {
@@ -16,8 +15,7 @@ public class CodigoCapturado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
-	private Codigo codigo;
+	private String codigo;
 	private Date horarioCaptura;
 	
 	@ManyToOne
@@ -34,11 +32,11 @@ public class CodigoCapturado {
 		this.id = id;
 	}
 
-	public Codigo getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Codigo codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
