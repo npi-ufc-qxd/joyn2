@@ -145,4 +145,12 @@ public class Atividade {
 		this.evento = evento;
 	}
 
+	public List<CodigosTurno> getCodigosTurno() {
+		return codigosTurno;
+	}
+
+	public void setCodigosTurno(List<CodigosTurno> codigosTurno) {
+		this.codigosTurno = codigosTurno;
+	}
+
 }

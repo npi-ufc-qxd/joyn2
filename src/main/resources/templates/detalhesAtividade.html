@@ -54,15 +54,17 @@
 									aria-hidden="true">×</button>
 								<h4 class="modal-title" id="myLargeModalLabel" th:text="${atividade.nome}"></h4>
 							</div>
-							<div class="modal-body">
+							<div class="modal-body" th:each="cTurno : ${atividade.codigosTurno}">
 								
 								
 								<h2>Código de Checkin</h2>
-								<div th:id="${'qrcode-checkin-'+atividade.id}" class="qrcode" th:attr="data-code=${atividade.codeCheckin},data-size=250" ></div>
+								<h2 th:text="${'Turno: '+cTurno.turno}"></h2>
+								<div th:id="${'qrcode-checkin-'+cTurno.id}" class="qrcode" th:attr="data-code=${cTurno.codigoCheckin},data-size=250" ></div>
 								
 								<span th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}">
 									<h2>Código de Checkout</h2>
-									<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode" th:attr="data-code=${atividade.codeCheckout},data-size=250"></div>
+									<h2 th:text="${'Turno: '+cTurno.turno}"></h2>
+									<div th:id="${'qrcode-checkout-'+cTurno.id}" class="qrcode" th:attr="data-code=${cTurno.codigoCheckout},data-size=250"></div>
 								</span>
 								
 								
