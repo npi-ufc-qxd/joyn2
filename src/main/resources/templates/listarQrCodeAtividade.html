@@ -15,16 +15,17 @@
 			<!-- Conteudo principal -->
 
 			<div class="">
-				<div class="row"
+				<div class="row" th:each="cTurno : ${atividade.codigosTurno}"
 					>
 					
 					<div class="break" >
 						<h2 th:text="${'Evento: '+atividade.evento.nome}"></h2>
 						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
+						<h2 th:text="${'Turno: '+cTurno.turno}"></h2>
 						<br />
 						<h1 ><b>Checkin</b></h1>
-						<div th:id="${'qrcode-checkin-'+atividade.id}" class=" qrcode "
-							th:attr="data-code=${atividade.codeCheckin},data-size=600" style="margin-left:50px"></div>
+						<div th:id="${'qrcode-checkin-'+cTurno.id}" class=" qrcode "
+							th:attr="data-code=${cTurno.codigoCheckin},data-size=600" style="margin-left:50px"></div>
 						<br />
 						<p>Para atividades que possuem código de checkin e checkout, as coletas só serão computadas após a captura dos códigos de checkin e checkout! </p>
 						<center>
@@ -38,10 +39,11 @@
 						th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}">
 						<h2 th:text="${'Evento: '+atividade.evento.nome}"></h2>
 						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
+						<h2 th:text="${'Turno: '+cTurno.turno}"></h2>
 						<br />
 						<h1 ><b>Checkout</b></h1>
-						<div th:id="${'qrcode-checkout-'+atividade.id}" class="qrcode"
-							th:attr="data-code=${atividade.codeCheckout},data-size=600" style="margin-left:50px"></div>
+						<div th:id="${'qrcode-checkout-'+cTurno.id}" class="qrcode"
+							th:attr="data-code=${cTurno.codigoCheckout},data-size=600" style="margin-left:50px"></div>
 						<br />
 						<p>Para atividades que possuem código de checkin e checkout, as coletas só serão computadas após a captura dos códigos de checkin e checkout! </p>
 						<center>
