@@ -77,6 +77,7 @@ public class UsuarioController {
 			Evento eventoConvidado = eventoService.buscarEvento(convite.getIdEvento());
 			ParticipacaoEvento pe = new ParticipacaoEvento(userBanco, eventoConvidado, Papel.ORGANIZADOR, true);
 			participacaoEventoService.addParticipacaoEvento(pe);
+			conviteService.excluirConvite(convite);
 		}
 		
 		if(imagem != null && !imagem.isEmpty())
