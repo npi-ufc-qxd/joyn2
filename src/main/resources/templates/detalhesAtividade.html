@@ -37,53 +37,11 @@
 				
 				<div class="col-md-12">
 					<a class="btn  btn-rounded btn-success" th:href="@{${'/atividade/'+atividade.id+'/ver_participantes'}}" >Participantes</a>
-					<a data-toggle="modal" data-target=".bs-example-modal-lg" class="model_img img-responsive btn btn-outline btn-rounded btn-info col-md-offset-4" >Gerar QRCode</a>
 					<a class="btn btn-rounded  btn-info" th:href="@{${'/evento/lista_qrcode_atividade/'+atividade.id}}"  target="_blank">Imprimir QRCodes</a>
-					<a class="btn  btn-rounded btn-inverse col-md-offset-3" th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a>
+					<a class="btn  btn-rounded btn-inverse col-md-offset-7" th:href="@{${'/atividade/editar/'+atividade.id}}">Editar</a>
 					<a class="sa-warning-atividade btn  btn-rounded btn-danger " th:value="@{'/atividade/excluir/'+${atividade.id}}">Excluir</a>				
 					<hr/>
 				</div>
-
-				<div class="modal fade bs-example-modal-lg in" tabindex="-1"
-					role="dialog" aria-labelledby="myLargeModalLabel"
-					aria-hidden="true" style="display: NONE; padding-right: 15px;">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h4 class="modal-title" id="myLargeModalLabel" th:text="${atividade.nome}"></h4>
-							</div>
-							<div class="modal-body" th:each="cTurno : ${atividade.codigosTurno}">
-								
-								
-								<h2>Código de Checkin</h2>
-								<h2 th:text="${'Turno: '+cTurno.turno}"></h2>
-								<div th:id="${'qrcode-checkin-'+cTurno.id}" class="qrcode" th:attr="data-code=${cTurno.codigoCheckin},data-size=250" ></div>
-								
-								<span th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}">
-									<h2>Código de Checkout</h2>
-									<h2 th:text="${'Turno: '+cTurno.turno}"></h2>
-									<div th:id="${'qrcode-checkout-'+cTurno.id}" class="qrcode" th:attr="data-code=${cTurno.codigoCheckout},data-size=250"></div>
-								</span>
-								
-								
-
-							</div>
-							<div class="modal-footer">
-								<button type="button"
-									class="btn btn-danger waves-effect text-left"
-									data-dismiss="modal">Fechar</button>
-							</div>
-						</div>
-						/.modal-content
-					</div>
-					/.modal-dialog
-				</div>
-
-								
-
-								
 
 				<div class="col-md-12">
 					<div class=" panel panel-info">
