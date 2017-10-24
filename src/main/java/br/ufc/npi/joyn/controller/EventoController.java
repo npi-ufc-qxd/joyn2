@@ -84,7 +84,10 @@ public class EventoController {
 	@PostMapping(path="/cadastrar")
 	public String salvarEvento(@Valid Evento evento, @RequestParam("dataInicio") String dataInicioStr, @RequestParam("dataFim") String dataFimStr, BindingResult result, RedirectAttributes attributes) throws ParseException{
 
-		if (!verificarFormulario(evento, result)) return "formCadastroEvento"; 
+		if (!verificarFormulario(evento, result)) {
+			attributes.addFlashAttribute("mensagem", "Evento não cadastrado, verifique os campos!");
+			return "redirect:/evento/cadastrar";
+		}
 
 		Evento salvo = eventoService.salvarEvento(evento);
 		
@@ -157,7 +160,8 @@ public class EventoController {
 	
 	public boolean verificarFormulario(Evento evento, BindingResult result){
 		Date dataAtual = new Date();
-		if (evento.getNome().equals("")) return false;
+		if (evento.getNome().equals("") || evento.getLocal() == null || evento.getDataFim() == null
+				|| evento.getDataInicio() == null) return false;
 		
 		if (result.hasErrors()) return false;
 		
@@ -168,7 +172,9 @@ public class EventoController {
                 && evento.getDataInicio().getYear() < dataAtual.getYear())
             return false;
 		
-		if (evento.getPorcentagemMin() < 0 || evento.getPorcentagemMin() > 100) return false;
+		if (evento.getPorcentagemMin() != null) {
+			if (evento.getPorcentagemMin() < 0 || evento.getPorcentagemMin() > 100) return false;
+		}
 		
 		if (evento.getVagas() != null) {
 			if (evento.getVagas() < 0) return false;

@@ -70,7 +70,10 @@ public class AtividadeController {
 	@PostMapping(path="/cadastrar")
 	public String cadastrarAtividade(Atividade atividade, RedirectAttributes attributes) throws UnsupportedEncodingException, NoSuchAlgorithmException{
 		
-		if (!verificarFormulario(atividade)) return "formCadastroAtividade";
+		if (!verificarFormulario(atividade)) {
+			attributes.addAttribute("id", atividade.getEvento().getId()).addFlashAttribute("mensagem", "Atividade não cadastrada, verifique os campos!");
+			return "redirect:/atividade/{id}/cadastrar";
+		}
 		
 		List<ParticipacaoAtividade> participantes = new ArrayList<ParticipacaoAtividade>();
 		atividade.setParticipantes(participantes);
@@ -157,7 +160,6 @@ public class AtividadeController {
 			}
 			participacaoAtividadeService.excluirParticipacaoAtividade(idParticipacaoAtividade);
 		}
-		
 		return "redirect:/atividade/"+atividade.getId()+"/ver_participantes";
 	}
 
@@ -173,9 +175,7 @@ public class AtividadeController {
 			model.addObject("usuarioLogado", usuarioLogado);
 			return model;
 		}
-		
 		return new ModelAndView("redirect:/evento/meus_eventos");
-
 	}
 	
 
@@ -189,8 +189,7 @@ public class AtividadeController {
 	
 	
 	public boolean verificarFormulario(Atividade atividade){
-		if (atividade.getNome().isEmpty() || atividade.getDescricao().isEmpty() || 
-				atividade.getDias() == null || atividade.getTipo() == null) return false;
+		if (atividade.getNome().isEmpty() || atividade.getDias() == null || atividade.getTipo() == null) return false;
 		
 		if (atividade.getDias() < 0) return false;
 		

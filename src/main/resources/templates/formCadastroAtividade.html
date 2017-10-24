@@ -29,6 +29,15 @@
 			</div>
 			<div class="col-md-12">
 			<!-- Conteudo principal -->
+			
+			<div class="alert alert-danger" th:if="${!#strings.isEmpty(mensagem)}">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    				<span aria-hidden="true">&times;</span>
+  				</button>
+  				
+				<span th:text="${mensagem}"></span>
+			</div>
+			
             	<div class="white-box">
 	                  <form th:action="@{/atividade/cadastrar}" method="POST" th:object="${atividade}">
                 		
@@ -36,7 +45,7 @@
                 		<input th:field="*{evento}" type="hidden" value="th:text=${atividade.evento}"/>
                 		
                 		<div class="form-group">
-							<label for="nome">* Nome da Atividade</label>
+							<label for="nome">Nome da Atividade<font color="red">*</font></label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-calendar-o"></i>
@@ -70,7 +79,7 @@
 						</div>
 						
 						<div class=" form-group">
-							<label for="dias">* Duração da Atividade</label>
+							<label for="dias">Duração da Atividade<font color="red">*</font></label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-clock-o"></i>
@@ -81,7 +90,7 @@
 						</div>
 
 					<div class=" form-group">
-							<label for="minimoParaFreq">* Quantidade Mínima de Frequência</label>
+							<label for="minimoParaFreq">Quantidade Mínima de Frequência<font color="red">*</font></label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-clock-o"></i>
@@ -92,7 +101,7 @@
 					</div>
 					
 					<div class=" form-group">
-							<label for="pontuacao">* Pontuação da Atividade</label>
+							<label for="pontuacao">Pontuação da Atividade<font color="red">*</font></label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-star"></i>
@@ -103,7 +112,7 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="nome">* Tipo da Atividade <font color="red"> * </font></label>
+						<label for="nome">Tipo da Atividade<font color="red">*</font></label>
 	                		<select th:field="*{tipo}" >
 							  <option value="CHECKIN" > CheckIn </option> 
 							  <option value="CHECKIN_CHECKOUT" > CheckIn_CheckOut </option>
@@ -112,7 +121,7 @@
                 	</div>
              
                 	<div class="form-group">
-                		<label for="status">Status: </label>
+                		<label for="status">Ativo: </label>
 						<input id="status" type="checkbox" th:field="*{status}" value="th:text=${atividade.status}"/>
 						<br />
 					</div>
@@ -125,9 +134,7 @@
 	            </div>
 	            <!-- Fim do Conteudo principal -->
 	        </div>
-
 		</div>
-
 
 </body>
 
