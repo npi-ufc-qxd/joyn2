@@ -149,15 +149,22 @@
 
 										</tr>
 										<tr>
-											<th>Nome</th>
+											<th>Nome / Email</th>
+											<th>Status</th>
 											<th>Remover</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="organizador : ${evento.participantes}" th:if="${organizador.papel == T(br.ufc.npi.joyn.model.Papel).ORGANIZADOR}">
 											<td th:text="${organizador.usuario.nome}"></td>
+											<td>Confirmado</td>
 											<td th:if="${organizador.usuario.id != usuario.id}"><a class="sa-warning-organizador btn btn-block btn-outline btn-rounded btn-primary btn-xs" th:value="@{'/evento/excluir_organizador/'+${organizador.id}}">Excluir</a></td>
 											<td th:unless="${organizador.usuario.id != usuario.id}"><a class="btn btn-block btn-outline btn-rounded btn-primary btn-xs disabled">Excluir</a></td>
+										</tr>
+										<tr th:each="convite : ${convites}">
+											<td th:text="${convite.email}"></td>
+											<td>Esperando confirmação</td>
+											<td><a class="sa-warning-organizador btn btn-block btn-outline btn-rounded btn-primary btn-xs" th:value="@{'/evento/excluir_convite/'+${convite.id}}">Excluir</a></td>
 										</tr>
 									</tbody>
 								</table>

@@ -1,5 +1,7 @@
 package br.ufc.npi.joyn.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,16 @@ public class ConviteService {
 		conviteRepository.save(convite);
 	}
 	
+	public Convite getConvite(Long id){
+		return conviteRepository.findOne(id);
+	}
+	
 	public Convite getConvite(String email){
 		return conviteRepository.findByEmail(email);
+	}
+	
+	public List<Convite> getConvites(Long idEvento){
+		return conviteRepository.findByIdEvento(idEvento);
 	}
 	
 	public void enviarEmail(Convite convite){
@@ -44,5 +54,9 @@ public class ConviteService {
 				+ "\n Faca seu cadastro em: " + Constants.BASE_URL + "/usuario/cadastrar");
 				Email emailConvite = new Email(emailBuilder);
 				emailService.sendEmail(emailConvite);
+	}
+	
+	public void excluirConvite(Convite convite){
+		conviteRepository.delete(convite);
 	}
 }
