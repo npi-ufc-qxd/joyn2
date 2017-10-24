@@ -108,8 +108,8 @@ public class EventoController {
 		
 		Usuario user = usuarioService.getUsuarioLogado();
 		List<ParticipacaoEvento> organizadores = participacaoEventoService.organizadoresEvento(id);
-		
 		Evento evento = eventoService.buscarEvento(id);
+		List<Convite> convites = conviteService.getConvites(id);
 		
 		for (ParticipacaoEvento org : organizadores) {
 			if (user.getId() == org.getUsuario().getId()) {
@@ -117,6 +117,7 @@ public class EventoController {
 					ModelAndView model = new ModelAndView("detalhesEvento");
 					model.addObject("evento", evento);
 					model.addObject("usuario", user);
+					model.addObject("convites", convites);
 					return model;
 				}
 			}
@@ -219,6 +220,17 @@ public class EventoController {
 		return "redirect:/evento/"+evento.getId();
 	}
 	
+	@GetMapping(path="/excluir_convite/{id}")
+	public String excluirConvite(@PathVariable("id") Long id){
+		Usuario usuarioLogado = usuarioService.getUsuarioLogado();
+		Convite convite = conviteService.getConvite(id);;
+		Evento evento = eventoService.buscarEvento(convite.getIdEvento());
+		
+		if (participacaoEventoService.getPapelUsuarioEvento(usuarioLogado, evento) == Papel.ORGANIZADOR)
+			conviteService.excluirConvite(convite);
+			
+		return "redirect:/evento/"+evento.getId();
+	}
 	
 	@GetMapping(path="/participantes_evento/{id}")
 	public ModelAndView participantesEvento(@PathVariable("id") Long id){
