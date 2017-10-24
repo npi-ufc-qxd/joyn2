@@ -93,7 +93,6 @@ public class EventoController {
 		if(usuario != null){
 			ParticipacaoEvento pe = new ParticipacaoEvento(usuario, salvo, Papel.ORGANIZADOR, true);
 			participacaoEventoService.addParticipacaoEvento(pe);
-			
 		}
 		
 		attributes.addAttribute("id", salvo.getId()).addFlashAttribute("mensagem", "Evento cadastrado com sucesso!");
@@ -154,7 +153,6 @@ public class EventoController {
 		} else {
 			return "redirect:/evento/meus_eventos";
 		}
-		
 	}
 	
 	public boolean verificarFormulario(Evento evento, BindingResult result){
@@ -165,11 +163,16 @@ public class EventoController {
 		
 		if (evento.getDataFim().before(evento.getDataInicio())) return false;
 		
-		if (evento.getDataInicio().before(dataAtual) ) return false;
+		if (evento.getDataInicio().getDate() < dataAtual.getDate()
+                && evento.getDataInicio().getMonth() < dataAtual.getMonth()
+                && evento.getDataInicio().getYear() < dataAtual.getYear())
+            return false;
 		
 		if (evento.getPorcentagemMin() < 0 || evento.getPorcentagemMin() > 100) return false;
 		
-		if (evento.getVagas() < 0) return false;
+		if (evento.getVagas() != null) {
+			if (evento.getVagas() < 0) return false;
+		}
 		
 		return true;
 	}

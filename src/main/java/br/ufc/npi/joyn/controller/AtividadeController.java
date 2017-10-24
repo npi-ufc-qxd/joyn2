@@ -192,7 +192,11 @@ public class AtividadeController {
 		if (atividade.getNome().isEmpty() || atividade.getDescricao().isEmpty() || 
 				atividade.getDias() == null || atividade.getTipo() == null) return false;
 		
-		if (atividade.getDias() < 0 || atividade.getVagas() < 0) return false;
+		if (atividade.getDias() < 0) return false;
+		
+		if (atividade.getVagas() != null) {
+			if (atividade.getVagas() < 0) return false;
+		}
 				
 		if (atividade.getMinimoParaFreq() != null){
 			if (atividade.getMinimoParaFreq() < 0 || 
