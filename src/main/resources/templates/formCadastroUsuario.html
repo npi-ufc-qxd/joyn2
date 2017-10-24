@@ -20,9 +20,9 @@
         <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
     </svg>
 </div>
-<section id="wrapper" class="login-register">
+<section id="wrapper" class="login-register" style="overflow-y: scroll">
   <div class="login-box">
-    <div class="white-box">
+    <div class="white-box" >
       <form class="form-horizontal form-material" id="loginform" method="POST" th:object="${usuario}" enctype="multipart/form-data">
            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <div class="text-center">

@@ -1,13 +1,12 @@
 package br.ufc.npi.joyn.model;
 
-import java.sql.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class CodigoCapturado {
@@ -16,9 +15,10 @@ public class CodigoCapturado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
-	private Codigo codigo;
-	private Date horarioCaptura;
+	private String codigo;
+	
+	@Enumerated(EnumType.STRING)
+	private TipoCodigo tipo;
 	
 	@ManyToOne
 	private ParticipacaoAtividade atividade;
@@ -34,20 +34,12 @@ public class CodigoCapturado {
 		this.id = id;
 	}
 
-	public Codigo getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Codigo codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-
-	public Date getHorarioCaptura() {
-		return horarioCaptura;
-	}
-
-	public void setHorarioCaptura(Date horarioCaptura) {
-		this.horarioCaptura = horarioCaptura;
 	}
 
 	public ParticipacaoAtividade getAtividade() {
@@ -56,6 +48,14 @@ public class CodigoCapturado {
 
 	public void setAtividade(ParticipacaoAtividade atividade) {
 		this.atividade = atividade;
+	}
+
+	public TipoCodigo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoCodigo tipo) {
+		this.tipo = tipo;
 	}
 	
 	 
