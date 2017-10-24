@@ -36,6 +36,15 @@
 			</div>
 			<div class="col-md-12">
 				<!-- Conteudo principal -->
+				
+				<div class="alert alert-danger" th:if="${!#strings.isEmpty(mensagem)}">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    					<span aria-hidden="true">&times;</span>
+  					</button>
+  				
+					<span th:text="${mensagem}"></span>
+				</div>
+				
 				<div class="white-box">
 					<form method="POST" th:object="${evento}">
 
@@ -47,7 +56,7 @@
 						</div>
 
 						<div class=" form-group">
-							<label for="nome">* Nome do Evento</label>
+							<label for="nome">Nome do Evento<font color="red">*</font></label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-calendar-o"></i>
@@ -70,7 +79,7 @@
 						</div>
 						
 						<div class="col-md-6 form-group">
-							<label for="dataIni">* Data de Inicio</label>
+							<label for="dataIni">Data de Inicio<font color="red">*</font></label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
@@ -82,7 +91,7 @@
 						
 
 						<div class="col-md-6 form-group">
-							<label for="dataFim">* Data Fim</label>
+							<label for="dataFim">Data Fim<font color="red">*</font></label>
 							<div class=" input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
@@ -104,7 +113,7 @@
 						</div>
 
 						<div class="form-group">
-							<label for="local">* Local</label>
+							<label for="local">Local<font color="red">*</font></label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-location-arrow"></i>

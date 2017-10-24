@@ -33,7 +33,9 @@ public class ParticipacaoAtividadeService {
 		participacaoAtividade.setAtividade(atividade);
 		participacaoAtividade.setPapel(papel);
 		
-		if (atividade.getParticipantes().size() < atividade.getVagas()){
+		if (atividade.getVagas() == null) {
+			participacaoAtividade.setStatus(true);
+		} else if (atividade.getParticipantes().size() < atividade.getVagas()) {
 			participacaoAtividade.setStatus(true);
 		}else{
 			participacaoAtividade.setStatus(false);

@@ -82,6 +82,8 @@ public class UsuarioController {
 		
 		if(imagem != null && !imagem.isEmpty())
 			userBanco.setFoto64(imagemBase64(imagem));
+		else
+			userBanco.setFoto64(Constants.IMAGE_DEFAULT);
 		
 		usuarioService.atualizaUsuario(userBanco);
 		
