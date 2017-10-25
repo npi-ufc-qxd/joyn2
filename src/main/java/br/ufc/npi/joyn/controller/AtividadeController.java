@@ -189,7 +189,8 @@ public class AtividadeController {
 	
 	
 	public boolean verificarFormulario(Atividade atividade){
-		if (atividade.getNome().isEmpty() || atividade.getDias() == null || atividade.getTipo() == null) return false;
+		if (atividade.getNome().isEmpty() || atividade.getDias() == null || atividade.getTipo() == null ||
+				atividade.getMinimoParaFreq() == null || atividade.getPontuacao() == null) return false;
 		
 		if (atividade.getDias() < 0) return false;
 		
