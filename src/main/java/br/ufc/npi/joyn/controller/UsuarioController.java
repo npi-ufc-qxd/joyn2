@@ -67,10 +67,17 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(path = "/cadastrar")
-	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, @RequestParam(value="imagem", required=false) MultipartFile imagem) throws IOException {
+	public String salvarUsuario(@Valid Usuario usuario, BindingResult result, @RequestParam(value="imagem", required=false) MultipartFile imagem, RedirectAttributes attributes) throws IOException {
 		if (result.hasErrors()) return "formCadastroUsuario";
 		usuario.setPapel(Papel.USUARIO);
-		Usuario userBanco = usuarioService.salvarUsuario(usuario);
+		
+		Usuario userBanco = null;
+		try{
+			userBanco = usuarioService.salvarUsuario(usuario);
+		}catch (Exception e) {
+			attributes.addFlashAttribute("mensagem", "Erro ao cadastrar novo usuário (" + e.getMessage() + ")");
+			return "redirect:/usuario/cadastrar";
+		}
 				
 		Convite convite = conviteService.getConvite(usuario.getEmail());
 		if(convite != null){

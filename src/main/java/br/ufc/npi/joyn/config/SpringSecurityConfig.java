@@ -40,7 +40,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .usernameParameter("email")
             .passwordParameter("senha")
             .defaultSuccessUrl("/evento/meus_eventos")
-            .failureUrl("/?error=1")
+            .failureUrl("/erroLogin")
             .permitAll()
             .and()
         .logout()
