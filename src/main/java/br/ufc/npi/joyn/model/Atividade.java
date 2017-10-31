@@ -49,6 +49,7 @@ public class Atividade {
 	}
 	
 	public void gerarCodigos() throws UnsupportedEncodingException, NoSuchAlgorithmException{
+		codigosTurno = new ArrayList<>();
 		for(int i = 0; i < dias; i++){
 			CodigosTurno ct = new CodigosTurno(i);
 			ct.setAtividade(this);
