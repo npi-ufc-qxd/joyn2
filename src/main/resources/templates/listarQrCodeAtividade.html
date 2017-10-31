@@ -21,7 +21,7 @@
 					<div class="break" >
 						<h2 th:text="${'Evento: '+atividade.evento.nome}"></h2>
 						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
-						<h2 th:text="${'Turno: '+cTurno.turno}"></h2>
+						<h2 th:text="${'Turno: '+(cTurno.turno+1)}"></h2>
 						<br />
 						<h1 ><b>Checkin</b></h1>
 						<div th:id="${'qrcode-checkin-'+cTurno.id}" class=" qrcode "
@@ -39,7 +39,7 @@
 						th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}">
 						<h2 th:text="${'Evento: '+atividade.evento.nome}"></h2>
 						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
-						<h2 th:text="${'Turno: '+cTurno.turno}"></h2>
+						<h2 th:text="${'Turno: '+(cTurno.turno+1)}"></h2>
 						<br />
 						<h1 ><b>Checkout</b></h1>
 						<div th:id="${'qrcode-checkout-'+cTurno.id}" class="qrcode"

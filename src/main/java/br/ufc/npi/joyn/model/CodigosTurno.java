@@ -36,7 +36,6 @@ public class CodigosTurno {
 
 	public void gerarCodigos() throws UnsupportedEncodingException, NoSuchAlgorithmException{
 		MessageDigest md = MessageDigest.getInstance("MD5");
-		System.out.println(atividade);
 		String codigoCheckinStr = atividade.getId() + "checkin" + turno;
 		codigoCheckin = String.format("%032x", new BigInteger(1, md.digest(codigoCheckinStr.getBytes("UTF-8"))));
 		

@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Constants {
 	
-	public static final String BASE_URL = "http://homologacaosistemas.quixada.ufc.br/joyn";
+	public static final String BASE_URL = "http://sistemas.quixada.ufc.br/joyn";
 
 	public static final String EMAIL_REMETENTE_NOME = "Joyn"; 
 	public static final String EMAIL_REMETENTE_EMAIL = "joyn@npi.com.br";

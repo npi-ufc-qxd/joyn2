@@ -15,12 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.npi.joyn.model.Atividade;
+import br.ufc.npi.joyn.model.CodigosTurno;
 import br.ufc.npi.joyn.model.Evento;
 import br.ufc.npi.joyn.model.Papel;
 import br.ufc.npi.joyn.model.ParticipacaoAtividade;
 import br.ufc.npi.joyn.model.ParticipacaoEvento;
 import br.ufc.npi.joyn.model.Usuario;
 import br.ufc.npi.joyn.service.AtividadeService;
+import br.ufc.npi.joyn.service.CodigosTurnoService;
 import br.ufc.npi.joyn.service.EventoService;
 import br.ufc.npi.joyn.service.ParticipacaoAtividadeService;
 import br.ufc.npi.joyn.service.ParticipacaoEventoService;
@@ -44,6 +46,9 @@ public class AtividadeController {
 	
 	@Autowired
 	ParticipacaoEventoService participacaoEventoService;
+	
+	@Autowired
+	CodigosTurnoService codigosTurnoService;
 	
 	@GetMapping(path="/{idEvento}/cadastrar")
 	public ModelAndView cadastrarAtividade(@PathVariable("idEvento") Long idEvento){
@@ -117,12 +122,17 @@ public class AtividadeController {
 	}
 	
 	@PostMapping(path="/editar")
-	public String atualizarAtividade(Atividade atividade, RedirectAttributes attributes){
+	public String atualizarAtividade(Atividade atividade, RedirectAttributes attributes) throws UnsupportedEncodingException, NoSuchAlgorithmException{
 		
 		if (!verificarFormulario(atividade)) return "formEditarAtividade"; 
 		
+
+		List<CodigosTurno> codigosAntigos = atividade.getCodigosTurno();
+		atividade.gerarCodigos();
 		Atividade atividadeSalva = atividadeService.salvarAtividade(atividade);
-		
+				
+		codigosTurnoService.deletarTurnos(codigosAntigos);
+
 		attributes.addAttribute("id", atividadeSalva.getId()).addFlashAttribute("mensagem", "Alteração realizada com sucesso!");
 		
 		return "redirect:/atividade/"+atividadeSalva.getId();
