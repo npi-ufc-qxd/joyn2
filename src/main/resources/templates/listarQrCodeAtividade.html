@@ -19,7 +19,7 @@
 					>
 					
 					<div class="break" >
-						<h2 th:text="${'Evento: '+atividade.evento.nome}"></h2>
+						<h3 th:text="${'Evento: '+atividade.evento.nome}"></h3>
 						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
 						<h2 th:text="${'Turno: '+(cTurno.turno+1)}"></h2>
 						<br />
@@ -29,7 +29,7 @@
 						<br />
 						<p>Para atividades que possuem código de checkin e checkout, as coletas só serão computadas após a captura dos códigos de checkin e checkout! </p>
 						<center>
-							<img th:src="@{/images/joyn-logo.png}" alt="logo joyn" height="80" style="margin-top:50px" />
+							<img th:src="@{/images/joyn-logo.png}" alt="logo joyn" height="80" />
 						</center>
 						
 						
@@ -37,7 +37,7 @@
 					
 					<div class="break" 
 						th:if="${atividade.tipo == T(br.ufc.npi.joyn.model.TiposAtividades).CHECKIN_CHECKOUT}">
-						<h2 th:text="${'Evento: '+atividade.evento.nome}"></h2>
+						<h3 th:text="${'Evento: '+atividade.evento.nome}"></h3>
 						<h2 th:text="${'Atividade: '+atividade.nome}"></h2>
 						<h2 th:text="${'Turno: '+(cTurno.turno+1)}"></h2>
 						<br />
@@ -47,7 +47,7 @@
 						<br />
 						<p>Para atividades que possuem código de checkin e checkout, as coletas só serão computadas após a captura dos códigos de checkin e checkout! </p>
 						<center>
-							<img th:src="@{/images/joyn-logo.png}" alt="logo joyn" height="80" style="margin-top:50px" />
+							<img th:src="@{/images/joyn-logo.png}" alt="logo joyn" height="80" />
 						</center>
 					</div>
 					<div style="page-break-before: always;"></div>
