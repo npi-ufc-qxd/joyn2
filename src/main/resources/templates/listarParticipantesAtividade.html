@@ -88,7 +88,7 @@
 											<td><img alt="Foto" th:src="${atividadeParticipante.usuario.foto64}" height="50"></img> </td>
 											<td th:text="${atividadeParticipante.usuario.nome}"></td>
 											<td th:text="${atividadeParticipante.usuario.email}"></td>
-											<td><a class="sa-warning-participante-atividadeb btn btn-block btn-outline btn-rounded btn-info btn-xs" th:value="@{'/evento/excluir_organizador/'+${atividadeParticipante.id}}">Excluir</a></td>
+											<td><a class="sa-warning-participante-atividadeb btn btn-block btn-outline btn-rounded btn-info btn-xs" th:value="@{'/atividade/excluir_participante/'+${atividadeParticipante.id}}">Excluir</a></td>
 			   							 </tr>
 									</tbody>
 								</table>

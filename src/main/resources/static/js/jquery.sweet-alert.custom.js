@@ -109,7 +109,7 @@
     	var href = $(this).attr('value');
         swal({   
             title: "Atenção!",   
-            text: "Tem certeza que deseja deletar este organizador?\n Você será o novo organizador das atividade que este usuario organizava!",   
+            text: "Tem certeza que deseja deletar este Participante?",   
             type: "warning",   
             showCancelButton: true,   
             confirmButtonColor: "#DD6B55",   
