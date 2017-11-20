@@ -93,7 +93,7 @@
 											<td><img class="img-circle" alt="Foto" th:src="${participante.usuario.foto64}" height="50"/></td>
 											<td th:text="${participante.usuario.nome}"></td>
 											<td th:text="${participante.usuario.email}"></td>
-											<td><a class="sa-warning-participante waves-effect waves-teal btn-flat red" th:value="@{${participante.id}}">Excluir</a></td>
+											<td><a class="sa-warning-participante-atividadeb waves-effect waves-teal btn btn-rounded btn-block btn-outline btn-xs btn-info btn-flat red" th:value="@{'/evento/excluir_participantes/'+${participante.id}}">Excluir</a></td>
 				   					 		</tr>
 									</tbody>
 								</table>
